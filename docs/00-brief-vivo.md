@@ -27,9 +27,10 @@ Casa de retiro moderna, minimalista, eficiente y de bajo mantenimiento en Layos 
 - Cocina estilo americano, abierta o semiabierta.
 - Habitacion principal.
 - Bano en habitacion principal.
-- Habitacion de invitados.
-- Habitacion suplementaria para despacho y estudio de sonido.
-- Segundo bano comun.
+- Segunda zona privada para el hijo, con uso permanente previsto al menos inicialmente.
+- Dos banos completos, uno por cada ala privada.
+- Dos salones privados compactos, funcionando tambien como espacio de separacion entre zonas.
+- Dos cocinas pequenas a estudiar desde una solucion legalmente defendible dentro de una unica vivienda.
 - Garaje anexo para dos vehiculos.
 - Entrada directa desde garaje a vivienda.
 - Pequeno trastero.
@@ -44,6 +45,7 @@ Casa de retiro moderna, minimalista, eficiente y de bajo mantenimiento en Layos 
 - Estudio de sonido sin aislamiento extremo; solo tratamiento interior para reducir reverberaciones.
 - Dormitorio principal conectado visualmente al porche, pero sin salida directa.
 - Al menos un bano con ducha grande, WC separado dentro del bano y gran ventana con cristal opaco.
+- Una sola vivienda legal: una acometida/contador por suministro, un buzon, sin division horizontal y sin dos unidades segregables.
 
 ## Dudas Abiertas
 
@@ -51,6 +53,8 @@ Casa de retiro moderna, minimalista, eficiente y de bajo mantenimiento en Layos 
 - Si la piscina debe existir desde fase 1 o quedar prevista.
 - Sistema constructivo final.
 - Cocina abierta completa o semiabierta con correderas de vidrio.
+- Encaje legal de dos cocinas pequenas dentro de una unica vivienda unifamiliar.
+- Simetria real frente a simetria visual entre las dos alas privadas.
 - Tipo de climatizacion: suelo radiante/refrescante, conductos, fan coils o sistema mixto.
 - Nivel final de domotica.
 
@@ -61,3 +65,4 @@ Casa de retiro moderna, minimalista, eficiente y de bajo mantenimiento en Layos 
 - Evitar geometria innecesariamente cara.
 - Usar porches, pergolas y anexos para generar riqueza espacial sin aumentar demasiados m2 climatizados.
 - Mantener una imagen exterior limpia, moderna y atemporal.
+- Aprovechar la pendiente real de la parcela para escalonar accesos, garaje, patio o zonas tecnicas sin encarecer innecesariamente.

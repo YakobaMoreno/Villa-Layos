@@ -46,11 +46,12 @@ Alternativas en estudio:
 - [docs/04-sistemas-constructivos.md](docs/04-sistemas-constructivos.md): comparativa de sistemas industrializados.
 - [docs/05-registro-decisiones.md](docs/05-registro-decisiones.md): decisiones tomadas y pendientes.
 - [docs/06-analisis-catastro-parcela.md](docs/06-analisis-catastro-parcela.md): lectura tecnica inicial de la parcela catastral candidata.
+- [docs/07-concepto-vivienda-dos-alas.md](docs/07-concepto-vivienda-dos-alas.md): concepto de vivienda unifamiliar flexible con dos zonas privadas.
 
 ## Proximos Pasos
 
 1. Cerrar el programa de superficies de la vivienda.
-2. Definir tres esquemas de planta a escala conceptual.
+2. Definir tres esquemas de planta para vivienda unifamiliar de dos alas.
 3. Contrastar la parcela candidata con normativa urbanistica de Layos Golf.
 4. Comparar sistemas constructivos viables para el presupuesto.
 5. Preparar una estrategia energetica por fases.
