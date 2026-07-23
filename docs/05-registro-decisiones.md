@@ -12,10 +12,11 @@
 | 2026-06-28 | Preferencia por vivienda tipo U | Generar patio protegido y porches amplios |
 | 2026-06-28 | Dormitorio principal con conexion visual al porche, sin acceso directo | Privacidad y control funcional |
 | 2026-06-28 | Estudio de sonido sin aislamiento extremo | Uso de despacho/estudio con tratamiento interior basico |
+| 2026-07-23 | Parcela candidata inicial: 8029330VK0082N, CL Alimoche 49, Layos | Datos catastrales aportados por el promotor |
 
 ## Decisiones Pendientes
 
-- Parcela concreta.
+- Confirmacion final de compra de parcela.
 - Orientacion ideal de la vivienda.
 - U ligera, L con pergola o U compacta.
 - Sistema constructivo.
@@ -24,3 +25,4 @@
 - Nivel de domotica.
 - Piscina en fase 1 o prevision futura.
 - Alcance del garaje, trastero y gimnasio.
+- Planeamiento urbanistico aplicable: edificabilidad, ocupacion, retranqueos, altura, alineaciones y condiciones esteticas.

@@ -45,11 +45,12 @@ Alternativas en estudio:
 - [docs/03-presupuesto-preliminar.md](docs/03-presupuesto-preliminar.md): primer marco economico.
 - [docs/04-sistemas-constructivos.md](docs/04-sistemas-constructivos.md): comparativa de sistemas industrializados.
 - [docs/05-registro-decisiones.md](docs/05-registro-decisiones.md): decisiones tomadas y pendientes.
+- [docs/06-analisis-catastro-parcela.md](docs/06-analisis-catastro-parcela.md): lectura tecnica inicial de la parcela catastral candidata.
 
 ## Proximos Pasos
 
 1. Cerrar el programa de superficies de la vivienda.
 2. Definir tres esquemas de planta a escala conceptual.
-3. Estudiar normativa urbanistica de Layos Golf cuando exista parcela candidata.
+3. Contrastar la parcela candidata con normativa urbanistica de Layos Golf.
 4. Comparar sistemas constructivos viables para el presupuesto.
 5. Preparar una estrategia energetica por fases.
