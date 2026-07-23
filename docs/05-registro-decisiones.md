@@ -15,6 +15,7 @@
 | 2026-07-23 | Parcela candidata inicial: 8029330VK0082N, CL Alimoche 49, Layos | Datos catastrales aportados por el promotor |
 | 2026-07-23 | Concepto base: vivienda unifamiliar de dos alas privadas | Permite convivencia padre-hijo con autonomia sin plantear dos viviendas legales |
 | 2026-07-23 | Mantener una sola vivienda legal | Una acometida/contador por suministro, un buzon, sin division horizontal y sin unidades segregables |
+| 2026-07-23 | Acceso y garaje en cota alta de calle, vivienda en plataforma inferior | Aprovechar pendiente para privacidad y acceso de vehiculos sencillo |
 
 ## Decisiones Pendientes
 

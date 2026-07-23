@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7f5ef"/>
+
+  <style>
+    .title { font: 700 34px Arial, sans-serif; fill: #111; }
+    .label { font: 500 22px Arial, sans-serif; fill: #111; }
+    .small { font: 400 18px Arial, sans-serif; fill: #333; }
+    .note { font: 400 16px Arial, sans-serif; fill: #555; }
+    .line { stroke: #111; stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { stroke: #444; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .dash { stroke: #777; stroke-width: 2; stroke-dasharray: 10 8; fill: none; }
+    .ground { fill: #d8d0c0; stroke: #111; stroke-width: 3; }
+    .cut { fill: #b8aa92; opacity: 0.65; }
+    .garage { fill: #e8e6e1; stroke: #111; stroke-width: 4; }
+    .house { fill: #ffffff; stroke: #111; stroke-width: 4; }
+    .porch { fill: #efefef; stroke: #111; stroke-width: 3; }
+    .glass { stroke: #4f81bd; stroke-width: 5; }
+    .accent { fill: #1b1b1b; }
+    .water { fill: #9fcad7; stroke: #2d6f82; stroke-width: 3; }
+  </style>
+
+  <text x="80" y="70" class="title">Seccion conceptual - acceso alto, garaje en cota de calle y vivienda inferior</text>
+  <text x="80" y="105" class="small">Hipotesis preliminar: una sola vivienda legal, dos alas privadas y patio comun en plataforma inferior.</text>
+
+  <!-- Ground profile -->
+  <path class="ground" d="M70 555 L520 555 L690 655 L1380 655 L1530 720 L1530 860 L70 860 Z"/>
+  <path class="cut" d="M520 555 L690 655 L1380 655 L1530 720 L1530 860 L70 860 L70 555 Z"/>
+
+  <!-- Street / high level platform -->
+  <line x1="70" y1="555" x2="520" y2="555" class="line"/>
+  <text x="100" y="520" class="label">Calle + acceso parcela + garaje: cota 0.00</text>
+  <text x="100" y="590" class="small">Puerta peatonal</text>
+  <text x="300" y="590" class="small">Corredera vehiculos</text>
+
+  <!-- Gate elements -->
+  <rect x="95" y="445" width="70" height="110" class="accent"/>
+  <rect x="220" y="465" width="245" height="90" fill="#2d2d2d"/>
+  <line x1="245" y1="487" x2="445" y2="487" stroke="#777" stroke-width="3"/>
+  <line x1="245" y1="510" x2="445" y2="510" stroke="#777" stroke-width="3"/>
+  <line x1="245" y1="533" x2="445" y2="533" stroke="#777" stroke-width="3"/>
+
+  <!-- Garage volume -->
+  <rect x="500" y="395" width="275" height="160" class="garage"/>
+  <rect x="545" y="458" width="185" height="97" fill="#2f2f2f"/>
+  <text x="535" y="370" class="label">Garaje comun 2 plazas</text>
+  <text x="535" y="610" class="small">Misma cota que la calle</text>
+
+  <!-- Descent / transition -->
+  <path d="M775 555 C850 575 900 630 965 655" class="line"/>
+  <text x="805" y="525" class="label">Bajada a vivienda</text>
+  <text x="810" y="555" class="small">Rampa exterior suave / escalera / recorrido ajardinado seco</text>
+  <path d="M850 585 L865 625 L895 598" class="thin"/>
+  <path d="M895 615 L910 650 L938 630" class="thin"/>
+
+  <!-- Lower platform -->
+  <line x1="690" y1="655" x2="1380" y2="655" class="line"/>
+  <text x="760" y="710" class="label">Plataforma vivienda + patio: cota inferior a definir</text>
+  <text x="760" y="738" class="small">El desnivel lo absorbe el recorrido entre garaje y patio, no el garaje.</text>
+
+  <!-- House section -->
+  <rect x="980" y="465" width="250" height="190" class="house"/>
+  <rect x="1228" y="505" width="190" height="150" class="porch"/>
+  <line x1="1028" y1="505" x2="1028" y2="655" class="glass"/>
+  <line x1="1084" y1="505" x2="1084" y2="655" class="glass"/>
+  <line x1="1140" y1="505" x2="1140" y2="655" class="glass"/>
+  <text x="1005" y="440" class="label">Ala privada</text>
+  <text x="1260" y="480" class="label">Porche / patio comun</text>
+
+  <!-- Optional water -->
+  <rect x="1260" y="620" width="110" height="25" rx="8" class="water"/>
+  <text x="1240" y="690" class="small">Lamina de agua o piscina minima opcional</text>
+
+  <!-- Level markers -->
+  <line x1="70" y1="555" x2="1510" y2="555" class="dash"/>
+  <text x="1390" y="545" class="note">cota 0.00</text>
+  <line x1="690" y1="655" x2="1510" y2="655" class="dash"/>
+  <text x="1390" y="648" class="note">cota -X.XX</text>
+
+  <!-- Critical notes -->
+  <rect x="80" y="760" width="1040" height="92" fill="#fff" stroke="#c8c2b7" stroke-width="2"/>
+  <text x="105" y="792" class="small">Criterio: desde la calle se perciben cerramiento, puerta y garaje; la vivienda queda mas baja y privada.</text>
+  <text x="105" y="822" class="small">Pendiente: pendiente preliminar estimada con MDT05 IGN/CNIG, pendiente media aprox. 11,6 %, bajada hacia noreste.</text>
+  <text x="105" y="846" class="note">Pendiente real pendiente de levantamiento topografico: rasantes, cotas de bordillo, acometidas, linderos y drenaje.</text>
+</svg>
