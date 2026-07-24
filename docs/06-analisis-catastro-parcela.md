@@ -137,19 +137,20 @@ Antes de avanzar a propuesta arquitectonica seria necesario obtener:
 
 Los archivos de Catastro analizados no contienen topografia real. El GML catastral define la geometria en 2D y los KML usan alturas simbolicas para visualizacion, no cotas de proyecto.
 
-Como comprobacion preliminar se ha consultado una ventana pequena del Modelo Digital del Terreno del IGN/CNIG, cobertura **Elevacion25830_5**, compatible con las coordenadas UTM EPSG:25830 del GML catastral.
+Como comprobacion preliminar se ha consultado una ventana del Modelo Digital del Terreno del IGN/CNIG, cobertura **Elevacion25830_5**, compatible con las coordenadas UTM EPSG:25830 del GML catastral.
 
 Resultado preliminar:
 
 | Dato | Estimacion |
 |---|---:|
-| Cotas aproximadas en entorno inmediato | 660-667 m |
-| Diferencia aproximada de cota | 7 m |
+| Cotas aproximadas en entorno inmediato | 660-668 m |
+| Desnivel interno aproximado de parcela | 3,6 m |
 | Pendiente media estimada | 11,6 % |
 | Angulo medio estimado | 6,6 grados |
 | Direccion aproximada de bajada | Noreste |
+| Pendiente transversal aproximada | 2,5 % |
 
-Esta lectura confirma la impresion visual de parcela inclinada, pero no sustituye un levantamiento topografico. Para proyecto basico/ejecucion sera imprescindible una topografia con curvas de nivel, cotas de bordillos, rasantes de calle, acometidas, linderos y muros existentes o necesarios.
+Esta lectura confirma la impresion visual de parcela inclinada: la calle Alimoche queda en el lado SO alto y la parcela cae de forma limpia hacia NE. No sustituye un levantamiento topografico. Para proyecto basico/ejecucion sera imprescindible una topografia con curvas de nivel, cotas de bordillos, rasantes de calle, acometidas, linderos y muros existentes o necesarios.
 
 Implicacion inicial: la pendiente puede ser una oportunidad para escalonar el garaje, el patio comun, zonas tecnicas o un pequeno semisotano/trastero, pero tambien puede encarecer cimentacion, contenciones, accesibilidad y drenaje.
 

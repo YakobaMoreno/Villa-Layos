@@ -77,6 +77,10 @@ Trabajar con la siguiente hipotesis:
 
 **Garaje en cota de calle, vivienda y patio en plataforma inferior, bajada controlada entre ambos niveles, y la vivienda parcialmente oculta desde la calle.**
 
+La topografia preliminar posterior refuerza esta decision: el frente de calle esta en el lado SO alto, en torno a cota 665 m, y la parcela baja de forma uniforme hacia NE hasta unas cotas 661-662 m. El desnivel interno estimado ronda 3,6 m.
+
+Con esa pendiente, no conviene resolver todo con una unica gran plataforma. Es preferible estudiar una vivienda de una planta funcional pero apoyada en **dos plataformas escalonadas**: garaje/acceso arriba y vivienda-patio abajo, con posible aprovechamiento tecnico intermedio o inferior si la normativa lo permite.
+
 En la siguiente fase hace falta dibujar una planta/seccion combinada con la parcela real y probar tres posiciones:
 
 1. Garaje centrado en el frente de acceso.

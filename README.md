@@ -49,6 +49,7 @@ Alternativas en estudio:
 - [docs/07-concepto-vivienda-dos-alas.md](docs/07-concepto-vivienda-dos-alas.md): concepto de vivienda unifamiliar flexible con dos zonas privadas.
 - [docs/08-seccion-conceptual-pendiente.md](docs/08-seccion-conceptual-pendiente.md): seccion conceptual con acceso y garaje en cota alta.
 - [docs/09-lectura-dxf-catastro.md](docs/09-lectura-dxf-catastro.md): lectura de DXF/ASC descomprimidos y contexto catastral.
+- [docs/10-topografia-parcela.md](docs/10-topografia-parcela.md): vision topografica preliminar con MDT05 IGN/CNIG.
 
 ## Proximos Pasos
 

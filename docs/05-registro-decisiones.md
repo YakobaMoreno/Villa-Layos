@@ -16,6 +16,7 @@
 | 2026-07-23 | Concepto base: vivienda unifamiliar de dos alas privadas | Permite convivencia padre-hijo con autonomia sin plantear dos viviendas legales |
 | 2026-07-23 | Mantener una sola vivienda legal | Una acometida/contador por suministro, un buzon, sin division horizontal y sin unidades segregables |
 | 2026-07-23 | Acceso y garaje en cota alta de calle, vivienda en plataforma inferior | Aprovechar pendiente para privacidad y acceso de vehiculos sencillo |
+| 2026-07-24 | Topografia preliminar: calle SO alta y caida NE de unos 3,6 m | Confirma estrategia de garaje en cota alta y vivienda/patio en plataforma inferior escalonada |
 
 ## Decisiones Pendientes
 
@@ -31,3 +32,4 @@
 - Piscina en fase 1 o prevision futura.
 - Alcance del garaje, trastero y gimnasio.
 - Planeamiento urbanistico aplicable: edificabilidad, ocupacion, retranqueos, altura, alineaciones y condiciones esteticas.
+- Levantamiento topografico real antes de proyecto basico.
