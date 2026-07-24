@@ -48,6 +48,7 @@ Alternativas en estudio:
 - [docs/06-analisis-catastro-parcela.md](docs/06-analisis-catastro-parcela.md): lectura tecnica inicial de la parcela catastral candidata.
 - [docs/07-concepto-vivienda-dos-alas.md](docs/07-concepto-vivienda-dos-alas.md): concepto de vivienda unifamiliar flexible con dos zonas privadas.
 - [docs/08-seccion-conceptual-pendiente.md](docs/08-seccion-conceptual-pendiente.md): seccion conceptual con acceso y garaje en cota alta.
+- [docs/09-lectura-dxf-catastro.md](docs/09-lectura-dxf-catastro.md): lectura de DXF/ASC descomprimidos y contexto catastral.
 
 ## Proximos Pasos
 

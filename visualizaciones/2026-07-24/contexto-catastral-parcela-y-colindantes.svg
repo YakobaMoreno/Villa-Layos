@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="980" viewBox="0 0 1400 980">
+<rect width="100%" height="100%" fill="#f7f5ef"/>
+<style>.title{font:700 32px Arial;fill:#111}.label{font:600 18px Arial;fill:#111}.small{font:400 15px Arial;fill:#333}.target{fill:#dbeafe;stroke:#0f172a;stroke-width:5}.neighbor{fill:#eeeeea;stroke:#444;stroke-width:2}.street{font:700 22px Arial;fill:#b91c1c}.arrow{stroke:#111;stroke-width:4;fill:none;marker-end:url(#arrow)}.down{stroke:#2563eb;stroke-width:5;fill:none;marker-end:url(#bluearrow)}</style>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#111"/></marker><marker id="bluearrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/></marker></defs>
+<text x="40" y="55" class="title">Contexto catastral 2D - parcela candidata y colindantes</text>
+<text x="40" y="88" class="small">DXF Catastro descomprimidos. Sin cotas Z: no es topografia. Se superpone direccion preliminar de pendiente estimada con MDT05 IGN/CNIG.</text>
+<polygon points="305.9,271.9 562.9,120.0 661.6,286.9 415.9,432.1 305.9,271.9" class="neighbor"/>
+<polygon points="415.7,432.3 415.9,432.1 661.6,286.9 760.2,453.9 527.8,591.3 415.7,432.3" class="neighbor"/>
+<polygon points="527.8,591.3 760.2,453.9 777.7,483.6 782.8,494.5 788.1,506.5 793.2,518.7 798.0,530.8 802.8,543.1 807.1,555.4 811.4,567.8 815.4,580.3 819.2,592.9 822.7,605.5 826.1,618.2 829.2,630.9 643.6,755.5 527.8,591.3" class="neighbor"/>
+<polygon points="311.4,758.5 527.8,591.3 643.6,755.5 457.9,880.0 449.6,875.1 441.0,869.8 432.5,864.4 424.2,858.8 415.8,853.0 407.6,847.1 399.5,841.1 391.6,835.0 383.6,828.7 375.9,822.2 368.2,815.6 360.7,808.9 353.3,802.1 346.0,795.2 338.8,788.1 331.8,780.8 324.9,773.5 318.1,766.1 311.4,758.5" class="neighbor"/>
+<polygon points="190.2,606.3 415.7,432.3 527.8,591.3 311.4,758.5 311.0,758.8 190.2,606.3" class="target"/>
+<polygon points="363.4,472.7 190.2,606.3 70.0,454.6 248.5,316.3" class="neighbor"/>
+<polygon points="305.9,271.9 415.9,432.1 415.7,432.3 363.4,472.7" class="neighbor"/>
+<text x="412.4" y="276.6" class="small">8029325</text>
+<text x="428.4" y="296.6" class="small">602</text>
+<text x="494.8" y="438.1" class="small">8029326</text>
+<text x="510.8" y="458.1" class="small">573</text>
+<text x="722.8" y="565.9" class="small">8029327</text>
+<text x="738.8" y="585.9" class="small">368</text>
+<text x="358.3" y="807.4" class="small">8029329</text>
+<text x="374.3" y="827.4" class="small">520</text>
+<text x="262.4" y="617.6" class="label">8029330</text>
+<text x="286.4" y="641.6" class="small">578 m2</text>
+<text x="180.0" y="462.5" class="small">8029331</text>
+<text x="196.0" y="482.5" class="small">299</text>
+<text x="337.2" y="402.2" class="small">8029331</text>
+<text x="353.2" y="422.2" class="small">299</text>
+<text x="20.2" y="761.3" class="street" transform="rotate(52 20.2,761.3)">CL ALIMOCHE 49 / acceso probable</text>
+<line x1="1260" y1="830" x2="1260" y2="760" class="arrow"/><text x="1248" y="750" class="label">N</text>
+<line x1="278.7" y1="740.6" x2="492.0" y2="469.1" class="down"/>
+<text x="506.0" y="459.1" class="label">bajada aprox. NE</text>
+<rect x="40" y="835" width="760" height="105" fill="#fff" stroke="#ccc"/>
+<rect x="65" y="858" width="35" height="22" class="target"/><text x="115" y="876" class="small">Parcela candidata 8029330VK0082N</text>
+<rect x="65" y="892" width="35" height="22" class="neighbor"/><text x="115" y="910" class="small">Parcelas colindantes incluidas en descarga DXF</text>
+<text x="430" y="876" class="small">Datos DXF: limites, subparcelas, superficies y textos.</text>
+<text x="430" y="906" class="small">No aparecen curvas de nivel ni cotas altimetricas.</text>
+</svg>

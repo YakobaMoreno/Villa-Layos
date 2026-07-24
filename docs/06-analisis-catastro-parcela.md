@@ -35,6 +35,10 @@ Nota de privacidad: los archivos catastrales brutos no se suben al repositorio p
 | `8029330VK0082N-3.zip` | DXF y ASC de la referencia completa del inmueble 8029330VK0082N0001UD. |
 | `Listado_inmuebles.xlsx` | Listado de inmuebles: confirma que solo hay inmueble urbano, sin datos rusticos ni especiales. |
 
+Vista generada a partir de los DXF descomprimidos:
+
+![Contexto catastral](../visualizaciones/2026-07-24/contexto-catastral-parcela-y-colindantes.svg)
+
 ## Geometria De La Parcela
 
 Sistema de coordenadas del GML: **ETRS89 / UTM zona 30N, EPSG:25830**.
