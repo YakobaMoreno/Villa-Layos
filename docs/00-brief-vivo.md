@@ -4,7 +4,7 @@ Documento vivo para recoger decisiones, preferencias y dudas del proyecto.
 
 ## Vision
 
-Casa de retiro moderna, minimalista, eficiente y de bajo mantenimiento en Layos Golf, Toledo. Debe ser una vivienda de alta comodidad diaria, pensada para envejecer bien, controlar costes y ofrecer un alto confort termico y sonoro.
+Casa de retiro moderna, minimalista, eficiente y de bajo mantenimiento en Layos Golf, Toledo. Debe ser una vivienda de alta comodidad diaria para una persona, con capacidad real de recibir visitas, pensada para envejecer bien, controlar costes y ofrecer un alto confort termico y sonoro.
 
 ## Datos Confirmados
 
@@ -20,6 +20,9 @@ Casa de retiro moderna, minimalista, eficiente y de bajo mantenimiento en Layos 
 | Porches | Amplios y con buena sombra |
 | Exterior | Mantenimiento minimo, sin terreno visible si es posible |
 | Piscina | Dudosa; si existe, pequena, ornamental y de refresco |
+| Usuario habitual | Una persona |
+| Uso del hijo | No vivira alli permanentemente, segun decision actual |
+| Bloque alto | Garaje, trastero, sala tecnica, gimnasio con vistas y cubierta fotovoltaica |
 
 ## Programa Deseado
 
@@ -27,14 +30,15 @@ Casa de retiro moderna, minimalista, eficiente y de bajo mantenimiento en Layos 
 - Cocina estilo americano, abierta o semiabierta.
 - Habitacion principal.
 - Bano en habitacion principal.
-- Segunda zona privada para el hijo, con uso permanente previsto al menos inicialmente.
-- Dos banos completos, uno por cada ala privada.
-- Dos salones privados compactos, funcionando tambien como espacio de separacion entre zonas.
-- Dos cocinas pequenas a estudiar desde una solucion legalmente defendible dentro de una unica vivienda.
+- Habitacion de invitados.
+- Habitacion suplementaria para despacho y estudio de sonido.
+- Segundo bano completo o bano comun completo para invitados y uso diario.
 - Garaje anexo para dos vehiculos.
 - Entrada directa desde garaje a vivienda.
-- Pequeno trastero.
-- Zona de gimnasio si encaja en presupuesto y superficie.
+- Trastero vinculado al bloque alto.
+- Sala de maquinas para aerotermia, ACS, ventilacion, cuadros y gestion energetica.
+- Gimnasio con vistas en la parte alta si encaja en presupuesto y normativa.
+- Cubierta del bloque alto preparada para fotovoltaica.
 
 ## Preferencias Tecnicas
 
@@ -45,7 +49,7 @@ Casa de retiro moderna, minimalista, eficiente y de bajo mantenimiento en Layos 
 - Estudio de sonido sin aislamiento extremo; solo tratamiento interior para reducir reverberaciones.
 - Dormitorio principal conectado visualmente al porche, pero sin salida directa.
 - Al menos un bano con ducha grande, WC separado dentro del bano y gran ventana con cristal opaco.
-- Una sola vivienda legal: una acometida/contador por suministro, un buzon, sin division horizontal y sin dos unidades segregables.
+- Una sola vivienda legal, sin division horizontal.
 
 ## Dudas Abiertas
 
@@ -53,10 +57,10 @@ Casa de retiro moderna, minimalista, eficiente y de bajo mantenimiento en Layos 
 - Si la piscina debe existir desde fase 1 o quedar prevista.
 - Sistema constructivo final.
 - Cocina abierta completa o semiabierta con correderas de vidrio.
-- Encaje legal de dos cocinas pequenas dentro de una unica vivienda unifamiliar.
-- Simetria real frente a simetria visual entre las dos alas privadas.
 - Tipo de climatizacion: suelo radiante/refrescante, conductos, fan coils o sistema mixto.
 - Nivel final de domotica.
+- Posicion exacta del bloque alto: centrado, lateral o como pieza-muro.
+- Relacion entre gimnasio alto y vistas.
 
 ## Criterios De Diseno
 
@@ -66,3 +70,4 @@ Casa de retiro moderna, minimalista, eficiente y de bajo mantenimiento en Layos 
 - Usar porches, pergolas y anexos para generar riqueza espacial sin aumentar demasiados m2 climatizados.
 - Mantener una imagen exterior limpia, moderna y atemporal.
 - Aprovechar la pendiente real de la parcela para escalonar accesos, garaje, patio o zonas tecnicas sin encarecer innecesariamente.
+- Concentrar en la cota alta las funciones tecnicas y de servicio: garaje, trastero, sala de maquinas, gimnasio y cubierta solar.

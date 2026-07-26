@@ -17,6 +17,8 @@
 | 2026-07-23 | Mantener una sola vivienda legal | Una acometida/contador por suministro, un buzon, sin division horizontal y sin unidades segregables |
 | 2026-07-23 | Acceso y garaje en cota alta de calle, vivienda en plataforma inferior | Aprovechar pendiente para privacidad y acceso de vehiculos sencillo |
 | 2026-07-24 | Topografia preliminar: calle SO alta y caida NE de unos 3,6 m | Confirma estrategia de garaje en cota alta y vivienda/patio en plataforma inferior escalonada |
+| 2026-07-26 | Se descarta la convivencia permanente del hijo | El proyecto vuelve a ser vivienda unifamiliar para una persona y visitas |
+| 2026-07-26 | Bloque alto funcional: garaje, trastero, sala de maquinas y gimnasio con vistas | Concentrar servicios en cota calle, liberar vivienda inferior y aprovechar cubierta para fotovoltaica |
 
 ## Decisiones Pendientes
 
@@ -25,11 +27,10 @@
 - U ligera, L con pergola o U compacta.
 - Sistema constructivo.
 - Solucion final de cocina abierta o semiabierta.
-- Encaje legal y funcional de dos cocinas pequenas dentro de una unica vivienda.
-- Simetria real o simetria visual de las dos alas.
 - Estrategia exacta de climatizacion.
 - Nivel de domotica.
 - Piscina en fase 1 o prevision futura.
 - Alcance del garaje, trastero y gimnasio.
+- Posicion exacta del bloque alto y relacion con bajada a vivienda.
 - Planeamiento urbanistico aplicable: edificabilidad, ocupacion, retranqueos, altura, alineaciones y condiciones esteticas.
 - Levantamiento topografico real antes de proyecto basico.

@@ -2,6 +2,10 @@
 
 Fecha: 2026-07-23.
 
+Estado: **concepto historico superado**.
+
+El 2026-07-26 se descarta la convivencia permanente del hijo en la vivienda. El proyecto vuelve a ser una vivienda unifamiliar para una persona y visitas. Este documento se conserva como registro de una fase de exploracion, pero ya no es el concepto activo.
+
 ## Idea Base
 
 El proyecto evoluciona hacia una **vivienda unifamiliar de una planta con dos alas privadas autonomas**, pensada para que padre e hijo puedan vivir con independencia diaria dentro de una unica vivienda legal.
