@@ -1,0 +1,17 @@
+{
+  "name": "Villa Layos",
+  "short_name": "Villa Layos",
+  "description": "Panel estático para centralizar la evaluación de parcelas, costes, topografía y vivienda del proyecto Villa Layos.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f1ea",
+  "theme_color": "#0f1412",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

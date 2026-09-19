@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f1412">
+  <title>Villa Layos · Panel de proyecto</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-kicker">Layos Golf · Toledo</div>
+      <h1>Villa Layos</h1>
+      <p>Parcela, viabilidad, topografía y vivienda industrializada.</p>
+      <span class="pill">Escenario desfavorable</span>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <footer>
+      <div class="mini-label"><span>Documentación crítica</span><strong id="docProgress">0%</strong></div>
+      <div class="meter"><span id="docProgressBar"></span></div>
+      <small>Datos locales · GitHub Pages</small>
+    </footer>
+  </aside>
+
+  <div class="mobilebar">
+    <button id="menuButton" aria-label="Abrir navegación">☰</button>
+    <strong>Villa Layos</strong>
+  </div>
+  <div class="overlay" id="overlay"></div>
+
+  <main class="content">
+    <section class="view active" id="resumen"></section>
+    <section class="view" id="parcelas"></section>
+    <section class="view" id="ficha"></section>
+    <section class="view" id="comparativa"></section>
+    <section class="view" id="costes"></section>
+    <section class="view" id="topografia"></section>
+    <section class="view" id="vivienda"></section>
+    <section class="view" id="documentacion"></section>
+    <section class="view" id="plan"></section>
+  </main>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

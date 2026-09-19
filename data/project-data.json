@@ -1,0 +1,77 @@
+{
+  "updatedAt": "2026-09-19",
+  "project": {
+    "name": "Villa Layos",
+    "location": "Layos Golf, Toledo",
+    "state": "Criba técnica, económica y documental",
+    "budgetLimit": 300000,
+    "reserveProtected": 20000,
+    "decisionRule": "La decisión económica se rige por el escenario desfavorable. El fondo personal de 20.000 EUR queda fuera de todos los gastos.",
+    "topographyDisclaimer": "Los informes MDT02/QGIS son preliminares para criba y estimación económica. No sustituyen levantamiento topográfico profesional, geotecnia ni proyecto técnico."
+  },
+  "sources": [
+    "outputs/parcel-cost-2026-09-18/Calculadora coste parcela Villa Layos.xlsx",
+    "Parcelas/*/Topografía/metricas.json",
+    "docs/03-presupuesto-preliminar.md",
+    "docs/04-sistemas-constructivos.md",
+    "docs/11-concepto-actual-vivienda-unifamiliar.md",
+    "docs/12-radiografia-patrimonial-y-viabilidad.md"
+  ],
+  "costAssumptions": {
+    "itp": 0.09,
+    "notary": 0.0055,
+    "registry": 0.0025,
+    "management": 600,
+    "bankPayments": 150,
+    "studies": 5000,
+    "contingency": 0.03,
+    "scenario": "desfavorable"
+  },
+  "parcels": [
+    {"id":"aguila-real-137","name":"Aguila Real 137","price":50000,"area":902,"manualSlope":"Plana","golfViews":"Si","golfShare":"Si","seller":"Agencia","contact":"Soley (Alex)","ibi":513,"status":"Finalista","note":"Incluye acción del campo de golf. Precio negociable. Candidata en observación; no negociar todavía.","link":"https://www.idealista.com/inmueble/102483874/","docs":["Anuncio PDF","Informe topográfico preliminar"],"topography":{"hasReport":true,"reference":"7329430VK0072N","sourceYear":"2019","crs":"EPSG:25830","gridM":2,"areaM2":902.016,"zMin":627.568,"zMax":630.951,"relief":3.383,"slope":5.279,"rmse":0.324,"downslopeAzimuth":182.292,"report":"Parcelas/Aguila Real 137 (902m plana)/Topografía/informe_topografia_preliminar.pdf","quality":"MDT02 IGN/CNIG + QGIS. Preliminar."}},
+    {"id":"zorzal-2","name":"Zorzal 2","price":39000,"area":681,"manualSlope":"Plana","golfViews":"No","golfShare":"No","seller":"Particular","contact":"Luis Miguel","ibi":387,"status":"Finalista","note":"Vistas amplias.","link":"https://www.idealista.com/inmueble/109551448/","docs":["Anuncio PDF","Informe topográfico preliminar"],"topography":{"hasReport":true,"reference":"7923502VK0072S","sourceYear":"2019","crs":"EPSG:25830","gridM":2,"areaM2":680.767,"zMin":658.979,"zMax":661.963,"relief":2.984,"slope":4.460,"rmse":0.365,"downslopeAzimuth":1.239,"report":"Parcelas/Zorzal 2 (681m plana)/Topografía/informe_topografia_preliminar.pdf","quality":"MDT02 IGN/CNIG + QGIS. Preliminar."}},
+    {"id":"alcotan-29","name":"Alcotan 29","price":50000,"area":880,"manualSlope":"Semi Plana","golfViews":"Si","golfShare":"No","seller":"Particular","contact":"José","ibi":500,"status":"Finalista","note":"Al lado del golf. Poco inclinada. Se podría negociar. IBI real: 500 EUR/año.","link":"","docs":["Informe topográfico preliminar"],"topography":{"hasReport":true,"reference":"8028615VK0082N","sourceYear":"2019","crs":"EPSG:25830","gridM":2,"areaM2":880.388,"zMin":646.154,"zMax":650.293,"relief":4.140,"slope":9.860,"rmse":0.120,"downslopeAzimuth":71.224,"report":"Parcelas/Alcotán 29 (880m plana)/Topografía/informe_topografia_preliminar.pdf","quality":"MDT02 IGN/CNIG + QGIS. Preliminar. La etiqueta plana no queda confirmada."}},
+    {"id":"alimoche-49","name":"Alimoche 49","price":37000,"area":578,"manualSlope":"Inclinada","golfViews":"Si","golfShare":"No","seller":"Particular","contact":"Luis","ibi":328,"status":"En observación","note":"Buenas vistas. Alta. Referencia inclinada para comparar coste de obra civil.","link":"https://www.idealista.com/inmueble/111955361/","docs":["Anuncio PDF","Informe topográfico preliminar"],"topography":{"hasReport":true,"reference":"8029330VK0082N","sourceYear":"2019","crs":"EPSG:25830","gridM":2,"areaM2":578.009,"zMin":661.519,"zMax":665.880,"relief":4.361,"slope":12.070,"rmse":0.187,"downslopeAzimuth":45.691,"report":"Parcelas/Alimoche 49 (578m inclinada)/Topografía/informe_topografia_preliminar.pdf","quality":"MDT02 IGN/CNIG + QGIS. Preliminar."}},
+    {"id":"alcotan-6","name":"Alcotan 6","price":40000,"area":586,"manualSlope":"Plana","golfViews":"No","golfShare":"No","seller":"Agencia","contact":"Hermogar","ibi":333,"status":"En observación","note":"Alternativa compacta y económica, sin vistas ni acción de golf.","link":"https://www.idealista.com/inmueble/112278675/","docs":["Anuncio PDF","Informe topográfico preliminar"],"topography":{"hasReport":true,"reference":"8029301VK0082N","sourceYear":"2019","crs":"EPSG:25830","gridM":2,"areaM2":585.713,"zMin":640.608,"zMax":642.382,"relief":1.774,"slope":4.613,"rmse":0.230,"downslopeAzimuth":344.285,"report":"Parcelas/Alcotán 6 (586m plana)/Topografía/informe_topografia_preliminar.pdf","quality":"MDT02 IGN/CNIG + QGIS. Preliminar."}},
+    {"id":"herrerillo-52","name":"Herrerillo 52","price":39500,"area":754,"manualSlope":"Plana","golfViews":"No","golfShare":"No","seller":"Agencia","contact":"Supercasa","ibi":428,"status":"En observación","note":"Buenas vistas. Teléfono de cartel pendiente de confirmar.","link":"https://www.idealista.com/inmueble/109455382/","docs":["Anuncio PDF"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}},
+    {"id":"alimoche-21","name":"Alimoche 21","price":40000,"area":928,"manualSlope":"Inclinada","golfViews":"Si","golfShare":"No","seller":"Particular","contact":"Supercasa","ibi":527,"status":"En observación","note":"Buenas vistas. Alta. Urbanismo usado solo como referencia provisional.","link":"https://www.idealista.com/inmueble/99812770/","docs":["Anuncio PDF","Normativa municipal parcela 109"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}},
+    {"id":"rascon-13","name":"Rascon 13","price":49900,"area":1139,"manualSlope":"Plana","golfViews":"Semi","golfShare":"No","seller":"Agencia","contact":"La Botica","ibi":647,"status":"Baja prioridad","note":"Antes de entrar. Buenas vistas.","link":"https://www.idealista.com/inmueble/104909708/","docs":["Anuncio PDF"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}},
+    {"id":"zorzal-29","name":"Zorzal 29","price":36000,"area":832,"manualSlope":"Inclinada","golfViews":"Semi","golfShare":"No","seller":"Particular","contact":"Miguel","ibi":473,"status":"Baja prioridad","note":"Vistas amplias.","link":"https://www.idealista.com/inmueble/106516559/","docs":["Anuncio PDF"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}},
+    {"id":"alcotan-41","name":"Alcotan 41","price":70000,"area":877,"manualSlope":"Plana","golfViews":"Si","golfShare":"No","seller":"Particular","contact":"","ibi":498,"status":"Baja prioridad","note":"Al lado del golf. De las mejores, pero precio alto.","link":"https://www.idealista.com/inmueble/82319560/","docs":["Anuncio PDF"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}},
+    {"id":"alcotan-25","name":"Alcotan 25","price":90000,"area":880,"manualSlope":"Plana","golfViews":"Si","golfShare":"Si","seller":"Particular","contact":"Teo Viñarás","ibi":500,"status":"Descartada preliminar","note":"Muy buena e incluye acción de golf, pero se descarta por desembolso de 90.000 EUR y acción no prioritaria.","link":"","docs":["Contacto"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}}
+  ],
+  "house": {
+    "program": ["Vivienda de una planta", "100-120 m2 interiores", "Suite principal", "Habitación de invitados", "Despacho / estudio de sonido", "Garaje anexo para dos vehículos", "Trastero y sala de máquinas", "Porches amplios", "Jardín seco de bajo mantenimiento"],
+    "concept": "U ligera topográfica: bloque técnico alto en cota de calle y vivienda principal en plataforma inferior.",
+    "systems": [
+      {"name":"Panelizado 2D industrializado","fit":"Muy alto","cost":"Medio","carbon":"Media","note":"Equilibrio entre coste, libertad formal y eficiencia."},
+      {"name":"Light steel frame","fit":"Muy alto","cost":"Medio-bajo","carbon":"Media","note":"Rápido y controlable si se detalla bien la envolvente."},
+      {"name":"SIP","fit":"Alto","cost":"Medio","carbon":"Media-baja","note":"Muy buen aislamiento; revisar acústica y flexibilidad."},
+      {"name":"Hormigón prefabricado","fit":"Medio","cost":"Medio-alto","carbon":"Alta","note":"Muy durable, pero puede tensionar presupuesto y transporte."},
+      {"name":"CLT / madera industrializada","fit":"Medio","cost":"Medio-alto","carbon":"Baja","note":"Muy interesante ambientalmente; proteger bien de humedad y fuego."}
+    ],
+    "providers": [
+      {"name":"VME / VM Ecogroup","reference":"108,37 m2: 123.284,12 EUR + IVA; no llave en mano","risk":"Faltan proyecto, dirección, cimentación, climatización y otros conceptos."},
+      {"name":"Modular Home","reference":"MH 90 Prime: 156.315 EUR + paquete técnico mínimo 12.750 EUR + IVA","risk":"Cocina, exteriores, licencias, acometidas y personalizaciones a confirmar."},
+      {"name":"ROOM2030","reference":"Desde 2.300 EUR/m2","risk":"Excluye IVA, topográfico, geotécnico, visados/licencia, obra civil, urbanización y suministros."},
+      {"name":"EMSAMBLE","reference":"Desde 1.900 EUR/m2 + IVA; mínimo 120 m2","risk":"Solo vivienda ya puede tensionar el presupuesto total."}
+    ]
+  },
+  "documents": [
+    {"name":"Nota simple actualizada","status":"pendiente","action":"Pedir cuando queden 2-3 parcelas finalistas."},
+    {"name":"Cargas y titularidad","status":"pendiente","action":"Revisar con nota simple."},
+    {"name":"Deudas de urbanización","status":"pendiente","action":"Certificado de Ayuntamiento o entidad urbanística."},
+    {"name":"Situación registral/catastral","status":"pendiente","action":"Contrastar superficies y linderos."},
+    {"name":"Viabilidad constructiva","status":"pendiente","action":"Arquitecto + normativa + accesos."},
+    {"name":"Suministros y acometidas","status":"pendiente","action":"Confirmar disponibilidad y costes."},
+    {"name":"Acción de golf y cuotas","status":"pendiente","action":"Confirmar transmisión, atrasos y cuota."},
+    {"name":"Valor de referencia fiscal","status":"pendiente","action":"Consultar en Catastro antes de calcular impuestos."}
+  ],
+  "plan": [
+    {"phase":"Criba actual","state":"en curso","items":["Comparar parcelas con coste desfavorable","Usar topografía QGIS donde exista","No convertir etiquetas manuales en dato técnico"]},
+    {"phase":"Antes de señal o arras","state":"pendiente","items":["Nota simple","Urbanismo por escrito","Cargas, cuotas, suministros y valor de referencia","Visita técnica a finalistas"]},
+    {"phase":"Compra de parcela","state":"pendiente","items":["Negociación con escenario desfavorable","Reserva de 20.000 EUR intacta","Firma solo con documentación crítica revisada"]},
+    {"phase":"Anteproyecto","state":"pendiente","items":["Implantación adaptada a topografía real","Comparativa de sistemas constructivos","Presupuesto completo con obra civil"]},
+    {"phase":"Proyecto y obra","state":"pendiente","items":["Topográfico profesional","Geotécnico","Licencia e ICIO","Ejecución industrializada y control de desviaciones"]}
+  ]
+}
