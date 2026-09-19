@@ -25,6 +25,7 @@ const slopeBadge = (parcel) => {
   const cls = parcel.topography.slope < 6 ? "ok" : parcel.topography.slope < 10 ? "warn" : "bad";
   return `<span class="badge ${cls}">QGIS ${num.format(parcel.topography.slope)}%</span>`;
 };
+const pdfButton = (href, label = "Abrir PDF") => `<a class="button-link" href="${encodeURI(href)}" target="_blank" rel="noreferrer">${label}</a>`;
 const acquisitionCost = (parcel) => {
   const a = DATA.costAssumptions;
   const formal = parcel.price * (1 + a.itp + a.notary + a.registry + a.contingency);
@@ -209,7 +210,7 @@ function drawFicha() {
           ["Desnivel", `${num.format(t.relief)} m`],
           ["RMSE plano", `${num.format(t.rmse)} m`],
           ["Fuente", `${esc(t.crs)}, malla ${t.gridM} m, vuelo ${t.sourceYear}`],
-          ["Informe", `<a href="${encodeURI(t.report)}" target="_blank">PDF preliminar</a>`]
+          ["Informe", pdfButton(t.report, "PDF preliminar")]
         ]) : `<p class="sub">${esc(t.quality)}</p>`}
       </div>
     </div>
@@ -277,7 +278,7 @@ function renderTopografia() {
       ${withTopo.map((p) => stat(p.name, `${num.format(p.topography.slope)}%`, `${slopeClass(p.topography.slope)} · ${num.format(p.topography.relief)} m desnivel`)).join("")}
     </div>
     <div class="table-wrap"><table><thead><tr><th>Parcela</th><th class="num">Pendiente</th><th class="num">Desnivel</th><th class="num">Cotas</th><th class="num">RMSE</th><th>Informe</th></tr></thead><tbody>
-      ${withTopo.map((p) => `<tr><td><strong>${esc(p.name)}</strong><br><span class="source">${esc(p.topography.reference)}</span></td><td class="num">${num.format(p.topography.slope)}%</td><td class="num">${num.format(p.topography.relief)} m</td><td class="num">${num.format(p.topography.zMin)}-${num.format(p.topography.zMax)} m</td><td class="num">${num.format(p.topography.rmse)} m</td><td><a href="${encodeURI(p.topography.report)}" target="_blank">PDF</a></td></tr>`).join("")}
+      ${withTopo.map((p) => `<tr><td><strong>${esc(p.name)}</strong><br><span class="source">${esc(p.topography.reference)}</span></td><td class="num">${num.format(p.topography.slope)}%</td><td class="num">${num.format(p.topography.relief)} m</td><td class="num">${num.format(p.topography.zMin)}-${num.format(p.topography.zMax)} m</td><td class="num">${num.format(p.topography.rmse)} m</td><td>${pdfButton(p.topography.report, "PDF")}</td></tr>`).join("")}
     </tbody></table></div>
   `;
 }

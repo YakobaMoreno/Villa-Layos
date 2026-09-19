@@ -1,10 +1,15 @@
-const CACHE = "villa-layos-v1";
+const CACHE = "villa-layos-v2";
 const ASSETS = [
   "./",
   "index.html",
   "assets/app.css",
   "assets/app.js",
   "assets/icon.svg",
+  "assets/reports/aguila-real-137-topografia.pdf",
+  "assets/reports/alcotan-29-topografia.pdf",
+  "assets/reports/alcotan-6-topografia.pdf",
+  "assets/reports/alimoche-49-topografia.pdf",
+  "assets/reports/zorzal-2-topografia.pdf",
   "data/project-data.json",
   "manifest.webmanifest"
 ];
