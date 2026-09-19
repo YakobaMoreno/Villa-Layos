@@ -20,12 +20,14 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[ch]));
 const pct = (value) => `${Math.round(value)}%`;
 const slopeClass = (slope) => slope == null ? "Pendiente sin informe" : slope < 6 ? "Suave" : slope < 10 ? "Moderada" : "Alta";
+const docStorageKey = (parcelId, docName) => `villa-layos-doc:${parcelId}:${docName}`;
 const slopeBadge = (parcel) => {
   if (!parcel.topography?.hasReport) return `<span class="badge warn">Manual</span>`;
   const cls = parcel.topography.slope < 6 ? "ok" : parcel.topography.slope < 10 ? "warn" : "bad";
   return `<span class="badge ${cls}">QGIS ${num.format(parcel.topography.slope)}%</span>`;
 };
 const pdfButton = (href, label = "Abrir PDF") => `<a class="button-link" href="${encodeURI(href)}" target="_blank" rel="noreferrer">${label}</a>`;
+const reportCount = () => DATA.parcels.filter((p) => p.topography?.hasReport).length;
 const acquisitionCost = (parcel) => {
   const a = DATA.costAssumptions;
   const formal = parcel.price * (1 + a.itp + a.notary + a.registry + a.contingency);
@@ -92,7 +94,7 @@ function openView(id) {
 function renderResumen() {
   const ranked = scoreParcels();
   const best = ranked[0].parcel;
-  const qgisCount = DATA.parcels.filter((p) => p.topography?.hasReport).length;
+  const qgisCount = reportCount();
   $("#resumen").innerHTML = `
     ${header("Control general", "Decidir parcela sin romper la viabilidad", "Panel estático con datos trazables de parcelas, costes, topografía preliminar, documentación pendiente y estrategia de vivienda.")}
     <div class="grid cols-4">
@@ -137,7 +139,7 @@ function renderParcelas() {
       <select id="parcelStatus"><option value="">Todos los estados</option>${[...new Set(DATA.parcels.map((p) => p.status))].map((s) => `<option>${esc(s)}</option>`).join("")}</select>
       <select id="parcelTopo"><option value="">Toda la topografía</option><option value="qgis">Con informe QGIS</option><option value="manual">Solo manual</option></select>
     </div>
-    <div class="table-wrap"><table><thead><tr>
+    <div class="table-wrap"><table class="data-table parcel-table"><colgroup><col><col><col><col><col><col><col><col></colgroup><thead><tr>
       <th>Parcela</th><th class="num">Precio</th><th class="num">Total desf.</th><th class="num">€/m²</th><th>Pendiente</th><th>Golf</th><th>Vendedor</th><th>Estado</th>
     </tr></thead><tbody id="parcelRows"></tbody></table></div>
   `;
@@ -156,12 +158,12 @@ function drawParcelRows() {
   $("#parcelRows").innerHTML = filtered.map((p) => `
     <tr>
       <td><strong>${esc(p.name)}</strong><br><span class="source">${esc(p.note)}</span></td>
-      <td class="num">${money.format(p.price)}</td>
-      <td class="num">${money.format(acquisitionCost(p))}</td>
-      <td class="num">${money.format(perM2(p))}</td>
-      <td>${slopeBadge(p)}<br><span class="source">${p.topography.hasReport ? `${esc(slopeClass(p.topography.slope))}, desnivel ${num.format(p.topography.relief)} m` : esc(p.manualSlope)}</span></td>
-      <td>Vistas: ${esc(p.golfViews)}<br><span class="source">Acción: ${esc(p.golfShare || "No")}</span></td>
-      <td>${esc(p.seller)}<br><span class="source">${esc(p.contact || "Sin contacto")}</span></td>
+      <td class="num nowrap">${money.format(p.price)}</td>
+      <td class="num nowrap">${money.format(acquisitionCost(p))}</td>
+      <td class="num nowrap">${money.format(perM2(p))}</td>
+      <td class="compact-lines">${slopeBadge(p)}<br><span class="source nowrap">${p.topography.hasReport ? `${esc(slopeClass(p.topography.slope))}, ${num.format(p.topography.relief)} m` : esc(p.manualSlope)}</span></td>
+      <td class="compact-lines nowrap">Vistas: ${esc(p.golfViews)}<br><span class="source">Acción: ${esc(p.golfShare || "No")}</span></td>
+      <td class="compact-lines">${esc(p.seller)}<br><span class="source">${esc(p.contact || "Sin contacto")}</span></td>
       <td>${statusBadge(p.status)}</td>
     </tr>
   `).join("");
@@ -227,7 +229,7 @@ function renderComparativa() {
     <div class="weight-grid">${Object.entries({ cost: "Coste", slope: "Pendiente", views: "Vistas", share: "Acción golf", direct: "Venta directa" }).map(([key, label]) => `
       <div class="weight"><label><span>${label}</span><strong id="w-${key}">${weights[key]}</strong></label><input type="range" min="0" max="60" value="${weights[key]}" data-weight="${key}"></div>
     `).join("")}</div>
-    <div class="table-wrap"><table><thead><tr><th>#</th><th>Parcela</th><th class="num">Puntos</th><th class="num">Coste</th><th class="num">Pendiente</th><th>Lectura</th></tr></thead><tbody id="rankingRows"></tbody></table></div>
+    <div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>Parcela</th><th class="num">Puntos</th><th class="num">Coste</th><th class="num">Pendiente</th><th>Lectura</th></tr></thead><tbody id="rankingRows"></tbody></table></div>
     <p class="source">La pendiente usa métrica QGIS cuando existe. Si no existe, se usa una aproximación manual con menor confianza.</p>
   `;
   $$("input[data-weight]").forEach((input) => input.addEventListener("input", () => {
@@ -245,7 +247,8 @@ function drawRanking() {
 }
 
 function renderCostes() {
-  const selected = scoreParcels()[0].parcel;
+  const selectedId = $("#costParcelSelect")?.value || scoreParcels()[0].parcel.id;
+  const selected = DATA.parcels.find((p) => p.id === selectedId) || scoreParcels()[0].parcel;
   const a = DATA.costAssumptions;
   const parts = [
     ["Precio de compra", selected.price],
@@ -257,6 +260,7 @@ function renderCostes() {
   ];
   $("#costes").innerHTML = `
     ${header("Economía", "Coste completo antes de proyecto", "La calculadora separa adquisición de parcela de vivienda, licencia, obra civil, acometidas, urbanización y construcción.")}
+    <div class="toolbar"><select id="costParcelSelect">${DATA.parcels.map((p) => `<option value="${p.id}" ${p.id === selected.id ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</select></div>
     <div class="grid cols-2">
       <div class="card dark"><h3>Parcela de referencia</h3><div class="metric">${esc(selected.name)}<small>${money.format(acquisitionCost(selected))} · escenario desfavorable</small></div></div>
       <div class="card"><h3>Regla de caja</h3><p class="sub">El fondo personal de ${money.format(DATA.project.reserveProtected)} no se consume en parcela, impuestos, técnicos, licencias, vivienda, urbanización, suministros ni desviaciones.</p></div>
@@ -267,6 +271,7 @@ function renderCostes() {
     </div>
     <div class="card"><h3>Comparativa de coste total</h3><div class="bars">${DATA.parcels.slice().sort((a,b)=>acquisitionCost(a)-acquisitionCost(b)).map((p) => `<div class="barline"><span>${esc(p.name)}</span><div class="bar"><i style="width:${Math.min(100, acquisitionCost(p) / 110000 * 100)}%"></i></div><strong>${money.format(acquisitionCost(p))}</strong></div>`).join("")}</div></div>
   `;
+  $("#costParcelSelect").addEventListener("change", renderCostes);
 }
 
 function renderTopografia() {
@@ -277,7 +282,7 @@ function renderTopografia() {
     <div class="grid cols-3">
       ${withTopo.map((p) => stat(p.name, `${num.format(p.topography.slope)}%`, `${slopeClass(p.topography.slope)} · ${num.format(p.topography.relief)} m desnivel`)).join("")}
     </div>
-    <div class="table-wrap"><table><thead><tr><th>Parcela</th><th class="num">Pendiente</th><th class="num">Desnivel</th><th class="num">Cotas</th><th class="num">RMSE</th><th>Informe</th></tr></thead><tbody>
+    <div class="table-wrap"><table class="data-table"><thead><tr><th>Parcela</th><th class="num">Pendiente</th><th class="num">Desnivel</th><th class="num">Cotas</th><th class="num">RMSE</th><th>Informe</th></tr></thead><tbody>
       ${withTopo.map((p) => `<tr><td><strong>${esc(p.name)}</strong><br><span class="source">${esc(p.topography.reference)}</span></td><td class="num">${num.format(p.topography.slope)}%</td><td class="num">${num.format(p.topography.relief)} m</td><td class="num">${num.format(p.topography.zMin)}-${num.format(p.topography.zMax)} m</td><td class="num">${num.format(p.topography.rmse)} m</td><td>${pdfButton(p.topography.report, "PDF")}</td></tr>`).join("")}
     </tbody></table></div>
   `;
@@ -290,27 +295,41 @@ function renderVivienda() {
       <div class="card dark"><h3>Concepto activo</h3><p>${esc(DATA.house.concept)}</p></div>
       <div class="card"><h3>Programa funcional</h3><ul class="list">${DATA.house.program.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
     </div>
-    <div class="card"><h3>Sistemas constructivos</h3><div class="table-wrap"><table><thead><tr><th>Sistema</th><th>Encaje</th><th>Coste</th><th>Huella</th><th>Lectura</th></tr></thead><tbody>${DATA.house.systems.map((s) => `<tr><td><strong>${esc(s.name)}</strong></td><td>${esc(s.fit)}</td><td>${esc(s.cost)}</td><td>${esc(s.carbon)}</td><td>${esc(s.note)}</td></tr>`).join("")}</tbody></table></div></div>
-    <div class="grid cols-2">${DATA.house.providers.map((p) => `<div class="card"><h3>${esc(p.name)}</h3><p><strong>${esc(p.reference)}</strong></p><p class="sub">${esc(p.risk)}</p></div>`).join("")}</div>
+    <div class="card"><h3>Sistemas constructivos</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Sistema</th><th>Encaje</th><th>Coste</th><th>Huella</th><th>Lectura</th></tr></thead><tbody>${DATA.house.systems.map((s) => `<tr><td><strong>${esc(s.name)}</strong></td><td>${esc(s.fit)}</td><td>${esc(s.cost)}</td><td>${esc(s.carbon)}</td><td>${esc(s.note)}</td></tr>`).join("")}</tbody></table></div></div>
+    <div class="grid cols-2 section-gap">${DATA.house.providers.map((p) => `<div class="card"><h3>${p.url ? `<a class="linked-title" href="${esc(p.url)}" target="_blank" rel="noreferrer">${esc(p.name)}</a>` : esc(p.name)}</h3><p><strong>${esc(p.reference)}</strong></p><p class="sub">${esc(p.risk)}</p></div>`).join("")}</div>
   `;
 }
 
 function renderDocumentacion() {
-  const done = DATA.documents.filter((d) => d.status === "verificado").length;
-  const progress = DATA.documents.length ? done / DATA.documents.length * 100 : 0;
+  const selectedId = $("#docParcelSelect")?.value || DATA.parcels[0].id;
+  const selected = DATA.parcels.find((p) => p.id === selectedId) || DATA.parcels[0];
+  const docs = selected.documentation || DATA.documents;
+  const done = docs.filter((d) => d.status === "disponible" || localStorage.getItem(docStorageKey(selected.id, d.name)) === "1").length;
+  const progress = docs.length ? done / docs.length * 100 : 0;
   $("#docProgress").textContent = pct(progress);
   $("#docProgressBar").style.width = pct(progress);
   $("#documentacion").innerHTML = `
-    ${header("Checklist", "Documentación antes de comprometer dinero", "Estado de comprobaciones mínimas antes de señal, arras, compra o anteproyecto de pago.")}
-    <div class="table-wrap"><table><thead><tr><th>Documento</th><th>Estado</th><th>Acción</th></tr></thead><tbody>${DATA.documents.map((d) => `<tr><td><strong>${esc(d.name)}</strong></td><td><span class="badge warn">${esc(d.status)}</span></td><td>${esc(d.action)}</td></tr>`).join("")}</tbody></table></div>
+    ${header("Checklist", "Documentación por parcela", "Selecciona una parcela y marca lo que ya esté conseguido. Los checks se guardan localmente en este navegador.")}
+    <div class="toolbar"><select id="docParcelSelect">${DATA.parcels.map((p) => `<option value="${p.id}" ${p.id === selected.id ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</select></div>
+    <div class="table-wrap"><table class="data-table doc-table"><colgroup><col><col><col></colgroup><thead><tr><th>Documento</th><th>Estado</th><th>Acción</th></tr></thead><tbody>${docs.map((d) => {
+      const checked = d.status === "disponible" || localStorage.getItem(docStorageKey(selected.id, d.name)) === "1";
+      const cls = checked ? "ok" : "warn";
+      const label = checked ? "conseguida" : "pendiente";
+      return `<tr><td><label class="doc-label"><input class="doc-check" type="checkbox" data-doc="${esc(d.name)}" ${checked ? "checked" : ""}><strong>${esc(d.name)}</strong></label></td><td><span class="badge ${cls}">${label}</span></td><td>${esc(d.action)}</td></tr>`;
+    }).join("")}</tbody></table></div>
   `;
+  $("#docParcelSelect").addEventListener("change", renderDocumentacion);
+  $$(".doc-check").forEach((box) => box.addEventListener("change", () => {
+    localStorage.setItem(docStorageKey(selected.id, box.dataset.doc), box.checked ? "1" : "0");
+    renderDocumentacion();
+  }));
 }
 
 function renderPlan() {
   $("#plan").innerHTML = `
     ${header("Fases", "De criba a entrega de llaves", "Plan operativo con dependencias explícitas para no adelantar pagos sin evidencia suficiente.")}
-    <div class="grid cols-2">${DATA.plan.map((phase) => `
-      <div class="card"><h3>${esc(phase.phase)}</h3><span class="badge ${phase.state === "en curso" ? "info" : "warn"}">${esc(phase.state)}</span><ul class="list">${phase.items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
+    <div class="grid cols-2">${DATA.plan.map((phase, index) => `
+      <div class="card phase-card"><span class="phase-num">${index + 1}</span><h3>${esc(phase.phase)}</h3><span class="badge ${phase.state === "en curso" ? "info" : "warn"}">${esc(phase.state)}</span><ul class="list">${phase.items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
     `).join("")}</div>
   `;
 }

@@ -28,50 +28,1560 @@
     "scenario": "desfavorable"
   },
   "parcels": [
-    {"id":"aguila-real-137","name":"Aguila Real 137","price":50000,"area":902,"manualSlope":"Plana","golfViews":"Si","golfShare":"Si","seller":"Agencia","contact":"Soley (Alex)","ibi":513,"status":"Finalista","note":"Incluye acción del campo de golf. Precio negociable. Candidata en observación; no negociar todavía.","link":"https://www.idealista.com/inmueble/102483874/","docs":["Anuncio PDF","Informe topográfico preliminar"],"topography":{"hasReport":true,"reference":"7329430VK0072N","sourceYear":"2019","crs":"EPSG:25830","gridM":2,"areaM2":902.016,"zMin":627.568,"zMax":630.951,"relief":3.383,"slope":5.279,"rmse":0.324,"downslopeAzimuth":182.292,"report":"assets/reports/aguila-real-137-topografia.pdf","quality":"MDT02 IGN/CNIG + QGIS. Preliminar."}},
-    {"id":"zorzal-2","name":"Zorzal 2","price":39000,"area":681,"manualSlope":"Plana","golfViews":"No","golfShare":"No","seller":"Particular","contact":"Luis Miguel","ibi":387,"status":"Finalista","note":"Vistas amplias.","link":"https://www.idealista.com/inmueble/109551448/","docs":["Anuncio PDF","Informe topográfico preliminar"],"topography":{"hasReport":true,"reference":"7923502VK0072S","sourceYear":"2019","crs":"EPSG:25830","gridM":2,"areaM2":680.767,"zMin":658.979,"zMax":661.963,"relief":2.984,"slope":4.460,"rmse":0.365,"downslopeAzimuth":1.239,"report":"assets/reports/zorzal-2-topografia.pdf","quality":"MDT02 IGN/CNIG + QGIS. Preliminar."}},
-    {"id":"alcotan-29","name":"Alcotan 29","price":50000,"area":880,"manualSlope":"Semi Plana","golfViews":"Si","golfShare":"No","seller":"Particular","contact":"José","ibi":500,"status":"Finalista","note":"Al lado del golf. Poco inclinada. Se podría negociar. IBI real: 500 EUR/año.","link":"","docs":["Informe topográfico preliminar"],"topography":{"hasReport":true,"reference":"8028615VK0082N","sourceYear":"2019","crs":"EPSG:25830","gridM":2,"areaM2":880.388,"zMin":646.154,"zMax":650.293,"relief":4.140,"slope":9.860,"rmse":0.120,"downslopeAzimuth":71.224,"report":"assets/reports/alcotan-29-topografia.pdf","quality":"MDT02 IGN/CNIG + QGIS. Preliminar. La etiqueta plana no queda confirmada."}},
-    {"id":"alimoche-49","name":"Alimoche 49","price":37000,"area":578,"manualSlope":"Inclinada","golfViews":"Si","golfShare":"No","seller":"Particular","contact":"Luis","ibi":328,"status":"En observación","note":"Buenas vistas. Alta. Referencia inclinada para comparar coste de obra civil.","link":"https://www.idealista.com/inmueble/111955361/","docs":["Anuncio PDF","Informe topográfico preliminar"],"topography":{"hasReport":true,"reference":"8029330VK0082N","sourceYear":"2019","crs":"EPSG:25830","gridM":2,"areaM2":578.009,"zMin":661.519,"zMax":665.880,"relief":4.361,"slope":12.070,"rmse":0.187,"downslopeAzimuth":45.691,"report":"assets/reports/alimoche-49-topografia.pdf","quality":"MDT02 IGN/CNIG + QGIS. Preliminar."}},
-    {"id":"alcotan-6","name":"Alcotan 6","price":40000,"area":586,"manualSlope":"Plana","golfViews":"No","golfShare":"No","seller":"Agencia","contact":"Hermogar","ibi":333,"status":"En observación","note":"Alternativa compacta y económica, sin vistas ni acción de golf.","link":"https://www.idealista.com/inmueble/112278675/","docs":["Anuncio PDF","Informe topográfico preliminar"],"topography":{"hasReport":true,"reference":"8029301VK0082N","sourceYear":"2019","crs":"EPSG:25830","gridM":2,"areaM2":585.713,"zMin":640.608,"zMax":642.382,"relief":1.774,"slope":4.613,"rmse":0.230,"downslopeAzimuth":344.285,"report":"assets/reports/alcotan-6-topografia.pdf","quality":"MDT02 IGN/CNIG + QGIS. Preliminar."}},
-    {"id":"herrerillo-52","name":"Herrerillo 52","price":39500,"area":754,"manualSlope":"Plana","golfViews":"No","golfShare":"No","seller":"Agencia","contact":"Supercasa","ibi":428,"status":"En observación","note":"Buenas vistas. Teléfono de cartel pendiente de confirmar.","link":"https://www.idealista.com/inmueble/109455382/","docs":["Anuncio PDF"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}},
-    {"id":"alimoche-21","name":"Alimoche 21","price":40000,"area":928,"manualSlope":"Inclinada","golfViews":"Si","golfShare":"No","seller":"Particular","contact":"Supercasa","ibi":527,"status":"En observación","note":"Buenas vistas. Alta. Urbanismo usado solo como referencia provisional.","link":"https://www.idealista.com/inmueble/99812770/","docs":["Anuncio PDF","Normativa municipal parcela 109"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}},
-    {"id":"rascon-13","name":"Rascon 13","price":49900,"area":1139,"manualSlope":"Plana","golfViews":"Semi","golfShare":"No","seller":"Agencia","contact":"La Botica","ibi":647,"status":"Baja prioridad","note":"Antes de entrar. Buenas vistas.","link":"https://www.idealista.com/inmueble/104909708/","docs":["Anuncio PDF"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}},
-    {"id":"zorzal-29","name":"Zorzal 29","price":36000,"area":832,"manualSlope":"Inclinada","golfViews":"Semi","golfShare":"No","seller":"Particular","contact":"Miguel","ibi":473,"status":"Baja prioridad","note":"Vistas amplias.","link":"https://www.idealista.com/inmueble/106516559/","docs":["Anuncio PDF"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}},
-    {"id":"alcotan-41","name":"Alcotan 41","price":70000,"area":877,"manualSlope":"Plana","golfViews":"Si","golfShare":"No","seller":"Particular","contact":"","ibi":498,"status":"Baja prioridad","note":"Al lado del golf. De las mejores, pero precio alto.","link":"https://www.idealista.com/inmueble/82319560/","docs":["Anuncio PDF"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}},
-    {"id":"alcotan-25","name":"Alcotan 25","price":90000,"area":880,"manualSlope":"Plana","golfViews":"Si","golfShare":"Si","seller":"Particular","contact":"Teo Viñarás","ibi":500,"status":"Descartada preliminar","note":"Muy buena e incluye acción de golf, pero se descarta por desembolso de 90.000 EUR y acción no prioritaria.","link":"","docs":["Contacto"],"topography":{"hasReport":false,"quality":"Sin informe QGIS localizado. Solo clasificación manual."}}
+    {
+      "id": "aguila-real-84",
+      "name": "Aguila Real 84",
+      "price": 30000,
+      "area": 640,
+      "manualSlope": "Inclinada",
+      "golfViews": "No",
+      "golfShare": "No",
+      "seller": "Agencia",
+      "contact": "Akris",
+      "ibi": 364,
+      "status": "Baja prioridad",
+      "note": "No esta mal. Sin vistas.",
+      "link": "https://www.idealista.com/inmueble/111706931/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "7524403VK0072S",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 640.221,
+        "zMin": 622.653,
+        "zMax": 626.992,
+        "relief": 4.339,
+        "slope": 8.907,
+        "rmse": 0.385,
+        "downslopeAzimuth": 232.531,
+        "report": "assets/reports/aguila-real-84-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "aguila-real-137",
+      "name": "Aguila Real 137",
+      "price": 50000,
+      "area": 902,
+      "manualSlope": "Plana",
+      "golfViews": "Si",
+      "golfShare": "Si",
+      "seller": "Agencia",
+      "contact": "Soley (Alex)",
+      "ibi": 513,
+      "status": "Finalista",
+      "note": "Incluye acción del campo de golf. Precio negociable. Candidata en observación; no negociar todavía.",
+      "link": "https://www.idealista.com/inmueble/102483874/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "7329430VK0072N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 902.016,
+        "zMin": 627.568,
+        "zMax": 630.951,
+        "relief": 3.383,
+        "slope": 5.279,
+        "rmse": 0.324,
+        "downslopeAzimuth": 182.292,
+        "report": "assets/reports/aguila-real-137-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "alcotan-6",
+      "name": "Alcotán 6",
+      "price": 40000,
+      "area": 586,
+      "manualSlope": "Plana",
+      "golfViews": "No",
+      "golfShare": "No",
+      "seller": "Agencia",
+      "contact": "Hermogar",
+      "ibi": 333,
+      "status": "En observación",
+      "note": "",
+      "link": "https://www.idealista.com/inmueble/112278675/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "8029301VK0082N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 585.713,
+        "zMin": 640.608,
+        "zMax": 642.382,
+        "relief": 1.774,
+        "slope": 4.613,
+        "rmse": 0.23,
+        "downslopeAzimuth": 344.285,
+        "report": "assets/reports/alcotan-6-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "alcotan-20",
+      "name": "Alcotán 20",
+      "price": 50000,
+      "area": 658,
+      "manualSlope": "Inclinada",
+      "golfViews": "Si",
+      "golfShare": "No",
+      "seller": "Agencia",
+      "contact": "Albatros",
+      "ibi": 374,
+      "status": "Baja prioridad",
+      "note": "",
+      "link": "https://www.idealista.com/inmueble/109723549/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "8029308VK0082N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 658.329,
+        "zMin": 648.134,
+        "zMax": 653.044,
+        "relief": 4.91,
+        "slope": 11.203,
+        "rmse": 0.189,
+        "downslopeAzimuth": 57.874,
+        "report": "assets/reports/alcotan-20-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "alcotan-25",
+      "name": "Alcotán 25",
+      "price": 90000,
+      "area": 880,
+      "manualSlope": "Plana",
+      "golfViews": "Si",
+      "golfShare": "Si",
+      "seller": "Particular",
+      "contact": "Teo Viñarás",
+      "ibi": 500,
+      "status": "Baja prioridad",
+      "note": "Muy buena. Incluye acción de golf valorada verbalmente en ~100.000 €; permite jugar. Descartada: desembolso 90.000 € y la acción no interesa.",
+      "link": "",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "8028613VK0082N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 879.594,
+        "zMin": 645.786,
+        "zMax": 648.951,
+        "relief": 3.166,
+        "slope": 7.316,
+        "rmse": 0.105,
+        "downslopeAzimuth": 67.219,
+        "report": "assets/reports/alcotan-25-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "alcotan-41",
+      "name": "Alcotán 41",
+      "price": 70000,
+      "area": 877,
+      "manualSlope": "Plana",
+      "golfViews": "Si",
+      "golfShare": "No",
+      "seller": "Particular",
+      "contact": "",
+      "ibi": 498,
+      "status": "Baja prioridad",
+      "note": "Al lado del Golf. De las mejores",
+      "link": "https://www.idealista.com/inmueble/82319560/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "8028621VK0082N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 877.421,
+        "zMin": 650.433,
+        "zMax": 654.173,
+        "relief": 3.741,
+        "slope": 10.19,
+        "rmse": 0.114,
+        "downslopeAzimuth": 56.814,
+        "report": "assets/reports/alcotan-41-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "alimoche-21",
+      "name": "Alimoche 21",
+      "price": 40000,
+      "area": 928,
+      "manualSlope": "Inclinada",
+      "golfViews": "Si",
+      "golfShare": "No",
+      "seller": "Particular",
+      "contact": "Supercasa",
+      "ibi": 527,
+      "status": "En observación",
+      "note": "Buenas Vistas. Alta.",
+      "link": "https://www.idealista.com/inmueble/99812770/",
+      "docs": [
+        "Anuncio",
+        "Documentación urbanística",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "disponible",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "8029344VK0082N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 927.997,
+        "zMin": 656.179,
+        "zMax": 663.681,
+        "relief": 7.502,
+        "slope": 16.874,
+        "rmse": 0.137,
+        "downslopeAzimuth": 62.103,
+        "report": "assets/reports/alimoche-21-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "alcotan-29",
+      "name": "Alcotán 29",
+      "price": 50000,
+      "area": 880,
+      "manualSlope": "Semi Plana",
+      "golfViews": "Si",
+      "golfShare": "No",
+      "seller": "Particular",
+      "contact": "José",
+      "ibi": 500,
+      "status": "Finalista",
+      "note": "Al lado del Golf. Poco inclinada. Se podría negociar. IBI real: 500 €/año",
+      "link": "",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "8028615VK0082N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 880.388,
+        "zMin": 646.154,
+        "zMax": 650.293,
+        "relief": 4.14,
+        "slope": 9.86,
+        "rmse": 0.12,
+        "downslopeAzimuth": 71.224,
+        "report": "assets/reports/alcotan-29-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "alcotan-46",
+      "name": "Alcotán 46",
+      "price": 40000,
+      "area": 714,
+      "manualSlope": "Inclinada",
+      "golfViews": "Semi",
+      "golfShare": "No",
+      "seller": "Particular",
+      "contact": "Lola",
+      "ibi": 406,
+      "status": "Baja prioridad",
+      "note": "Cerca del Golf",
+      "link": "",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "8029321VK0082N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 714.201,
+        "zMin": 654.866,
+        "zMax": 659.541,
+        "relief": 4.674,
+        "slope": 12.019,
+        "rmse": 0.103,
+        "downslopeAzimuth": 48.913,
+        "report": "assets/reports/alcotan-46-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "alimoche-23",
+      "name": "Alimoche 23",
+      "price": 42000,
+      "area": 930,
+      "manualSlope": "Inclinada",
+      "golfViews": "Si",
+      "golfShare": "No",
+      "seller": "Agencia",
+      "contact": "Look & Find",
+      "ibi": 528,
+      "status": "Baja prioridad",
+      "note": "Buenas Vistas. Alta.",
+      "link": "https://www.idealista.com/inmueble/88754673/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "8029343VK0082N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 930.224,
+        "zMin": 657.166,
+        "zMax": 664.88,
+        "relief": 7.713,
+        "slope": 17.721,
+        "rmse": 0.124,
+        "downslopeAzimuth": 63.08,
+        "report": "assets/reports/alimoche-23-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "alimoche-49",
+      "name": "Alimoche 49",
+      "price": 37000,
+      "area": 578,
+      "manualSlope": "Inclinada",
+      "golfViews": "Si",
+      "golfShare": "No",
+      "seller": "Particular",
+      "contact": "Luis",
+      "ibi": 328,
+      "status": "En observación",
+      "note": "Buenas Vistas. Alta.",
+      "link": "https://www.idealista.com/inmueble/111955361/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "8029330VK0082N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 578.009,
+        "zMin": 661.519,
+        "zMax": 665.88,
+        "relief": 4.361,
+        "slope": 12.07,
+        "rmse": 0.187,
+        "downslopeAzimuth": 45.691,
+        "report": "assets/reports/alimoche-49-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "herrerillo-4",
+      "name": "Herrerillo 4",
+      "price": 35900,
+      "area": 758,
+      "manualSlope": "Inclinada",
+      "golfViews": "No",
+      "golfShare": "No",
+      "seller": "Particular",
+      "contact": "Jose Luis",
+      "ibi": 431,
+      "status": "Baja prioridad",
+      "note": "En torrente. Cuidado. Vista Amplia",
+      "link": "https://www.idealista.com/inmueble/103900938/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "7823219VK0072S",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 758.311,
+        "zMin": 641.149,
+        "zMax": 650.861,
+        "relief": 9.713,
+        "slope": 25.515,
+        "rmse": 0.711,
+        "downslopeAzimuth": 248.717,
+        "report": "assets/reports/herrerillo-4-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "herrerillo-14",
+      "name": "Herrerillo 14",
+      "price": 34500,
+      "area": 746,
+      "manualSlope": "Inclinada",
+      "golfViews": "No",
+      "golfShare": "No",
+      "seller": "Agencia",
+      "contact": "Remax",
+      "ibi": 424,
+      "status": "Baja prioridad",
+      "note": "En Torrente. Cuidado",
+      "link": "https://www.idealista.com/inmueble/108759516/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "7823224VK0072S",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 745.927,
+        "zMin": 646.417,
+        "zMax": 652.045,
+        "relief": 5.628,
+        "slope": 13.645,
+        "rmse": 0.341,
+        "downslopeAzimuth": 210.271,
+        "report": "assets/reports/herrerillo-14-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "herrerillo-44",
+      "name": "Herrerillo 44",
+      "price": 45000,
+      "area": 676,
+      "manualSlope": "Plana",
+      "golfViews": "No",
+      "golfShare": "No",
+      "seller": "Agencia",
+      "contact": "Hermogar",
+      "ibi": 384,
+      "status": "Baja prioridad",
+      "note": "Buenas Vistas",
+      "link": "https://www.idealista.com/inmueble/110595042/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "7823239VK0072S",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 675.551,
+        "zMin": 658.524,
+        "zMax": 660.294,
+        "relief": 1.771,
+        "slope": 4.424,
+        "rmse": 0.091,
+        "downslopeAzimuth": 163.443,
+        "report": "assets/reports/herrerillo-44-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "herrerillo-52",
+      "name": "Herrerillo 52",
+      "price": 39500,
+      "area": 754,
+      "manualSlope": "Plana",
+      "golfViews": "No",
+      "golfShare": "No",
+      "seller": "Agencia",
+      "contact": "Supercasa",
+      "ibi": 428,
+      "status": "En observación",
+      "note": "Buenas vistas. Cartel borroso: el teléfono parece 652347468, posiblemente Luis (Alimoche 49). Confirmar por llamada antes de corregirlo.",
+      "link": "https://www.idealista.com/inmueble/109455382/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "7823243VK0072S",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 753.557,
+        "zMin": 660.861,
+        "zMax": 663.509,
+        "relief": 2.647,
+        "slope": 8.031,
+        "rmse": 0.254,
+        "downslopeAzimuth": 334.432,
+        "report": "assets/reports/herrerillo-52-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "rascon-13",
+      "name": "Rascón 13",
+      "price": 49900,
+      "area": 1139,
+      "manualSlope": "Plana",
+      "golfViews": "Semi",
+      "golfShare": "No",
+      "seller": "Agencia",
+      "contact": "La Botica",
+      "ibi": 647,
+      "status": "Baja prioridad",
+      "note": "Antes de entras. Buenas Viistas",
+      "link": "https://www.idealista.com/inmueble/104909708/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "8037910VK0083N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 1138.658,
+        "zMin": 628.774,
+        "zMax": 631.476,
+        "relief": 2.702,
+        "slope": 6.316,
+        "rmse": 0.306,
+        "downslopeAzimuth": 281.806,
+        "report": "assets/reports/rascon-13-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "zorzal-2",
+      "name": "Zorzal 2",
+      "price": 39000,
+      "area": 681,
+      "manualSlope": "Plana",
+      "golfViews": "No",
+      "golfShare": "No",
+      "seller": "Particular",
+      "contact": "Luis Miguel",
+      "ibi": 387,
+      "status": "Finalista",
+      "note": "Vistas amplias",
+      "link": "https://www.idealista.com/inmueble/109551448/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "7923502VK0072S",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 680.767,
+        "zMin": 658.979,
+        "zMax": 661.963,
+        "relief": 2.984,
+        "slope": 4.46,
+        "rmse": 0.365,
+        "downslopeAzimuth": 1.239,
+        "report": "assets/reports/zorzal-2-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    },
+    {
+      "id": "zorzal-29",
+      "name": "Zorzal 29",
+      "price": 36000,
+      "area": 832,
+      "manualSlope": "Inclinada",
+      "golfViews": "Semi",
+      "golfShare": "No",
+      "seller": "Particular",
+      "contact": "Miguel",
+      "ibi": 473,
+      "status": "Baja prioridad",
+      "note": "Vistas amplias",
+      "link": "https://www.idealista.com/inmueble/106516559/",
+      "docs": [
+        "Anuncio",
+        "Informe topográfico preliminar"
+      ],
+      "documentation": [
+        {
+          "name": "Anuncio",
+          "status": "disponible",
+          "action": "Guardar PDF/capturas y enlace del anuncio."
+        },
+        {
+          "name": "Informe topográfico QGIS",
+          "status": "disponible",
+          "action": "Generar informe MDT02/QGIS y revisar métricas."
+        },
+        {
+          "name": "Normativa / urbanismo",
+          "status": "pendiente",
+          "action": "Pedir confirmación urbanística por escrito antes de finalista."
+        },
+        {
+          "name": "Nota simple actualizada",
+          "status": "pendiente",
+          "action": "Pedir cuando queden 2-3 parcelas finalistas."
+        },
+        {
+          "name": "Cargas y titularidad",
+          "status": "pendiente",
+          "action": "Revisar con nota simple."
+        },
+        {
+          "name": "Deudas urbanización / comunidad",
+          "status": "pendiente",
+          "action": "Solicitar certificado a Ayuntamiento o entidad urbanística."
+        },
+        {
+          "name": "Suministros y acometidas",
+          "status": "pendiente",
+          "action": "Confirmar disponibilidad y costes."
+        },
+        {
+          "name": "Valor de referencia fiscal",
+          "status": "pendiente",
+          "action": "Consultar en Catastro antes de calcular impuestos."
+        }
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "7823217VK0072S",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 832.803,
+        "zMin": 649.912,
+        "zMax": 655.763,
+        "relief": 5.851,
+        "slope": 16.338,
+        "rmse": 0.432,
+        "downslopeAzimuth": 256.946,
+        "report": "assets/reports/zorzal-29-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG + QGIS. Preliminar."
+      }
+    }
   ],
   "house": {
-    "program": ["Vivienda de una planta", "100-120 m2 interiores", "Suite principal", "Habitación de invitados", "Despacho / estudio de sonido", "Garaje anexo para dos vehículos", "Trastero y sala de máquinas", "Porches amplios", "Jardín seco de bajo mantenimiento"],
+    "program": [
+      "Vivienda de una planta",
+      "100-120 m2 interiores",
+      "Suite principal",
+      "Habitación de invitados",
+      "Despacho / estudio de sonido",
+      "Garaje anexo para dos vehículos",
+      "Trastero y sala de máquinas",
+      "Porches amplios",
+      "Jardín seco de bajo mantenimiento"
+    ],
     "concept": "U ligera topográfica: bloque técnico alto en cota de calle y vivienda principal en plataforma inferior.",
     "systems": [
-      {"name":"Panelizado 2D industrializado","fit":"Muy alto","cost":"Medio","carbon":"Media","note":"Equilibrio entre coste, libertad formal y eficiencia."},
-      {"name":"Light steel frame","fit":"Muy alto","cost":"Medio-bajo","carbon":"Media","note":"Rápido y controlable si se detalla bien la envolvente."},
-      {"name":"SIP","fit":"Alto","cost":"Medio","carbon":"Media-baja","note":"Muy buen aislamiento; revisar acústica y flexibilidad."},
-      {"name":"Hormigón prefabricado","fit":"Medio","cost":"Medio-alto","carbon":"Alta","note":"Muy durable, pero puede tensionar presupuesto y transporte."},
-      {"name":"CLT / madera industrializada","fit":"Medio","cost":"Medio-alto","carbon":"Baja","note":"Muy interesante ambientalmente; proteger bien de humedad y fuego."}
+      {
+        "name": "Panelizado 2D industrializado",
+        "fit": "Muy alto",
+        "cost": "Medio",
+        "carbon": "Media",
+        "note": "Equilibrio entre coste, libertad formal y eficiencia."
+      },
+      {
+        "name": "Light steel frame",
+        "fit": "Muy alto",
+        "cost": "Medio-bajo",
+        "carbon": "Media",
+        "note": "Rápido y controlable si se detalla bien la envolvente."
+      },
+      {
+        "name": "SIP",
+        "fit": "Alto",
+        "cost": "Medio",
+        "carbon": "Media-baja",
+        "note": "Muy buen aislamiento; revisar acústica y flexibilidad."
+      },
+      {
+        "name": "Hormigón prefabricado",
+        "fit": "Medio",
+        "cost": "Medio-alto",
+        "carbon": "Alta",
+        "note": "Muy durable, pero puede tensionar presupuesto y transporte."
+      },
+      {
+        "name": "CLT / madera industrializada",
+        "fit": "Medio",
+        "cost": "Medio-alto",
+        "carbon": "Baja",
+        "note": "Muy interesante ambientalmente; proteger bien de humedad y fuego."
+      }
     ],
     "providers": [
-      {"name":"VME / VM Ecogroup","reference":"108,37 m2: 123.284,12 EUR + IVA; no llave en mano","risk":"Faltan proyecto, dirección, cimentación, climatización y otros conceptos."},
-      {"name":"Modular Home","reference":"MH 90 Prime: 156.315 EUR + paquete técnico mínimo 12.750 EUR + IVA","risk":"Cocina, exteriores, licencias, acometidas y personalizaciones a confirmar."},
-      {"name":"ROOM2030","reference":"Desde 2.300 EUR/m2","risk":"Excluye IVA, topográfico, geotécnico, visados/licencia, obra civil, urbanización y suministros."},
-      {"name":"EMSAMBLE","reference":"Desde 1.900 EUR/m2 + IVA; mínimo 120 m2","risk":"Solo vivienda ya puede tensionar el presupuesto total."}
+      {
+        "name": "VME / VM Ecogroup",
+        "reference": "108,37 m2: 123.284,12 EUR + IVA; no llave en mano",
+        "risk": "Faltan proyecto, dirección, cimentación, climatización y otros conceptos.",
+        "url": "https://viviendasvme.es/"
+      },
+      {
+        "name": "Modular Home",
+        "reference": "MH 90 Prime: 156.315 EUR + paquete técnico mínimo 12.750 EUR + IVA",
+        "risk": "Cocina, exteriores, licencias, acometidas y personalizaciones a confirmar.",
+        "url": "https://modularhome.es/"
+      },
+      {
+        "name": "ROOM2030",
+        "reference": "Desde 2.300 EUR/m2",
+        "risk": "Excluye IVA, topográfico, geotécnico, visados/licencia, obra civil, urbanización y suministros.",
+        "url": "https://www.room2030.com/"
+      },
+      {
+        "name": "EMSAMBLE",
+        "reference": "Desde 1.900 EUR/m2 + IVA; mínimo 120 m2",
+        "risk": "Solo vivienda ya puede tensionar el presupuesto total.",
+        "url": "https://emsamble.com/"
+      }
     ]
   },
   "documents": [
-    {"name":"Nota simple actualizada","status":"pendiente","action":"Pedir cuando queden 2-3 parcelas finalistas."},
-    {"name":"Cargas y titularidad","status":"pendiente","action":"Revisar con nota simple."},
-    {"name":"Deudas de urbanización","status":"pendiente","action":"Certificado de Ayuntamiento o entidad urbanística."},
-    {"name":"Situación registral/catastral","status":"pendiente","action":"Contrastar superficies y linderos."},
-    {"name":"Viabilidad constructiva","status":"pendiente","action":"Arquitecto + normativa + accesos."},
-    {"name":"Suministros y acometidas","status":"pendiente","action":"Confirmar disponibilidad y costes."},
-    {"name":"Acción de golf y cuotas","status":"pendiente","action":"Confirmar transmisión, atrasos y cuota."},
-    {"name":"Valor de referencia fiscal","status":"pendiente","action":"Consultar en Catastro antes de calcular impuestos."}
+    {
+      "name": "Nota simple actualizada",
+      "status": "pendiente",
+      "action": "Pedir cuando queden 2-3 parcelas finalistas."
+    },
+    {
+      "name": "Cargas y titularidad",
+      "status": "pendiente",
+      "action": "Revisar con nota simple."
+    },
+    {
+      "name": "Deudas de urbanización",
+      "status": "pendiente",
+      "action": "Certificado de Ayuntamiento o entidad urbanística."
+    },
+    {
+      "name": "Situación registral/catastral",
+      "status": "pendiente",
+      "action": "Contrastar superficies y linderos."
+    },
+    {
+      "name": "Viabilidad constructiva",
+      "status": "pendiente",
+      "action": "Arquitecto + normativa + accesos."
+    },
+    {
+      "name": "Suministros y acometidas",
+      "status": "pendiente",
+      "action": "Confirmar disponibilidad y costes."
+    },
+    {
+      "name": "Acción de golf y cuotas",
+      "status": "pendiente",
+      "action": "Confirmar transmisión, atrasos y cuota."
+    },
+    {
+      "name": "Valor de referencia fiscal",
+      "status": "pendiente",
+      "action": "Consultar en Catastro antes de calcular impuestos."
+    }
   ],
   "plan": [
-    {"phase":"Criba actual","state":"en curso","items":["Comparar parcelas con coste desfavorable","Usar topografía QGIS donde exista","No convertir etiquetas manuales en dato técnico"]},
-    {"phase":"Antes de señal o arras","state":"pendiente","items":["Nota simple","Urbanismo por escrito","Cargas, cuotas, suministros y valor de referencia","Visita técnica a finalistas"]},
-    {"phase":"Compra de parcela","state":"pendiente","items":["Negociación con escenario desfavorable","Reserva de 20.000 EUR intacta","Firma solo con documentación crítica revisada"]},
-    {"phase":"Anteproyecto","state":"pendiente","items":["Implantación adaptada a topografía real","Comparativa de sistemas constructivos","Presupuesto completo con obra civil"]},
-    {"phase":"Proyecto y obra","state":"pendiente","items":["Topográfico profesional","Geotécnico","Licencia e ICIO","Ejecución industrializada y control de desviaciones"]}
+    {
+      "phase": "Criba actual",
+      "state": "en curso",
+      "items": [
+        "Comparar parcelas con coste desfavorable",
+        "Usar topografía QGIS donde exista",
+        "No convertir etiquetas manuales en dato técnico"
+      ]
+    },
+    {
+      "phase": "Antes de señal o arras",
+      "state": "pendiente",
+      "items": [
+        "Nota simple",
+        "Urbanismo por escrito",
+        "Cargas, cuotas, suministros y valor de referencia",
+        "Visita técnica a finalistas"
+      ]
+    },
+    {
+      "phase": "Compra de parcela",
+      "state": "pendiente",
+      "items": [
+        "Negociación con escenario desfavorable",
+        "Reserva de 20.000 EUR intacta",
+        "Firma solo con documentación crítica revisada"
+      ]
+    },
+    {
+      "phase": "Anteproyecto",
+      "state": "pendiente",
+      "items": [
+        "Implantación adaptada a topografía real",
+        "Comparativa de sistemas constructivos",
+        "Presupuesto completo con obra civil"
+      ]
+    },
+    {
+      "phase": "Proyecto y obra",
+      "state": "pendiente",
+      "items": [
+        "Topográfico profesional",
+        "Geotécnico",
+        "Licencia e ICIO",
+        "Ejecución industrializada y control de desviaciones"
+      ]
+    }
   ]
 }
