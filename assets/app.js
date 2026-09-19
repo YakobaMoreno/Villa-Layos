@@ -7,10 +7,12 @@ const views = [
   ["topografia", "▱", "Topografía"],
   ["vivienda", "⌁", "Vivienda"],
   ["documentacion", "✓", "Documentación"],
-  ["plan", "↗", "Plan del proyecto"]
+  ["plan", "↗", "Plan del proyecto"],
+  ["ayuda", "?", "Ayuda"],
+  ["about", "i", "About"]
 ];
 
-const BUILD = "20260919-2";
+const BUILD = "20260919-3";
 const money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const num = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
 let DATA;
@@ -147,11 +149,13 @@ function renderResumen() {
 
 function renderParcelas() {
   $("#parcelas").innerHTML = `
-    ${header("Inventario", "Parcelas comparables", "Tabla filtrable con coste desfavorable, topografía QGIS, atributos de golf y estado documental.")}
-    <div class="toolbar">
-      <input id="parcelSearch" placeholder="Buscar parcela, vendedor, contacto o nota">
-      <select id="parcelStatus"><option value="">Todos los estados</option>${[...new Set(DATA.parcels.map((p) => p.status))].map((s) => `<option>${esc(s)}</option>`).join("")}</select>
-      <select id="parcelTopo"><option value="">Toda la topografía</option><option value="qgis">Con informe QGIS</option><option value="manual">Solo manual</option></select>
+    <div class="sticky-head">
+      ${header("Inventario", "Parcelas comparables", "Tabla filtrable con coste desfavorable, topografía QGIS, atributos de golf y estado documental.")}
+      <div class="toolbar">
+        <input id="parcelSearch" placeholder="Buscar parcela, vendedor, contacto o nota">
+        <select id="parcelStatus"><option value="">Todos los estados</option>${[...new Set(DATA.parcels.map((p) => p.status))].map((s) => `<option>${esc(s)}</option>`).join("")}</select>
+        <select id="parcelTopo"><option value="">Toda la topografía</option><option value="qgis">Con informe QGIS</option><option value="manual">Solo manual</option></select>
+      </div>
     </div>
     <div class="table-wrap"><table class="data-table parcel-table"><colgroup><col><col><col><col><col><col><col><col></colgroup><thead><tr>
       <th>Parcela</th><th class="num">Precio</th><th class="num">Total desf.</th><th class="num">€/m²</th><th>Pendiente</th><th>Golf</th><th>Vendedor</th><th>Estado</th>
@@ -214,7 +218,7 @@ function drawFicha() {
         ["Contacto", esc(p.contact || "Pendiente")],
         ["Vistas al golf", esc(p.golfViews)],
         ["Acción de golf", esc(p.golfShare || "No")],
-        ["Enlace", p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noreferrer">idealista</a>` : "Sin enlace en calculadora"]
+        ["Enlace", p.link ? pdfButton(p.link, "Idealista") : "Sin enlace en calculadora"]
       ])}</div>
       <div class="card">
         <h3>Topografía</h3>
@@ -239,10 +243,12 @@ function drawFicha() {
 
 function renderComparativa() {
   $("#comparativa").innerHTML = `
-    ${header("Modelo multicriterio", "Ranking configurable", "Puntuación transparente y prudente. Sirve para criba, no para decidir una compra sin documentación técnica y jurídica.")}
-    <div class="weight-grid">${Object.entries({ cost: "Coste", slope: "Pendiente", views: "Vistas", share: "Acción golf", direct: "Venta directa" }).map(([key, label]) => `
-      <div class="weight"><label><span>${label}</span><strong id="w-${key}">${weights[key]}</strong></label><input type="range" min="0" max="60" value="${weights[key]}" data-weight="${key}"></div>
-    `).join("")}</div>
+    <div class="sticky-head">
+      ${header("Modelo multicriterio", "Ranking configurable", "Puntuación transparente y prudente. Sirve para criba, no para decidir una compra sin documentación técnica y jurídica.")}
+      <div class="weight-grid">${Object.entries({ cost: "Coste", slope: "Pendiente", views: "Vistas", share: "Acción golf", direct: "Venta directa" }).map(([key, label]) => `
+        <div class="weight"><label><span>${label}</span><strong id="w-${key}">${weights[key]}</strong></label><input type="range" min="0" max="60" value="${weights[key]}" data-weight="${key}"></div>
+      `).join("")}</div>
+    </div>
     <div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>Parcela</th><th class="num">Puntos</th><th class="num">Coste</th><th class="num">Pendiente</th><th>Lectura</th></tr></thead><tbody id="rankingRows"></tbody></table></div>
     <p class="source">La pendiente usa métrica QGIS cuando existe. Si no existe, se usa una aproximación manual con menor confianza.</p>
   `;
@@ -293,8 +299,8 @@ function renderTopografia() {
   $("#topografia").innerHTML = `
     ${header("QGIS / MDT02", "Topografía real disponible", "Resumen de informes preliminares localizados. Las categorías se calculan desde pendiente, desnivel y cotas, no desde etiquetas manuales.")}
     <div class="notice notice-spaced">${esc(DATA.project.topographyDisclaimer)}</div>
-    <div class="card"><h3>Informes incorporados</h3><div class="metric">${withTopo.length}/${DATA.parcels.length}<small>PDF QGIS/MDT02 disponibles en esta versión</small></div></div>
-    <div class="grid cols-3">
+    <div class="card topo-summary"><h3>Informes incorporados</h3><div class="metric">${withTopo.length}/${DATA.parcels.length}<small>PDF QGIS/MDT02 disponibles en esta versión</small></div></div>
+    <div class="grid cols-3 topo-grid">
       ${withTopo.map((p) => stat(p.name, `${num.format(p.topography.slope)}%`, `${slopeClass(p.topography.slope)} · ${num.format(p.topography.relief)} m desnivel`)).join("")}
     </div>
     <div class="table-wrap"><table class="data-table"><thead><tr><th>Parcela</th><th class="num">Pendiente</th><th class="num">Desnivel</th><th class="num">Cotas</th><th class="num">RMSE</th><th>Informe</th></tr></thead><tbody>
@@ -311,7 +317,14 @@ function renderVivienda() {
       <div class="card"><h3>Programa funcional</h3><ul class="list">${DATA.house.program.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
     </div>
     <section class="section-gap"><div class="card"><h3>Sistemas constructivos</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Sistema</th><th>Encaje</th><th>Coste</th><th>Huella</th><th>Lectura</th></tr></thead><tbody>${DATA.house.systems.map((s) => `<tr><td><strong>${esc(s.name)}</strong></td><td>${esc(s.fit)}</td><td>${esc(s.cost)}</td><td>${esc(s.carbon)}</td><td>${esc(s.note)}</td></tr>`).join("")}</tbody></table></div></div></section>
-    <section class="section-gap"><div class="eyebrow">Empresas consultadas</div><div class="grid cols-2">${DATA.house.providers.map((p) => `<div class="card"><h3>${p.url ? `<a class="linked-title" href="${esc(p.url)}" target="_blank" rel="noreferrer">${esc(p.name)}</a>` : esc(p.name)}</h3><p><strong>${esc(p.reference)}</strong></p><p class="sub">${esc(p.risk)}</p></div>`).join("")}</div></section>
+    <section class="section-gap">
+      <div class="section-heading">
+        <div class="eyebrow">Empresas consultadas</div>
+        <h3>Proveedores de vivienda industrializada</h3>
+        <p>Referencias iniciales para contraste de precio, alcance incluido y riesgos de presupuesto.</p>
+      </div>
+      <div class="grid cols-2">${DATA.house.providers.map((p) => `<div class="card"><h3>${p.url ? `<a class="linked-title" href="${esc(p.url)}" target="_blank" rel="noreferrer">${esc(p.name)}</a>` : esc(p.name)}</h3><p><strong>${esc(p.reference)}</strong></p><p class="sub">${esc(p.risk)}</p></div>`).join("")}</div>
+    </section>
   `;
 }
 
@@ -345,9 +358,9 @@ function renderPlan() {
   const progress = planProgress();
   updatePlanProgress();
   $("#plan").innerHTML = `
-    ${header("Fases", "Timeline ticable del proyecto", "Marca cada hito completado. El avance se guarda en este navegador y alimenta la barra lateral del proyecto.")}
-    <div class="card"><h3>Avance del timeline</h3><div class="bar"><i style="width:${progress}%"></i></div><p class="source">${pct(progress)} completado</p></div>
-    <div class="timeline">${DATA.plan.map((phase, index) => {
+    ${header("Fases", "Timeline del proyecto", "Marca cada hito completado. El avance se guarda en este navegador y alimenta la barra lateral del proyecto.")}
+    <div class="progress-sticky"><div class="card"><h3>Avance del timeline</h3><div class="bar"><i style="width:${progress}%"></i></div><p class="source">${pct(progress)} completado</p></div></div>
+    <div class="timeline timeline-scroll">${DATA.plan.map((phase, index) => {
       const done = phase.items.filter((item) => localStorage.getItem(planStorageKey(phase.phase, item)) === "1").length;
       const state = done === phase.items.length ? "ok" : phase.state === "en curso" ? "info" : "warn";
       return `
@@ -370,6 +383,29 @@ function renderPlan() {
   }));
 }
 
+function renderAyuda() {
+  $("#ayuda").innerHTML = `
+    ${header("Manual", "Ayuda de la app", "Guía rápida para usar el panel sin perder el criterio económico, documental y técnico.")}
+    <div class="grid cols-2">
+      <div class="card"><h3>Lectura general</h3><ul class="list"><li>Resumen da la foto ejecutiva: mejor parcela, coste desfavorable, informes QGIS y reserva protegida.</li><li>Parcelas permite filtrar por estado, topografía y texto libre.</li><li>Ficha de parcela concentra enlace, costes, documentación y topografía de una parcela.</li></ul></div>
+      <div class="card"><h3>Decisión económica</h3><ul class="list"><li>Costes separa adquisición de parcela del resto del proyecto.</li><li>Comparativa permite ajustar pesos: coste, pendiente, vistas, acción de golf y venta directa.</li><li>El ranking es una criba, no una decisión de compra.</li></ul></div>
+      <div class="card"><h3>Documentación</h3><ul class="list"><li>Selecciona parcela y marca lo conseguido.</li><li>Los checks se guardan localmente en este navegador.</li><li>La barra lateral refleja el avance documental de la parcela activa.</li></ul></div>
+      <div class="card"><h3>Proyecto</h3><ul class="list"><li>Plan del proyecto es un timeline ticable.</li><li>El avance se guarda localmente y actualiza la barra lateral.</li><li>No adelantar pagos sin nota simple, cargas, urbanismo y visitas críticas.</li></ul></div>
+    </div>
+  `;
+}
+
+function renderAbout() {
+  $("#about").innerHTML = `
+    ${header("About", "Villa Layos", "Panel privado de análisis de parcela, topografía, documentación, costes y planificación.")}
+    <div class="grid cols-2">
+      <div class="card dark"><h3>Créditos</h3><div class="metric">Diseñado por Yakoba Moreno<small>en Codex</small></div></div>
+      <div class="card"><h3>Build</h3><div class="metric">${BUILD}<small>GitHub Pages</small></div></div>
+    </div>
+    <div class="card"><h3>Uso previsto</h3><p class="sub">Herramienta de criba y seguimiento. Los informes MDT02/QGIS son preliminares y no sustituyen levantamiento topográfico profesional, geotecnia, nota simple, urbanismo ni proyecto técnico.</p></div>
+  `;
+}
+
 async function init() {
   const response = await fetch(`data/project-data.json?v=${BUILD}`, { cache: "no-store" });
   DATA = await response.json();
@@ -383,6 +419,8 @@ async function init() {
   renderVivienda();
   renderDocumentacion();
   renderPlan();
+  renderAyuda();
+  renderAbout();
   updatePlanProgress();
   const hash = location.hash.replace("#", "");
   if (views.some(([id]) => id === hash)) openView(hash);
