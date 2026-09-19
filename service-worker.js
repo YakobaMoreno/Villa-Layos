@@ -1,4 +1,4 @@
-const CACHE = "villa-layos-v3";
+const CACHE = "villa-layos-v4";
 const ASSETS = [
   "./",
   "index.html",
@@ -37,5 +37,19 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  const url = new URL(event.request.url);
+  const networkFirst = event.request.mode === "navigate" || /\.(html|css|js|json)$/i.test(url.pathname);
+  if (networkFirst) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const clone = response.clone();
+          caches.open(CACHE).then((cache) => cache.put(event.request, clone));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
   event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)));
 });

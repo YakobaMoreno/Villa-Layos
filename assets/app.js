@@ -10,6 +10,7 @@ const views = [
   ["plan", "↗", "Plan del proyecto"]
 ];
 
+const BUILD = "20260919-2";
 const money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const num = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
 let DATA;
@@ -21,6 +22,7 @@ const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "
 const pct = (value) => `${Math.round(value)}%`;
 const slopeClass = (slope) => slope == null ? "Pendiente sin informe" : slope < 6 ? "Suave" : slope < 10 ? "Moderada" : "Alta";
 const docStorageKey = (parcelId, docName) => `villa-layos-doc:${parcelId}:${docName}`;
+const planStorageKey = (phase, item) => `villa-layos-plan:${phase}:${item}`;
 const slopeBadge = (parcel) => {
   if (!parcel.topography?.hasReport) return `<span class="badge warn">Manual</span>`;
   const cls = parcel.topography.slope < 6 ? "ok" : parcel.topography.slope < 10 ? "warn" : "bad";
@@ -28,6 +30,17 @@ const slopeBadge = (parcel) => {
 };
 const pdfButton = (href, label = "Abrir PDF") => `<a class="button-link" href="${encodeURI(href)}" target="_blank" rel="noreferrer">${label}</a>`;
 const reportCount = () => DATA.parcels.filter((p) => p.topography?.hasReport).length;
+const planItems = () => DATA.plan.flatMap((phase) => phase.items.map((item) => ({ phase: phase.phase, item })));
+const planProgress = () => {
+  const items = planItems();
+  if (!items.length) return 0;
+  return items.filter(({ phase, item }) => localStorage.getItem(planStorageKey(phase, item)) === "1").length / items.length * 100;
+};
+const updatePlanProgress = () => {
+  const progress = planProgress();
+  $("#planProgress").textContent = pct(progress);
+  $("#planProgressBar").style.width = pct(progress);
+};
 const acquisitionCost = (parcel) => {
   const a = DATA.costAssumptions;
   const formal = parcel.price * (1 + a.itp + a.notary + a.registry + a.contingency);
@@ -89,6 +102,7 @@ function openView(id) {
   $("#sidebar").classList.remove("open");
   $("#overlay").classList.remove("show");
   location.hash = id;
+  updatePlanProgress();
 }
 
 function renderResumen() {
@@ -127,7 +141,7 @@ function renderResumen() {
       `).join("")}</div>
       <p class="source">No es una certeza técnica: combina coste, pendiente, vistas, acción de golf y venta directa. Las parcelas sin informe QGIS usan solo clasificación manual penalizada.</p>
     </div>
-    <div class="notice">${esc(DATA.project.topographyDisclaimer)}</div>
+    <div class="notice notice-spaced">${esc(DATA.project.topographyDisclaimer)}</div>
   `;
 }
 
@@ -157,12 +171,12 @@ function drawParcelRows() {
   });
   $("#parcelRows").innerHTML = filtered.map((p) => `
     <tr>
-      <td><strong>${esc(p.name)}</strong><br><span class="source">${esc(p.note)}</span></td>
+      <td><strong>${esc(p.name)}</strong><span class="source parcel-note">${esc(p.note || "Sin nota adicional")}</span></td>
       <td class="num nowrap">${money.format(p.price)}</td>
       <td class="num nowrap">${money.format(acquisitionCost(p))}</td>
       <td class="num nowrap">${money.format(perM2(p))}</td>
-      <td class="compact-lines">${slopeBadge(p)}<br><span class="source nowrap">${p.topography.hasReport ? `${esc(slopeClass(p.topography.slope))}, ${num.format(p.topography.relief)} m` : esc(p.manualSlope)}</span></td>
-      <td class="compact-lines nowrap">Vistas: ${esc(p.golfViews)}<br><span class="source">Acción: ${esc(p.golfShare || "No")}</span></td>
+      <td class="compact-lines nowrap">${slopeBadge(p)} <span class="source">${p.topography.hasReport ? `${esc(slopeClass(p.topography.slope))} · ${num.format(p.topography.relief)} m` : esc(p.manualSlope)}</span></td>
+      <td class="compact-lines nowrap">Vista ${esc(p.golfViews)} · Acc. ${esc(p.golfShare || "No")}</td>
       <td class="compact-lines">${esc(p.seller)}<br><span class="source">${esc(p.contact || "Sin contacto")}</span></td>
       <td>${statusBadge(p.status)}</td>
     </tr>
@@ -177,7 +191,7 @@ function statusBadge(status) {
 function renderFicha() {
   $("#ficha").innerHTML = `
     ${header("Ficha individual", "Parcela, coste y riesgos", "Selector con datos económicos, topográficos, documentación disponible, riesgos y enlaces de origen.")}
-    <div class="toolbar"><select id="parcelSelect">${DATA.parcels.map((p) => `<option value="${p.id}">${esc(p.name)}</option>`).join("")}</select></div>
+    <div class="toolbar"><div class="selector-card"><label for="parcelSelect">Parcela</label><select id="parcelSelect">${DATA.parcels.map((p) => `<option value="${p.id}">${esc(p.name)}</option>`).join("")}</select></div></div>
     <div id="parcelCard"></div>
   `;
   $("#parcelSelect").addEventListener("change", drawFicha);
@@ -260,7 +274,7 @@ function renderCostes() {
   ];
   $("#costes").innerHTML = `
     ${header("Economía", "Coste completo antes de proyecto", "La calculadora separa adquisición de parcela de vivienda, licencia, obra civil, acometidas, urbanización y construcción.")}
-    <div class="toolbar"><select id="costParcelSelect">${DATA.parcels.map((p) => `<option value="${p.id}" ${p.id === selected.id ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</select></div>
+    <div class="toolbar"><div class="selector-card"><label for="costParcelSelect">Detalle de costes</label><select id="costParcelSelect">${DATA.parcels.map((p) => `<option value="${p.id}" ${p.id === selected.id ? "selected" : ""}>${esc(p.name)} · ${money.format(acquisitionCost(p))}</option>`).join("")}</select></div></div>
     <div class="grid cols-2">
       <div class="card dark"><h3>Parcela de referencia</h3><div class="metric">${esc(selected.name)}<small>${money.format(acquisitionCost(selected))} · escenario desfavorable</small></div></div>
       <div class="card"><h3>Regla de caja</h3><p class="sub">El fondo personal de ${money.format(DATA.project.reserveProtected)} no se consume en parcela, impuestos, técnicos, licencias, vivienda, urbanización, suministros ni desviaciones.</p></div>
@@ -278,7 +292,8 @@ function renderTopografia() {
   const withTopo = DATA.parcels.filter((p) => p.topography.hasReport).sort((a, b) => a.topography.slope - b.topography.slope);
   $("#topografia").innerHTML = `
     ${header("QGIS / MDT02", "Topografía real disponible", "Resumen de informes preliminares localizados. Las categorías se calculan desde pendiente, desnivel y cotas, no desde etiquetas manuales.")}
-    <div class="notice">${esc(DATA.project.topographyDisclaimer)}</div>
+    <div class="notice notice-spaced">${esc(DATA.project.topographyDisclaimer)}</div>
+    <div class="card"><h3>Informes incorporados</h3><div class="metric">${withTopo.length}/${DATA.parcels.length}<small>PDF QGIS/MDT02 disponibles en esta versión</small></div></div>
     <div class="grid cols-3">
       ${withTopo.map((p) => stat(p.name, `${num.format(p.topography.slope)}%`, `${slopeClass(p.topography.slope)} · ${num.format(p.topography.relief)} m desnivel`)).join("")}
     </div>
@@ -295,8 +310,8 @@ function renderVivienda() {
       <div class="card dark"><h3>Concepto activo</h3><p>${esc(DATA.house.concept)}</p></div>
       <div class="card"><h3>Programa funcional</h3><ul class="list">${DATA.house.program.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
     </div>
-    <div class="card"><h3>Sistemas constructivos</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Sistema</th><th>Encaje</th><th>Coste</th><th>Huella</th><th>Lectura</th></tr></thead><tbody>${DATA.house.systems.map((s) => `<tr><td><strong>${esc(s.name)}</strong></td><td>${esc(s.fit)}</td><td>${esc(s.cost)}</td><td>${esc(s.carbon)}</td><td>${esc(s.note)}</td></tr>`).join("")}</tbody></table></div></div>
-    <div class="grid cols-2 section-gap">${DATA.house.providers.map((p) => `<div class="card"><h3>${p.url ? `<a class="linked-title" href="${esc(p.url)}" target="_blank" rel="noreferrer">${esc(p.name)}</a>` : esc(p.name)}</h3><p><strong>${esc(p.reference)}</strong></p><p class="sub">${esc(p.risk)}</p></div>`).join("")}</div>
+    <section class="section-gap"><div class="card"><h3>Sistemas constructivos</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Sistema</th><th>Encaje</th><th>Coste</th><th>Huella</th><th>Lectura</th></tr></thead><tbody>${DATA.house.systems.map((s) => `<tr><td><strong>${esc(s.name)}</strong></td><td>${esc(s.fit)}</td><td>${esc(s.cost)}</td><td>${esc(s.carbon)}</td><td>${esc(s.note)}</td></tr>`).join("")}</tbody></table></div></div></section>
+    <section class="section-gap"><div class="eyebrow">Empresas consultadas</div><div class="grid cols-2">${DATA.house.providers.map((p) => `<div class="card"><h3>${p.url ? `<a class="linked-title" href="${esc(p.url)}" target="_blank" rel="noreferrer">${esc(p.name)}</a>` : esc(p.name)}</h3><p><strong>${esc(p.reference)}</strong></p><p class="sub">${esc(p.risk)}</p></div>`).join("")}</div></section>
   `;
 }
 
@@ -310,7 +325,8 @@ function renderDocumentacion() {
   $("#docProgressBar").style.width = pct(progress);
   $("#documentacion").innerHTML = `
     ${header("Checklist", "Documentación por parcela", "Selecciona una parcela y marca lo que ya esté conseguido. Los checks se guardan localmente en este navegador.")}
-    <div class="toolbar"><select id="docParcelSelect">${DATA.parcels.map((p) => `<option value="${p.id}" ${p.id === selected.id ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</select></div>
+    <div class="toolbar"><div class="selector-card"><label for="docParcelSelect">Parcela</label><select id="docParcelSelect">${DATA.parcels.map((p) => `<option value="${p.id}" ${p.id === selected.id ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</select></div></div>
+    <div class="card"><h3>Parcela seleccionada</h3><div class="metric">${esc(selected.name)}<small>${done}/${docs.length} documentos marcados como conseguidos</small></div></div>
     <div class="table-wrap"><table class="data-table doc-table"><colgroup><col><col><col></colgroup><thead><tr><th>Documento</th><th>Estado</th><th>Acción</th></tr></thead><tbody>${docs.map((d) => {
       const checked = d.status === "disponible" || localStorage.getItem(docStorageKey(selected.id, d.name)) === "1";
       const cls = checked ? "ok" : "warn";
@@ -326,16 +342,36 @@ function renderDocumentacion() {
 }
 
 function renderPlan() {
+  const progress = planProgress();
+  updatePlanProgress();
   $("#plan").innerHTML = `
-    ${header("Fases", "De criba a entrega de llaves", "Plan operativo con dependencias explícitas para no adelantar pagos sin evidencia suficiente.")}
-    <div class="grid cols-2">${DATA.plan.map((phase, index) => `
-      <div class="card phase-card"><span class="phase-num">${index + 1}</span><h3>${esc(phase.phase)}</h3><span class="badge ${phase.state === "en curso" ? "info" : "warn"}">${esc(phase.state)}</span><ul class="list">${phase.items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
-    `).join("")}</div>
+    ${header("Fases", "Timeline ticable del proyecto", "Marca cada hito completado. El avance se guarda en este navegador y alimenta la barra lateral del proyecto.")}
+    <div class="card"><h3>Avance del timeline</h3><div class="bar"><i style="width:${progress}%"></i></div><p class="source">${pct(progress)} completado</p></div>
+    <div class="timeline">${DATA.plan.map((phase, index) => {
+      const done = phase.items.filter((item) => localStorage.getItem(planStorageKey(phase.phase, item)) === "1").length;
+      const state = done === phase.items.length ? "ok" : phase.state === "en curso" ? "info" : "warn";
+      return `
+        <section class="timeline-phase">
+          <span class="timeline-num">${index + 1}</span>
+          <div class="card timeline-card">
+            <h3>${esc(phase.phase)}</h3>
+            <span class="badge ${state}">${done}/${phase.items.length}</span>
+            <div class="check-list">${phase.items.map((item) => {
+              const checked = localStorage.getItem(planStorageKey(phase.phase, item)) === "1";
+              return `<label class="check-item ${checked ? "done" : ""}"><input type="checkbox" data-phase="${esc(phase.phase)}" data-item="${esc(item)}" ${checked ? "checked" : ""}><strong>${esc(item)}</strong></label>`;
+            }).join("")}</div>
+          </div>
+        </section>`;
+    }).join("")}</div>
   `;
+  $$(".check-item input").forEach((box) => box.addEventListener("change", () => {
+    localStorage.setItem(planStorageKey(box.dataset.phase, box.dataset.item), box.checked ? "1" : "0");
+    renderPlan();
+  }));
 }
 
 async function init() {
-  const response = await fetch("data/project-data.json");
+  const response = await fetch(`data/project-data.json?v=${BUILD}`, { cache: "no-store" });
   DATA = await response.json();
   renderNav();
   renderResumen();
@@ -347,6 +383,7 @@ async function init() {
   renderVivienda();
   renderDocumentacion();
   renderPlan();
+  updatePlanProgress();
   const hash = location.hash.replace("#", "");
   if (views.some(([id]) => id === hash)) openView(hash);
   $("#menuButton").addEventListener("click", () => {
