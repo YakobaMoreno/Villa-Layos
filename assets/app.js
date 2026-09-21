@@ -13,7 +13,7 @@ const views = [
   ["about", "i", "About"]
 ];
 
-const BUILD = "20260921-1";
+const BUILD = "20260921-2";
 const money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const num = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
 let DATA;
@@ -108,8 +108,12 @@ const scoreParcels = () => {
   }).sort((a, b) => b.score - a.score);
 };
 
-function header(kicker, title, sub) {
+function headerContent(kicker, title, sub) {
   return `<div class="header"><div class="eyebrow">${kicker}</div><h2>${title}</h2><p class="sub">${sub}</p></div>`;
+}
+
+function header(kicker, title, sub, extra = "") {
+  return `<div class="sticky-head">${headerContent(kicker, title, sub)}${extra}</div>`;
 }
 
 function stat(label, value, hint = "") {
@@ -176,14 +180,13 @@ function renderResumen() {
 
 function renderParcelas() {
   $("#parcelas").innerHTML = `
-    <div class="sticky-head">
-      ${header("Inventario", "Parcelas comparables", "Tabla filtrable con coste desfavorable, topografía QGIS, atributos de golf y estado documental.")}
-      <div class="toolbar">
+    ${header("Inventario", "Parcelas comparables", "Tabla filtrable con coste desfavorable, topografía QGIS, atributos de golf y estado documental.", `
+      <div class="toolbar sticky-toolbar">
         <input id="parcelSearch" placeholder="Buscar parcela, vendedor, contacto o nota">
         <select id="parcelStatus"><option value="">Todos los estados</option>${[...new Set(DATA.parcels.map((p) => p.status))].map((s) => `<option>${esc(s)}</option>`).join("")}</select>
         <select id="parcelTopo"><option value="">Toda la topografía</option><option value="qgis">Con informe QGIS</option><option value="manual">Solo manual</option></select>
       </div>
-    </div>
+    `)}
     <div class="table-wrap"><table class="data-table parcel-table"><colgroup><col><col><col><col><col><col><col><col></colgroup><thead><tr>
       <th>Parcela</th><th class="num">Precio</th><th class="num">Total desf.</th><th class="num">€/m²</th><th>Pendiente</th><th>Golf</th><th>Vendedor</th><th>Estado</th>
     </tr></thead><tbody id="parcelRows"></tbody></table></div>
@@ -270,12 +273,11 @@ function drawFicha() {
 
 function renderComparativa() {
   $("#comparativa").innerHTML = `
-    <div class="sticky-head">
-      ${header("Modelo multicriterio", "Ranking configurable", "Puntuación transparente y prudente. Sirve para criba, no para decidir una compra sin documentación técnica y jurídica.")}
+    ${header("Modelo multicriterio", "Ranking configurable", "Puntuación transparente y prudente. Sirve para criba, no para decidir una compra sin documentación técnica y jurídica.", `
       <div class="weight-grid">${Object.entries({ cost: "Coste", slope: "Pendiente", views: "Vistas", share: "Acción golf", direct: "Venta directa" }).map(([key, label]) => `
         <div class="weight"><label><span>${label}</span><strong id="w-${key}">${weights[key]}</strong></label><input type="range" min="0" max="60" value="${weights[key]}" data-weight="${key}"></div>
       `).join("")}</div>
-    </div>
+    `)}
     <div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>Parcela</th><th class="num">Puntos</th><th class="num">Coste</th><th class="num">Pendiente</th><th>Lectura</th></tr></thead><tbody id="rankingRows"></tbody></table></div>
     <p class="source">La pendiente usa métrica QGIS cuando existe. Si no existe, se usa una aproximación manual con menor confianza.</p>
   `;
