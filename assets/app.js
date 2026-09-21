@@ -6,13 +6,14 @@ const views = [
   ["costes", "€", "Costes"],
   ["topografia", "▱", "Topografía"],
   ["vivienda", "⌁", "Vivienda"],
+  ["simulador", "◈", "Simulador"],
   ["documentacion", "✓", "Documentación"],
   ["plan", "↗", "Plan del proyecto"],
   ["ayuda", "?", "Ayuda"],
   ["about", "i", "About"]
 ];
 
-const BUILD = "20260919-3";
+const BUILD = "20260921-1";
 const money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const num = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
 let DATA;
@@ -32,6 +33,32 @@ const slopeBadge = (parcel) => {
 };
 const pdfButton = (href, label = "Abrir PDF") => `<a class="button-link" href="${encodeURI(href)}" target="_blank" rel="noreferrer">${label}</a>`;
 const reportCount = () => DATA.parcels.filter((p) => p.topography?.hasReport).length;
+const houseCatalog = () => DATA.house.catalog || [];
+const housePriceWithVat = (house) => {
+  if (!house || house.price == null) return null;
+  if (house.vatIncluded === false) return Math.round(house.price * (1 + DATA.house.simulatorAssumptions.vat));
+  return Math.round(house.price);
+};
+const simulationTotals = (parcel, house) => {
+  const a = DATA.house.simulatorAssumptions;
+  const parcelReady = acquisitionCost(parcel);
+  const houseReady = housePriceWithVat(house);
+  if (houseReady == null) return null;
+  const permit = Math.round(houseReady * a.licenseIcioRate);
+  const beforeContingency = parcelReady + houseReady + permit + a.civilWorks + a.utilityConnections + a.externalWorks + a.technicalExtras;
+  const contingency = Math.round(beforeContingency * a.contingencyRate);
+  return {
+    parcelReady,
+    houseReady,
+    permit,
+    civilWorks: a.civilWorks,
+    utilityConnections: a.utilityConnections,
+    externalWorks: a.externalWorks,
+    technicalExtras: a.technicalExtras,
+    contingency,
+    total: beforeContingency + contingency
+  };
+};
 const planItems = () => DATA.plan.flatMap((phase) => phase.items.map((item) => ({ phase: phase.phase, item })));
 const planProgress = () => {
   const items = planItems();
@@ -310,6 +337,9 @@ function renderTopografia() {
 }
 
 function renderVivienda() {
+  const catalog = houseCatalog();
+  const priced = catalog.filter((item) => item.price != null);
+  const noPrice = catalog.length - priced.length;
   $("#vivienda").innerHTML = `
     ${header("Programa", "Vivienda industrializada de bajo mantenimiento", "Concepto actual: vivienda de una planta, 100-120 m2, bloque técnico alto y plataforma residencial inferior cuando la parcela lo pida.")}
     <div class="grid cols-2">
@@ -325,7 +355,65 @@ function renderVivienda() {
       </div>
       <div class="grid cols-2">${DATA.house.providers.map((p) => `<div class="card"><h3>${p.url ? `<a class="linked-title" href="${esc(p.url)}" target="_blank" rel="noreferrer">${esc(p.name)}</a>` : esc(p.name)}</h3><p><strong>${esc(p.reference)}</strong></p><p class="sub">${esc(p.risk)}</p></div>`).join("")}</div>
     </section>
+    <section class="section-gap">
+      <div class="section-heading">
+        <div class="eyebrow">Catálogo y precios</div>
+        <h3>Modelos con precio localizados</h3>
+        <p>${priced.length} referencias con precio y ${noPrice} referencias pendientes de presupuesto. Los precios no son equivalentes entre empresas: cada una incluye y excluye capítulos distintos.</p>
+      </div>
+      <div class="table-wrap"><table class="data-table house-table"><thead><tr><th>Empresa / modelo</th><th class="num">Sup.</th><th class="num">Precio web</th><th>Incluye</th><th>Riesgo</th><th>Web</th></tr></thead><tbody>
+        ${catalog.map((item) => `<tr><td><strong>${esc(item.provider)}</strong><br><span class="source">${esc(item.model)} · ${esc(item.fit)} · confianza ${esc(item.confidence)}</span></td><td class="num nowrap">${item.area ? `${num.format(item.area)} m²` : "—"}</td><td class="num nowrap">${esc(item.priceLabel)}</td><td>${esc(item.included)}</td><td>${esc(item.excluded)}</td><td>${pdfButton(item.url, "Web")}</td></tr>`).join("")}
+      </tbody></table></div>
+    </section>
   `;
+}
+
+function renderSimulador() {
+  const catalog = houseCatalog();
+  const priced = catalog.filter((item) => item.price != null);
+  const defaultParcel = scoreParcels()[0]?.parcel || DATA.parcels[0];
+  const selectedParcelId = $("#simParcelSelect")?.value || defaultParcel.id;
+  const selectedHouseId = $("#simHouseSelect")?.value || (priced.find((item) => item.fit === "objetivo") || priced[0])?.id;
+  const parcel = DATA.parcels.find((p) => p.id === selectedParcelId) || defaultParcel;
+  const house = catalog.find((item) => item.id === selectedHouseId) || priced[0];
+  const totals = simulationTotals(parcel, house);
+  const overBudget = totals ? totals.total - DATA.house.simulatorAssumptions.budgetReference : 0;
+  $("#simulador").innerHTML = `
+    ${header("Escenarios", "Simulador parcela + vivienda", "Cruza una parcela con un modelo de vivienda prefabricada para estimar el coste completo antes de decidir. Es una criba económica, no un presupuesto cerrado.")}
+    <div class="toolbar">
+      <div class="selector-card"><label for="simParcelSelect">Parcela</label><select id="simParcelSelect">${DATA.parcels.map((p) => `<option value="${p.id}" ${p.id === parcel.id ? "selected" : ""}>${esc(p.name)} · ${money.format(acquisitionCost(p))}</option>`).join("")}</select></div>
+      <div class="selector-card"><label for="simHouseSelect">Vivienda</label><select id="simHouseSelect">${catalog.map((item) => `<option value="${item.id}" ${item.id === house.id ? "selected" : ""} ${item.price == null ? "disabled" : ""}>${esc(item.provider)} · ${esc(item.model)} · ${esc(item.priceLabel)}</option>`).join("")}</select></div>
+    </div>
+    ${totals ? `
+      <div class="grid cols-4">
+        ${stat("Parcela lista", money.format(totals.parcelReady), parcel.name)}
+        ${stat("Vivienda ajustada", money.format(totals.houseReady), house.vatIncluded === false ? "IVA 10% añadido" : "según precio web")}
+        ${stat("Estimación completa", money.format(totals.total), overBudget > 0 ? `+${money.format(overBudget)} sobre ref.` : `${money.format(Math.abs(overBudget))} bajo ref.`)}
+        ${stat("Referencia presupuesto", money.format(DATA.house.simulatorAssumptions.budgetReference), "vivienda")}
+      </div>
+      <div class="grid cols-2">
+        <div class="card dark"><h3>Combinación activa</h3><div class="metric">${esc(parcel.name)}<small>${esc(house.provider)} · ${esc(house.model)} · ${num.format(house.area)} m²</small></div></div>
+        <div class="card"><h3>Lectura</h3><p class="sub">${overBudget > 0 ? "Escenario tensionado: pide precio cerrado antes de avanzar y busca reducir alcance, parcela o capítulos exteriores." : "Escenario dentro de referencia preliminar, pendiente de presupuesto real, normativa y capítulos excluidos."}</p></div>
+      </div>
+      <div class="grid cols-2">
+        <div class="card"><h3>Desglose estimado</h3>${rows([
+          ["Parcela lista para proyecto", money.format(totals.parcelReady)],
+          ["Vivienda / fabricación ajustada", money.format(totals.houseReady)],
+          ["Licencia + ICIO aproximado", money.format(totals.permit)],
+          ["Cimentación / obra civil", money.format(totals.civilWorks)],
+          ["Acometidas y suministros", money.format(totals.utilityConnections)],
+          ["Exteriores mínimos", money.format(totals.externalWorks)],
+          ["Técnicos y estudios extra", money.format(totals.technicalExtras)],
+          ["Contingencia 10%", money.format(totals.contingency)],
+          ["Total orientativo", money.format(totals.total)]
+        ])}</div>
+        <div class="card"><h3>Incluido / pendiente</h3><p><strong>${esc(house.priceLabel)}</strong></p><p class="sub">${esc(house.included)}</p><p class="source">${esc(house.excluded)}</p><p>${pdfButton(house.url, "Abrir web")}</p></div>
+      </div>
+    ` : `<div class="notice">Esta vivienda no tiene precio publicado suficiente para simular. Pide presupuesto cerrado y vuelve a cargarlo como referencia.</div>`}
+    <div class="notice">Regla prudente: el simulador suma colchones de licencia/ICIO, cimentación, acometidas, exteriores, técnicos y contingencia. No sustituye presupuesto de empresa, arquitecto, geotécnico ni urbanismo.</div>
+  `;
+  $("#simParcelSelect").addEventListener("change", renderSimulador);
+  $("#simHouseSelect").addEventListener("change", renderSimulador);
 }
 
 function renderDocumentacion() {
@@ -388,7 +476,7 @@ function renderAyuda() {
     ${header("Manual", "Ayuda de la app", "Guía rápida para usar el panel sin perder el criterio económico, documental y técnico.")}
     <div class="grid cols-2">
       <div class="card"><h3>Lectura general</h3><ul class="list"><li>Resumen da la foto ejecutiva: mejor parcela, coste desfavorable, informes QGIS y reserva protegida.</li><li>Parcelas permite filtrar por estado, topografía y texto libre.</li><li>Ficha de parcela concentra enlace, costes, documentación y topografía de una parcela.</li></ul></div>
-      <div class="card"><h3>Decisión económica</h3><ul class="list"><li>Costes separa adquisición de parcela del resto del proyecto.</li><li>Comparativa permite ajustar pesos: coste, pendiente, vistas, acción de golf y venta directa.</li><li>El ranking es una criba, no una decisión de compra.</li></ul></div>
+      <div class="card"><h3>Decisión económica</h3><ul class="list"><li>Costes separa adquisición de parcela del resto del proyecto.</li><li>Comparativa permite ajustar pesos: coste, pendiente, vistas, acción de golf y venta directa.</li><li>Simulador cruza una parcela con una vivienda y añade colchones prudentes de obra, licencia, acometidas y contingencia.</li><li>El ranking es una criba, no una decisión de compra.</li></ul></div>
       <div class="card"><h3>Documentación</h3><ul class="list"><li>Selecciona parcela y marca lo conseguido.</li><li>Los checks se guardan localmente en este navegador.</li><li>La barra lateral refleja el avance documental de la parcela activa.</li></ul></div>
       <div class="card"><h3>Proyecto</h3><ul class="list"><li>Plan del proyecto es un timeline ticable.</li><li>El avance se guarda localmente y actualiza la barra lateral.</li><li>No adelantar pagos sin nota simple, cargas, urbanismo y visitas críticas.</li></ul></div>
     </div>
@@ -417,6 +505,7 @@ async function init() {
   renderCostes();
   renderTopografia();
   renderVivienda();
+  renderSimulador();
   renderDocumentacion();
   renderPlan();
   renderAyuda();

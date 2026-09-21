@@ -183,6 +183,7 @@ select { min-width: 180px; }
 
 .table-wrap { width: 100%; min-width: 0; overflow: auto; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.72); margin-bottom: 20px; }
 table { width: 100%; border-collapse: collapse; min-width: 880px; }
+.house-table { min-width: 1160px; }
 th, td { padding: 12px 13px; border-bottom: 1px solid var(--line); text-align: left; font-size: 13px; vertical-align: top; }
 th { position: sticky; top: 0; background: #f9f7f1; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; z-index: 1; }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
@@ -217,6 +218,18 @@ a:hover { text-decoration: underline; }
   background: rgba(50,103,168,.14);
   text-decoration: none;
 }
+
+.selector-card label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.selector-card select { min-width: 260px; }
 
 .weight-grid { display: grid; grid-template-columns: repeat(5, minmax(120px, 1fr)); gap: 10px; margin-bottom: 12px; }
 .weight { padding: 12px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.72); }
