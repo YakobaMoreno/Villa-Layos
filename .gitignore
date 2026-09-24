@@ -1,4 +1,5 @@
 .DS_Store
+Temp/
 
 # Datos catastrales brutos descargados localmente.
 # Pueden contener documentos oficiales, referencias y datos personales.

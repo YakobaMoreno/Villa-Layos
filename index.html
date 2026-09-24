@@ -7,7 +7,7 @@
   <title>Villa Layos · Panel de proyecto</title>
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="assets/app.css?v=20260921-2">
+  <link rel="stylesheet" href="assets/app.css?v=20260924-1">
 </head>
 <body>
   <aside class="sidebar" id="sidebar">
@@ -15,7 +15,6 @@
       <div class="brand-kicker">Layos Golf · Toledo</div>
       <h1>Villa Layos</h1>
       <p>Parcela, viabilidad, topografía y vivienda industrializada.</p>
-      <span class="pill">Escenario desfavorable</span>
     </div>
     <nav class="nav" id="nav"></nav>
     <footer>
@@ -28,13 +27,14 @@
   </aside>
 
   <div class="mobilebar">
-    <button id="menuButton" aria-label="Abrir navegación">☰</button>
-    <strong>Villa Layos</strong>
+    <button class="hamburger" id="menuButton" type="button" aria-label="Abrir navegación"><span></span><span></span><span></span></button>
+    <strong id="mobileTitle">Inicio</strong>
   </div>
   <div class="overlay" id="overlay"></div>
 
   <main class="content">
-    <section class="view active" id="resumen"></section>
+    <section class="view active" id="inicio"></section>
+    <section class="view" id="resumen"></section>
     <section class="view" id="parcelas"></section>
     <section class="view" id="ficha"></section>
     <section class="view" id="comparativa"></section>
@@ -48,6 +48,6 @@
     <section class="view" id="about"></section>
   </main>
 
-  <script src="assets/app.js?v=20260921-2"></script>
+  <script src="assets/app.js?v=20260924-1"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 const views = [
+  ["inicio", "⌂", "Inicio"],
   ["resumen", "⌂", "Resumen"],
   ["parcelas", "▤", "Parcelas"],
   ["ficha", "◫", "Ficha de parcela"],
@@ -13,7 +14,7 @@ const views = [
   ["about", "i", "About"]
 ];
 
-const BUILD = "20260921-2";
+const BUILD = "20260924-1";
 const money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const num = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
 let DATA;
@@ -26,6 +27,13 @@ const pct = (value) => `${Math.round(value)}%`;
 const slopeClass = (slope) => slope == null ? "Pendiente sin informe" : slope < 6 ? "Suave" : slope < 10 ? "Moderada" : "Alta";
 const docStorageKey = (parcelId, docName) => `villa-layos-doc:${parcelId}:${docName}`;
 const planStorageKey = (phase, item) => `villa-layos-plan:${phase}:${item}`;
+const simStorageKey = (field) => `villa-layos-sim:${field}`;
+const simulationSelection = () => {
+  const parcel = DATA.parcels.find((item) => item.id === localStorage.getItem(simStorageKey("parcel"))) || scoreParcels()[0].parcel;
+  const priced = houseCatalog().filter((item) => item.price != null);
+  const house = priced.find((item) => item.id === localStorage.getItem(simStorageKey("house"))) || priced.find((item) => item.fit === "objetivo") || priced[0];
+  return { parcel, house };
+};
 const slopeBadge = (parcel) => {
   if (!parcel.topography?.hasReport) return `<span class="badge warn">Manual</span>`;
   const cls = parcel.topography.slope < 6 ? "ok" : parcel.topography.slope < 10 ? "warn" : "bad";
@@ -125,17 +133,63 @@ function rows(items) {
 }
 
 function renderNav() {
-  $("#nav").innerHTML = views.map(([id, icon, label]) => `<button data-view="${id}" class="${id === "resumen" ? "active" : ""}"><span class="icon">${icon}</span>${label}</button>`).join("");
+  $("#nav").innerHTML = views.map(([id, icon, label]) => `<button data-view="${id}" class="${id === "inicio" ? "active" : ""}"><span class="icon">${icon}</span>${label}</button>`).join("");
   $$("#nav button").forEach((button) => button.addEventListener("click", () => openView(button.dataset.view)));
 }
 
-function openView(id) {
+function openView(id, options = {}) {
+  if (id === "inicio") renderInicio();
+  if (id === "simulador") renderSimulador();
   $$(".view").forEach((view) => view.classList.toggle("active", view.id === id));
   $$("#nav button").forEach((button) => button.classList.toggle("active", button.dataset.view === id));
+  const active = views.find(([viewId]) => viewId === id);
+  $("#mobileTitle").textContent = active ? active[2] : "Villa Layos";
   $("#sidebar").classList.remove("open");
+  $("#menuButton").classList.remove("open");
   $("#overlay").classList.remove("show");
-  location.hash = id;
+  if (!options.preserveScroll) window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  if (location.hash !== `#${id}`) history.replaceState(null, "", `#${id}`);
   updatePlanProgress();
+}
+
+function renderInicio() {
+  const { parcel, house } = simulationSelection();
+  const totals = simulationTotals(parcel, house);
+  const budget = DATA.house.simulatorAssumptions.budgetReference;
+  const difference = totals ? budget - totals.total : null;
+  const currentPhase = DATA.plan.find((phase) => phase.items.some((item) => localStorage.getItem(planStorageKey(phase.phase, item)) !== "1"));
+  $("#inicio").innerHTML = `
+    <section class="home-layout">
+      <div class="home-cover">
+        <img src="assets/foto%20inicio.jpg" alt="Inspiración visual para la casa definitiva en Villa Layos">
+        <div class="home-shade"></div>
+        <div class="home-copy">
+          <div class="eyebrow">Villa Layos · Casa definitiva</div>
+          <h2>Una vivienda<br>con calma</h2>
+          <p>Un proyecto para convertir una parcela bien elegida en una vivienda serena, eficiente y preparada para vivir muchos años con calma.</p>
+          <button class="home-cta" type="button" data-go="resumen">Ver resumen del proyecto</button>
+        </div>
+      </div>
+      <div class="home-panel">
+        <div class="section-heading">
+          <div class="eyebrow">Estado vivo</div>
+          <h3>El proyecto de un vistazo</h3>
+          <p>Combinación actual · escenario desfavorable estimado</p>
+        </div>
+        <div class="home-facts">
+          <div><strong>${esc(parcel.name)}</strong><span>Parcela seleccionada</span></div>
+          <div><strong>${money.format(acquisitionCost(parcel))}</strong><span>Parcela lista para proyecto · adquisición, impuestos y gastos</span></div>
+          <div><strong>${house ? `${esc(house.provider)} · ${esc(house.model)}` : "Pendiente de elegir"}</strong><span>Vivienda seleccionada</span></div>
+          <div><strong>${totals ? money.format(totals.houseReady) : "Sin precio"}</strong><span>Precio vivienda de referencia · ${house?.vatIncluded === false ? "IVA incluido en el cálculo" : house?.vatIncluded === true ? "IVA incluido" : "IVA pendiente de confirmar"}</span></div>
+          <div><strong>${totals ? money.format(totals.total) : "Pendiente de precio"}</strong><span>Total desfavorable estimado · parcela, vivienda, obra, trámites, impuestos y contingencia</span></div>
+          <div><strong>${money.format(budget)}</strong><span>Presupuesto de referencia</span></div>
+          <div class="${difference == null ? "" : difference < 0 ? "budget-over" : "budget-within"}"><strong>${difference == null ? "Pendiente de precio" : money.format(Math.abs(difference))}</strong><span>${difference == null ? "Diferencia frente al presupuesto" : difference < 0 ? "Exceso sobre el presupuesto" : difference > 0 ? "Margen a favor del presupuesto" : "Presupuesto ajustado sin margen"}</span></div>
+          <div><strong>${esc(currentPhase?.phase || "Timeline completado")}</strong><span>Estado de decisión actual · ${pct(planProgress())} del plan completado</span></div>
+        </div>
+      </div>
+    </section>
+  `;
+  $("#inicio [data-go]").addEventListener("click", (event) => openView(event.currentTarget.dataset.go));
 }
 
 function renderResumen() {
@@ -143,7 +197,7 @@ function renderResumen() {
   const best = ranked[0].parcel;
   const qgisCount = reportCount();
   $("#resumen").innerHTML = `
-    ${header("Control general", "Decidir parcela sin romper la viabilidad", "Panel estático con datos trazables de parcelas, costes, topografía preliminar, documentación pendiente y estrategia de vivienda.")}
+    ${header("Resumen", "De parcela candidata a casa definitiva", "Vista de inicio a fin: elegir bien el terreno, cerrar documentación crítica, contrastar vivienda industrializada y avanzar sin comprometer la reserva personal.")}
     <div class="grid cols-4">
       ${stat("Parcela mejor posicionada", esc(best.name), `${pct(ranked[0].score)}`)}
       ${stat("Coste desfavorable", money.format(acquisitionCost(best)), `${money.format(perM2(best))}/m²`)}
@@ -158,14 +212,20 @@ function renderResumen() {
         <div class="row"><span>Presupuesto vivienda</span><strong>${money.format(DATA.project.budgetLimit)}</strong></div>
       </div>
       <div class="card">
-        <h3>Próximos pasos críticos</h3>
+        <h3>Camino completo</h3>
         <ul class="list">
-          <li>Reducir a 2-3 finalistas con coste desfavorable y topografía real.</li>
-          <li>Pedir nota simple, cargas, cuotas, valor de referencia y urbanismo por escrito.</li>
-          <li>Visita técnica antes de señal o arras.</li>
-          <li>No usar el fondo personal de 20.000 EUR como colchón del proyecto.</li>
+          <li>Cribar parcelas con coste desfavorable, topografía real y venta documentada.</li>
+          <li>Cerrar nota simple, cargas, cuotas, urbanismo y valor de referencia antes de señal.</li>
+          <li>Simular parcela + vivienda para detectar escenarios que tensionen el presupuesto.</li>
+          <li>Pasar a proyecto técnico sólo con parcela finalista, vivienda compatible y reserva intacta.</li>
         </ul>
       </div>
+    </div>
+    <div class="grid cols-4">
+      ${stat("1 · Parcela", "Criba", "coste + QGIS")}
+      ${stat("2 · Seguridad", "Docs", "jurídico + urbanismo")}
+      ${stat("3 · Vivienda", "Modelo", "catálogo + presupuesto")}
+      ${stat("4 · Proyecto", "Ejecución", "sin consumir reserva")}
     </div>
     <div class="card">
       <h3>Ranking preliminar explicable</h3>
@@ -372,19 +432,14 @@ function renderVivienda() {
 
 function renderSimulador() {
   const catalog = houseCatalog();
-  const priced = catalog.filter((item) => item.price != null);
-  const defaultParcel = scoreParcels()[0]?.parcel || DATA.parcels[0];
-  const selectedParcelId = $("#simParcelSelect")?.value || defaultParcel.id;
-  const selectedHouseId = $("#simHouseSelect")?.value || (priced.find((item) => item.fit === "objetivo") || priced[0])?.id;
-  const parcel = DATA.parcels.find((p) => p.id === selectedParcelId) || defaultParcel;
-  const house = catalog.find((item) => item.id === selectedHouseId) || priced[0];
+  const { parcel, house } = simulationSelection();
   const totals = simulationTotals(parcel, house);
   const overBudget = totals ? totals.total - DATA.house.simulatorAssumptions.budgetReference : 0;
   $("#simulador").innerHTML = `
     ${header("Escenarios", "Simulador parcela + vivienda", "Cruza una parcela con un modelo de vivienda prefabricada para estimar el coste completo antes de decidir. Es una criba económica, no un presupuesto cerrado.")}
     <div class="toolbar">
       <div class="selector-card"><label for="simParcelSelect">Parcela</label><select id="simParcelSelect">${DATA.parcels.map((p) => `<option value="${p.id}" ${p.id === parcel.id ? "selected" : ""}>${esc(p.name)} · ${money.format(acquisitionCost(p))}</option>`).join("")}</select></div>
-      <div class="selector-card"><label for="simHouseSelect">Vivienda</label><select id="simHouseSelect">${catalog.map((item) => `<option value="${item.id}" ${item.id === house.id ? "selected" : ""} ${item.price == null ? "disabled" : ""}>${esc(item.provider)} · ${esc(item.model)} · ${esc(item.priceLabel)}</option>`).join("")}</select></div>
+      <div class="selector-card"><label for="simHouseSelect">Vivienda</label><select id="simHouseSelect">${catalog.map((item) => `<option value="${item.id}" ${item.id === house?.id ? "selected" : ""} ${item.price == null ? "disabled" : ""}>${esc(item.provider)} · ${esc(item.model)} · ${esc(item.priceLabel)}</option>`).join("")}</select></div>
     </div>
     ${totals ? `
       <div class="grid cols-4">
@@ -414,8 +469,16 @@ function renderSimulador() {
     ` : `<div class="notice">Esta vivienda no tiene precio publicado suficiente para simular. Pide presupuesto cerrado y vuelve a cargarlo como referencia.</div>`}
     <div class="notice">Regla prudente: el simulador suma colchones de licencia/ICIO, cimentación, acometidas, exteriores, técnicos y contingencia. No sustituye presupuesto de empresa, arquitecto, geotécnico ni urbanismo.</div>
   `;
-  $("#simParcelSelect").addEventListener("change", renderSimulador);
-  $("#simHouseSelect").addEventListener("change", renderSimulador);
+  $("#simParcelSelect").addEventListener("change", (event) => {
+    localStorage.setItem(simStorageKey("parcel"), event.target.value);
+    renderSimulador();
+    renderInicio();
+  });
+  $("#simHouseSelect").addEventListener("change", (event) => {
+    localStorage.setItem(simStorageKey("house"), event.target.value);
+    renderSimulador();
+    renderInicio();
+  });
 }
 
 function renderDocumentacion() {
@@ -500,6 +563,7 @@ async function init() {
   const response = await fetch(`data/project-data.json?v=${BUILD}`, { cache: "no-store" });
   DATA = await response.json();
   renderNav();
+  renderInicio();
   renderResumen();
   renderParcelas();
   renderFicha();
@@ -515,12 +579,15 @@ async function init() {
   updatePlanProgress();
   const hash = location.hash.replace("#", "");
   if (views.some(([id]) => id === hash)) openView(hash);
+  else history.replaceState(null, "", "#inicio");
   $("#menuButton").addEventListener("click", () => {
-    $("#sidebar").classList.add("open");
-    $("#overlay").classList.add("show");
+    const isOpen = $("#sidebar").classList.toggle("open");
+    $("#menuButton").classList.toggle("open", isOpen);
+    $("#overlay").classList.toggle("show", isOpen);
   });
   $("#overlay").addEventListener("click", () => {
     $("#sidebar").classList.remove("open");
+    $("#menuButton").classList.remove("open");
     $("#overlay").classList.remove("show");
   });
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
