@@ -4,5 +4,11 @@ Temp/
 # Datos catastrales brutos descargados localmente.
 # Pueden contener documentos oficiales, referencias y datos personales.
 Catastro/
+Fiscal/
+Parcelas/
+Proveedores/
+outputs/
+scripts/__pycache__/
+symbology-style.db
 
 tmp/

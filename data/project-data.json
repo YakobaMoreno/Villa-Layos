@@ -15,7 +15,12 @@
     "docs/03-presupuesto-preliminar.md",
     "docs/04-sistemas-constructivos.md",
     "docs/11-concepto-actual-vivienda-unifamiliar.md",
-    "docs/12-radiografia-patrimonial-y-viabilidad.md"
+    "docs/12-radiografia-patrimonial-y-viabilidad.md",
+    "Calculadoras/Plantilla Presupuestos Villa Layos V4.xlsx",
+    "Comparativas/Comparativa Promotores Prefabricadas.md",
+    "Costes/Guia Costes Ocultos.md",
+    "Cuestionarios/Cuestionario Comerciales.md",
+    "Proveedores/*"
   ],
   "costAssumptions": {
     "itp": 0.09,
@@ -1550,6 +1555,24 @@
         "reference": "Modelo Alaior 149,80 m2 construidos / 126,96 m2 útiles; precio no publicado",
         "risk": "Pedir precio, alcance, transporte, montaje, cimentación y opción de garaje.",
         "url": "https://www.cidark.com/proyecto/modelo-alaior/"
+      },
+      {
+        "name": "Resan Modular",
+        "reference": "Z2 94,73 m2; Z3 107,78 m2; L1 114,52 m2; H 122,22 m2; precio no publicado",
+        "risk": "Buen catálogo de planta baja; falta precio cerrado, cimentación, cocina, proyecto, transporte y montaje.",
+        "url": "https://resanmodular.com/"
+      },
+      {
+        "name": "Modu Mova",
+        "reference": "Modelos 76-158 m2 con planos; precio no publicado",
+        "risk": "Interesante por variedad de distribuciones; falta memoria económica comparable y alcance llave en mano.",
+        "url": "https://modumova.com/"
+      },
+      {
+        "name": "Hormitech",
+        "reference": "Simply 113,91 m2; Mukava 155,07 m2; Sada 205,97 m2; precio a calcular sobre plano",
+        "risk": "Hormigón con calidades Essential/Comfort; movimientos de tierras, enganches, cocina y opciones pueden cambiar mucho el total.",
+        "url": "https://hormitech.es/"
       }
     ],
     "catalog": [
@@ -1566,7 +1589,8 @@
         "confidence": "media",
         "included": "Fabricación propia, financiación y entrega en península según web.",
         "excluded": "Confirmar CTE/licencia, cimentación, transporte real, instalaciones, cocina y acometidas.",
-        "notes": "Opción económica; revisar si encaja como vivienda habitual legal en Layos."
+        "notes": "Opción económica; revisar si encaja como vivienda habitual legal en Layos.",
+        "coveredChapters": []
       },
       {
         "id": "casaredia-universal-112",
@@ -1581,7 +1605,8 @@
         "confidence": "media",
         "included": "Modelo bajo 120 m2 con precio publicado.",
         "excluded": "Licencia, cimentación y alcance técnico a confirmar.",
-        "notes": "Buen tamaño para comparar con el programa base de Villa Layos."
+        "notes": "Buen tamaño para comparar con el programa base de Villa Layos.",
+        "coveredChapters": []
       },
       {
         "id": "casaredia-grand-luxe-120",
@@ -1596,7 +1621,8 @@
         "confidence": "media",
         "included": "Modelo 120 m2 con precio publicado.",
         "excluded": "Validar CTE, cimentación, instalaciones y legalización completa.",
-        "notes": "Referencia económica alta dentro de Casaredia."
+        "notes": "Referencia económica alta dentro de Casaredia.",
+        "coveredChapters": []
       },
       {
         "id": "casas-cube-100",
@@ -1611,7 +1637,8 @@
         "confidence": "alta",
         "included": "Precio publicado por modelo; fabricación propia y plazo cerrado según comunicación web.",
         "excluded": "Confirmar cimentación, transporte, grúa, acometidas, proyecto, licencia y garaje.",
-        "notes": "Referencia clara y comparable para vivienda de tamaño contenido."
+        "notes": "Referencia clara y comparable para vivienda de tamaño contenido.",
+        "coveredChapters": []
       },
       {
         "id": "casas-cube-125",
@@ -1626,7 +1653,8 @@
         "confidence": "alta",
         "included": "Modelo publicado de 125 m2.",
         "excluded": "Confirmar capítulos exteriores y trámites.",
-        "notes": "Muy buen tamaño para 3 dormitorios + estudio si distribución encaja."
+        "notes": "Muy buen tamaño para 3 dormitorios + estudio si distribución encaja.",
+        "coveredChapters": []
       },
       {
         "id": "casas-cube-150",
@@ -1641,7 +1669,8 @@
         "confidence": "alta",
         "included": "Modelo publicado de 150 m2.",
         "excluded": "Confirmar si garaje, porches, urbanización y acometidas quedan fuera.",
-        "notes": "Puede tensionar presupuesto total al sumar parcela y obra exterior."
+        "notes": "Puede tensionar presupuesto total al sumar parcela y obra exterior.",
+        "coveredChapters": []
       },
       {
         "id": "findnido-cisne",
@@ -1656,7 +1685,8 @@
         "confidence": "media",
         "included": "Configurador, anteproyecto, proyecto, licencias, dirección, llave en mano y certificación A+ según investigación.",
         "excluded": "Terreno aparte; confirmar cimentación, acometidas, tasas, geotécnico/topográfico y garaje.",
-        "notes": "Más caro pero potencialmente menos sorpresas si el alcance se confirma cerrado."
+        "notes": "Más caro pero potencialmente menos sorpresas si el alcance se confirma cerrado.",
+        "coveredChapters": []
       },
       {
         "id": "findnido-gavilan-127",
@@ -1671,7 +1701,8 @@
         "confidence": "media",
         "included": "Configurador y alcance técnico amplio según investigación.",
         "excluded": "Confirmar capítulos de parcela, cimentación y garaje.",
-        "notes": "Referencia útil para comparar coste real llave en mano."
+        "notes": "Referencia útil para comparar coste real llave en mano.",
+        "coveredChapters": []
       },
       {
         "id": "tini-tcs701",
@@ -1686,7 +1717,10 @@
         "confidence": "alta",
         "included": "Diseño, proyecto técnico, gestión de licencias, fabricación, transporte e instalación sobre cimentación preparada.",
         "excluded": "Cimentación preparada, IVA, posibles transportes especiales y garaje.",
-        "notes": "Muy compacto; puede servir como fase 1 o vivienda mínima, no como programa completo."
+        "notes": "Muy compacto; puede servir como fase 1 o vivienda mínima, no como programa completo.",
+        "coveredChapters": [
+          "technical"
+        ]
       },
       {
         "id": "tini-tcs702",
@@ -1701,7 +1735,10 @@
         "confidence": "alta",
         "included": "Paquete compacto industrializado según catálogo.",
         "excluded": "Cimentación, IVA y programa de garaje.",
-        "notes": "Diseño atractivo pero superficie ajustada para necesidades completas."
+        "notes": "Diseño atractivo pero superficie ajustada para necesidades completas.",
+        "coveredChapters": [
+          "technical"
+        ]
       },
       {
         "id": "cmera-square-196",
@@ -1716,7 +1753,8 @@
         "confidence": "baja",
         "included": "Precio web aproximado; diseño mini/completo disponible.",
         "excluded": "Desglose real pendiente: proyecto, dirección, cimentación, IVA, instalaciones y acabados.",
-        "notes": "Demasiado competitivo: usar solo como hipótesis hasta presupuesto firmado."
+        "notes": "Demasiado competitivo: usar solo como hipótesis hasta presupuesto firmado.",
+        "coveredChapters": []
       },
       {
         "id": "vme-108",
@@ -1731,7 +1769,8 @@
         "confidence": "media",
         "included": "Referencia ya localizada; no llave en mano.",
         "excluded": "Proyecto, dirección, cimentación, climatización y otros conceptos.",
-        "notes": "Interesante si el sistema encaja y se controla el alcance excluido."
+        "notes": "Interesante si el sistema encaja y se controla el alcance excluido.",
+        "coveredChapters": []
       },
       {
         "id": "modularhome-mh90",
@@ -1746,7 +1785,10 @@
         "confidence": "media",
         "included": "Vivienda y paquete técnico mínimo según referencia previa.",
         "excluded": "Cocina, exteriores, licencias, acometidas y personalizaciones.",
-        "notes": "Buena referencia compacta, pero puede crecer con extras."
+        "notes": "Buena referencia compacta, pero puede crecer con extras.",
+        "coveredChapters": [
+          "technical"
+        ]
       },
       {
         "id": "emsamble-120",
@@ -1761,7 +1803,8 @@
         "confidence": "media",
         "included": "Estimación por m2 publicada.",
         "excluded": "Alcance exacto, proyecto, licencias, cimentación y exteriores a confirmar.",
-        "notes": "Solo vivienda ya tensiona el presupuesto total."
+        "notes": "Solo vivienda ya tensiona el presupuesto total.",
+        "coveredChapters": []
       },
       {
         "id": "room2030-120",
@@ -1776,7 +1819,8 @@
         "confidence": "media",
         "included": "Estimación por m2.",
         "excluded": "IVA, topográfico, geotécnico, visados/licencia, obra civil, urbanización y suministros.",
-        "notes": "Más orientado a módulo tecnológico; coste alto para criba económica."
+        "notes": "Más orientado a módulo tecnológico; coste alto para criba económica.",
+        "coveredChapters": []
       },
       {
         "id": "cidark-alaior",
@@ -1791,18 +1835,471 @@
         "confidence": "pendiente",
         "included": "Modelo concreto de 149,80 m2 construidos.",
         "excluded": "Precio y alcance completo pendientes.",
-        "notes": "Pedir presupuesto para poder simular."
+        "notes": "Pedir presupuesto para poder simular.",
+        "coveredChapters": []
+      },
+      {
+        "id": "findnido-cisne-config-108",
+        "provider": "FindNido",
+        "model": "Cisne 2 hab hormigón + palillería",
+        "area": 108.47,
+        "price": 373255,
+        "vatIncluded": true,
+        "priceLabel": "373.255 EUR total configurador",
+        "url": "https://findnido.com/",
+        "fit": "premium-controlado",
+        "confidence": "media",
+        "included": "Configuración guardada: 2 hab/2 baños, porches 38,73 m2, cocina, baños, pavimento, vallado, puertas, doble flujo, suelo radiante/refrescante, domótica, aire acondicionado, FV 8 kW, obra gris, seguridad, estudios técnicos, IVA y proyecto técnico.",
+        "excluded": "Terreno aparte; confirmar acometidas reales, tasas municipales, licencia, geotécnico/topográfico si no quedan totalmente incluidos y coste final tras proyecto.",
+        "notes": "Muy completo pero supera con holgura el presupuesto de referencia si se suma parcela.",
+        "coveredChapters": [
+          "foundation",
+          "climate",
+          "domotics",
+          "solar",
+          "studies",
+          "technical",
+          "waste",
+          "fence",
+          "paving"
+        ]
+      },
+      {
+        "id": "room2030-suite-plus-64",
+        "provider": "ROOM2030",
+        "model": "Suite Plus",
+        "area": 64,
+        "price": 168000,
+        "vatIncluded": false,
+        "priceLabel": "168.000 EUR + IVA",
+        "url": "https://www.room2030.com/",
+        "fit": "compacta-premium",
+        "confidence": "alta",
+        "included": "Presupuesto orientativo con cubierta vegetal, acabados exterior/interior, descanso saludable, armarios, FV, domótica e iluminación saludable. Plazo 14 semanas desde licencia.",
+        "excluded": "No incluye proyecto básico, ejecución, dirección de obra, transporte, montaje ni obra civil; todo sujeto a parcela y normativa local.",
+        "notes": "Muy tecnológica pero pequeña para el programa completo.",
+        "coveredChapters": [
+          "domotics",
+          "solar"
+        ]
+      },
+      {
+        "id": "room2030-suite-doble-80",
+        "provider": "ROOM2030",
+        "model": "Suite Doble",
+        "area": 80,
+        "price": 194900,
+        "vatIncluded": false,
+        "priceLabel": "194.900 EUR + IVA",
+        "url": "https://www.room2030.com/",
+        "fit": "compacta-premium",
+        "confidence": "alta",
+        "included": "Presupuesto orientativo con paquete de acabados y extras equivalente a configurador Room2030.",
+        "excluded": "No incluye proyecto, dirección, transporte, montaje ni obra civil.",
+        "notes": "Intermedia, interesante como benchmark premium compacto.",
+        "coveredChapters": [
+          "domotics",
+          "solar"
+        ]
+      },
+      {
+        "id": "room2030-suite-z-80",
+        "provider": "ROOM2030",
+        "model": "Suite Z",
+        "area": 80,
+        "price": 202900,
+        "vatIncluded": false,
+        "priceLabel": "202.900 EUR + IVA",
+        "url": "https://www.room2030.com/",
+        "fit": "compacta-premium",
+        "confidence": "alta",
+        "included": "Presupuesto orientativo configurado con cubierta vegetal, acabados, FV, domótica e iluminación saludable.",
+        "excluded": "No incluye proyecto, dirección, transporte, montaje ni obra civil.",
+        "notes": "Precio alto antes de impuestos y capítulos externos.",
+        "coveredChapters": [
+          "domotics",
+          "solar"
+        ]
+      },
+      {
+        "id": "room2030-suite-u-100",
+        "provider": "ROOM2030",
+        "model": "Suite U",
+        "area": 100,
+        "price": 258300,
+        "vatIncluded": false,
+        "priceLabel": "258.300 EUR + IVA",
+        "url": "https://www.room2030.com/",
+        "fit": "objetivo-premium",
+        "confidence": "alta",
+        "included": "Presupuesto orientativo configurado para 100 m2 con acabados y extras.",
+        "excluded": "No incluye proyecto, dirección, transporte, montaje ni obra civil.",
+        "notes": "Encaja en superficie, pero tensiona mucho el presupuesto total.",
+        "coveredChapters": [
+          "domotics",
+          "solar"
+        ]
+      },
+      {
+        "id": "resan-z2",
+        "provider": "Resan Modular",
+        "model": "Z2",
+        "area": 94.73,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://resanmodular.com/",
+        "fit": "compacta",
+        "confidence": "pendiente",
+        "included": "Plano 2 dormitorios: salón-comedor 28,92 m2, cocina 8,24 m2, 2 baños, porche 42,68 m2.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Buena base compacta de dos dormitorios.",
+        "coveredChapters": []
+      },
+      {
+        "id": "resan-z3",
+        "provider": "Resan Modular",
+        "model": "Z3",
+        "area": 107.78,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://resanmodular.com/",
+        "fit": "objetivo",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios: salón-comedor 28,92 m2, cocina 8,24 m2, 2 baños, porche 37,77 m2.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Muy alineada con programa 100-120 m2.",
+        "coveredChapters": []
+      },
+      {
+        "id": "resan-l1",
+        "provider": "Resan Modular",
+        "model": "L1",
+        "area": 114.52,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://resanmodular.com/",
+        "fit": "objetivo",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón-comedor 28,92 m2, cocina 8,24 m2, porche-piscina 52,44 m2.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Buen tamaño; porches amplios pueden encajar con Layos.",
+        "coveredChapters": []
+      },
+      {
+        "id": "resan-h",
+        "provider": "Resan Modular",
+        "model": "H",
+        "area": 122.22,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://resanmodular.com/",
+        "fit": "objetivo-amplia",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón-comedor 40,67 m2, cocina 8,38 m2 y porche 48,12 m2.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Salón muy generoso; puede superar objetivo si se suman garaje y bloque técnico.",
+        "coveredChapters": []
+      },
+      {
+        "id": "modumova-iria",
+        "provider": "Modu Mova",
+        "model": "Iria",
+        "area": 84.52,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://modumova.com/",
+        "fit": "compacta",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón 26,97 m2, cocina 10,07 m2, porche 15 m2 y pérgola 7,78 m2.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Compacta, quizá justa para despacho/estudio.",
+        "coveredChapters": []
+      },
+      {
+        "id": "modumova-intro",
+        "provider": "Modu Mova",
+        "model": "Intro",
+        "area": 100,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://modumova.com/",
+        "fit": "objetivo",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón-comedor-cocina 45,55 m2, baño, aseo y porche 13,36 m2.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Distribución muy eficiente para 100 m2.",
+        "coveredChapters": []
+      },
+      {
+        "id": "modumova-indie",
+        "provider": "Modu Mova",
+        "model": "Indie",
+        "area": 100.24,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://modumova.com/",
+        "fit": "objetivo",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón-comedor-cocina 45,63 m2, baño, aseo y porche 41,85 m2.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Porche muy potente; interesante para vida exterior.",
+        "coveredChapters": []
+      },
+      {
+        "id": "modumova-gama",
+        "provider": "Modu Mova",
+        "model": "Gama",
+        "area": 100.26,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://modumova.com/",
+        "fit": "objetivo",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón-comedor-cocina 33,63 m2, baño, aseo y porche 30,81 m2.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Equilibrada pero salón menor que otros modelos.",
+        "coveredChapters": []
+      },
+      {
+        "id": "modumova-atik",
+        "provider": "Modu Mova",
+        "model": "Atik",
+        "area": 100,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://modumova.com/",
+        "fit": "objetivo",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón-comedor-cocina 43 m2, porche 41,68 m2.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Muy buena zona de día y porche.",
+        "coveredChapters": []
+      },
+      {
+        "id": "modumova-polaris",
+        "provider": "Modu Mova",
+        "model": "Polaris",
+        "area": 106.22,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://modumova.com/",
+        "fit": "objetivo",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón-comedor-cocina 38,50 m2, dos baños y porche 24,75 m2.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Quizá uno de los encajes más limpios del catálogo.",
+        "coveredChapters": []
+      },
+      {
+        "id": "modumova-aries",
+        "provider": "Modu Mova",
+        "model": "Aries",
+        "area": 109.65,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://modumova.com/",
+        "fit": "objetivo",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón-comedor-cocina 39,75 m2, dos baños y dos porches 69,64 m2.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Porches muy generosos; controlar coste exterior.",
+        "coveredChapters": []
+      },
+      {
+        "id": "modumova-neptuno",
+        "provider": "Modu Mova",
+        "model": "Neptuno",
+        "area": 158.24,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio no publicado",
+        "url": "https://modumova.com/",
+        "fit": "amplia",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón-comedor-cocina 47,57 m2, despensa, tres baños, porches y pérgola.",
+        "excluded": "Precio pendiente: pedir oferta con desglose de proyecto, dirección, cimentación, transporte, montaje, IVA, licencias, acometidas y exteriores.",
+        "notes": "Probablemente sobredimensionada para el presupuesto inicial.",
+        "coveredChapters": []
+      },
+      {
+        "id": "hormitech-simply",
+        "provider": "Hormitech",
+        "model": "Simply",
+        "area": 113.91,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio a calcular",
+        "url": "https://hormitech.es/",
+        "fit": "objetivo",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón-comedor 24,78 m2, cocina 11,96 m2, dos baños, vestidor y porche 1,24 m2.",
+        "excluded": "Precio pendiente; en calidades Hormitech no se incluyen movimientos de tierra previos, mejoras del terreno, enganche a redes ni cocina.",
+        "notes": "Superficie encaja; revisar si la zona de día se queda corta.",
+        "coveredChapters": []
+      },
+      {
+        "id": "hormitech-mukava",
+        "provider": "Hormitech",
+        "model": "Mukava",
+        "area": 155.07,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio a calcular",
+        "url": "https://hormitech.es/",
+        "fit": "amplia",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, salón-comedor 38,25 m2, cocina 10,92 m2, lavadero, vestidor, aparcamiento 36,66 m2 y porche 66,57 m2.",
+        "excluded": "Precio pendiente; confirmar cimentación, tierras, enganches, cocina, transporte, impuestos y alcance Comfort/Essential.",
+        "notes": "Programa completo con aparcamiento, pero muy grande para 300.000 EUR.",
+        "coveredChapters": []
+      },
+      {
+        "id": "hormitech-sada",
+        "provider": "Hormitech",
+        "model": "Sada",
+        "area": 205.97,
+        "price": null,
+        "vatIncluded": null,
+        "priceLabel": "precio a calcular",
+        "url": "https://hormitech.es/",
+        "fit": "sobredimensionada",
+        "confidence": "pendiente",
+        "included": "Plano 3 dormitorios, gran cocina 48,30 m2, salón 28,34 m2, varias zonas de porche.",
+        "excluded": "Precio pendiente; alcance no comparable sin oferta.",
+        "notes": "Referencia de diseño, no de viabilidad económica inicial.",
+        "coveredChapters": []
       }
     ],
     "simulatorAssumptions": {
-      "vat": 0.10,
+      "vat": 0.1,
       "licenseIcioRate": 0.05,
       "civilWorks": 45000,
       "utilityConnections": 18000,
       "externalWorks": 25000,
       "technicalExtras": 12000,
-      "contingencyRate": 0.10,
+      "contingencyRate": 0.1,
       "budgetReference": 300000
+    },
+    "budgetAssumptions": {
+      "scenario": "desfavorable",
+      "parcelItp": 0.09,
+      "houseVat": 0.1,
+      "extrasVat": 0.21,
+      "licenseRate": 0.04,
+      "ajdRate": 0.015,
+      "contingencyRate": 0.1,
+      "budgetReference": 300000,
+      "chapters": [
+        {
+          "id": "foundation",
+          "label": "Cimentación y movimiento de tierras",
+          "amount": 15000,
+          "tax": "house",
+          "editable": true
+        },
+        {
+          "id": "garage",
+          "label": "Garaje o pérgola vinculada",
+          "amount": 15000,
+          "tax": "house",
+          "editable": true
+        },
+        {
+          "id": "climate",
+          "label": "Climatización, radiante o doble flujo",
+          "amount": 12000,
+          "tax": "house",
+          "editable": true
+        },
+        {
+          "id": "premiumExterior",
+          "label": "Revestimiento exterior premium",
+          "amount": 5000,
+          "tax": "house",
+          "editable": true
+        },
+        {
+          "id": "domotics",
+          "label": "Domótica básica",
+          "amount": 3000,
+          "tax": "house",
+          "editable": true
+        },
+        {
+          "id": "studies",
+          "label": "Topográfico y geotécnico",
+          "amount": 2000,
+          "tax": "extras",
+          "editable": true
+        },
+        {
+          "id": "technical",
+          "label": "Proyecto, dirección y seguridad",
+          "amount": 18000,
+          "tax": "extras",
+          "editable": true
+        },
+        {
+          "id": "utilities",
+          "label": "Acometidas exteriores",
+          "amount": 2000,
+          "tax": "extras",
+          "editable": true
+        },
+        {
+          "id": "waste",
+          "label": "Residuos, contenedores y seguridad",
+          "amount": 1500,
+          "tax": "extras",
+          "editable": true
+        },
+        {
+          "id": "fence",
+          "label": "Vallado, puerta vehículos y peatonal",
+          "amount": 10000,
+          "tax": "extras",
+          "editable": true
+        },
+        {
+          "id": "paving",
+          "label": "Solados y exteriores mínimos",
+          "amount": 5000,
+          "tax": "extras",
+          "editable": true
+        },
+        {
+          "id": "pool",
+          "label": "Piscina o lámina de agua comparativa",
+          "amount": 15000,
+          "tax": "extras",
+          "editable": true
+        },
+        {
+          "id": "solar",
+          "label": "Fotovoltaica",
+          "amount": 6000,
+          "tax": "extras",
+          "editable": true
+        },
+        {
+          "id": "newBuild",
+          "label": "Notaría y registro de obra nueva",
+          "amount": 1500,
+          "tax": "none",
+          "editable": true
+        }
+      ]
     }
   },
   "documents": [
@@ -1849,51 +2346,202 @@
   ],
   "plan": [
     {
-      "phase": "Criba actual",
+      "phase": "Criba técnica y económica",
       "state": "en curso",
       "items": [
         "Comparar parcelas con coste desfavorable",
         "Usar topografía QGIS donde exista",
-        "No convertir etiquetas manuales en dato técnico"
+        "No convertir etiquetas manuales en dato técnico",
+        "Ordenar finalistas por coste total, pendiente, vistas y venta directa",
+        "Contrastar precio anunciado con coste de parcela lista para proyecto"
       ]
     },
     {
-      "phase": "Antes de señal o arras",
+      "phase": "Modelos y proveedores",
       "state": "pendiente",
       "items": [
-        "Nota simple",
+        "Localizar modelos compatibles con una planta y programa objetivo",
+        "Registrar precio base, IVA, superficie, acabados y partidas incluidas",
+        "Separar modelos con precio publicado de modelos pendientes de presupuesto",
+        "Pedir planos, memoria de calidades e imágenes reales si existen",
+        "Comparar nivel de acabado y alcance incluido entre proveedores"
+      ]
+    },
+    {
+      "phase": "Simulación completa",
+      "state": "pendiente",
+      "items": [
+        "Enlazar parcela finalista con vivienda candidata",
+        "Calcular parcela + vivienda + trámites + impuestos por escenario",
+        "Revisar partidas con IVA 10%, IVA 21% y conceptos sin IVA directo",
+        "Comparar cada combinación contra presupuesto de referencia",
+        "Mantener reserva personal de 20.000 EUR fuera del cálculo"
+      ]
+    },
+    {
+      "phase": "Documentación crítica",
+      "state": "pendiente",
+      "items": [
+        "Nota simple actualizada",
         "Urbanismo por escrito",
         "Cargas, cuotas, suministros y valor de referencia",
-        "Visita técnica a finalistas"
+        "Acción de golf, transmisión, atrasos y cuota",
+        "Contrastar situación registral, catastral y linderos"
       ]
     },
     {
-      "phase": "Compra de parcela",
+      "phase": "Visita y negociación",
       "state": "pendiente",
       "items": [
+        "Visita técnica a parcelas finalistas",
+        "Validar accesos, orientación, vistas, ruido y entorno inmediato",
         "Negociación con escenario desfavorable",
-        "Reserva de 20.000 EUR intacta",
+        "Definir condiciones para señal, arras o reserva",
         "Firma solo con documentación crítica revisada"
       ]
     },
     {
-      "phase": "Anteproyecto",
+      "phase": "Anteproyecto y encaje",
       "state": "pendiente",
       "items": [
         "Implantación adaptada a topografía real",
         "Comparativa de sistemas constructivos",
-        "Presupuesto completo con obra civil"
+        "Ajustar vivienda a normativa, retranqueos, orientación y pendiente",
+        "Presupuesto completo con obra civil",
+        "Detectar incompatibilidades antes de comprometer pagos técnicos"
       ]
     },
     {
-      "phase": "Proyecto y obra",
+      "phase": "Proyecto técnico y licencias",
       "state": "pendiente",
       "items": [
         "Topográfico profesional",
         "Geotécnico",
+        "Proyecto básico y de ejecución",
         "Licencia e ICIO",
-        "Ejecución industrializada y control de desviaciones"
+        "Acometidas, suministros provisionales y coordinación municipal"
+      ]
+    },
+    {
+      "phase": "Contratación y fabricación",
+      "state": "pendiente",
+      "items": [
+        "Contrato cerrado por capítulos y exclusiones",
+        "Calendario de pagos vinculado a hitos verificables",
+        "Memoria de calidades y planos finales firmados",
+        "Plan de fabricación, transporte y montaje",
+        "Control de cambios y desviaciones autorizado por escrito"
+      ]
+    },
+    {
+      "phase": "Obra, entrega y puesta en marcha",
+      "state": "pendiente",
+      "items": [
+        "Cimentación, saneamiento y acometidas",
+        "Montaje de vivienda industrializada",
+        "Instalaciones, aerotermia, domótica y fotovoltaica si aplica",
+        "Remates exteriores, accesos, vallado, piscina o jardinería",
+        "Licencia de primera ocupación, altas de suministros y entrega de llaves"
       ]
     }
-  ]
+  ],
+  "hiddenCosts": [
+    {
+      "label": "Estudio topográfico",
+      "amount": "~1.000 EUR",
+      "note": "Obligatorio o muy recomendable antes de proyecto."
+    },
+    {
+      "label": "Estudio geotécnico",
+      "amount": "~1.000 EUR",
+      "note": "Determina cimentación; ninguna oferta prudente debería cerrarse sin esto."
+    },
+    {
+      "label": "Paquete técnico",
+      "amount": "12.750-18.000 EUR",
+      "note": "Proyecto básico, ejecución, dirección de obra y seguridad; varía según proveedor."
+    },
+    {
+      "label": "Movimiento de tierras",
+      "amount": "desde 65 EUR/m3",
+      "note": "Partida crítica en parcelas con pendiente o accesibilidad compleja."
+    },
+    {
+      "label": "Cimentación",
+      "amount": "10.000-25.000 EUR / 100-130 EUR/m2",
+      "note": "VME la deja fuera; Modular Home y otros la separan o condicionan."
+    },
+    {
+      "label": "Acometidas exteriores",
+      "amount": "1.000-2.000 EUR mínimo",
+      "note": "Puede crecer si hay distancia a red o problemas de capacidad."
+    },
+    {
+      "label": "Licencia e ICIO",
+      "amount": "2-5% PEM",
+      "note": "No usar un porcentaje único para todo: depende del municipio y base."
+    },
+    {
+      "label": "IVA diferenciado",
+      "amount": "10% vivienda / 21% extras",
+      "note": "Piscina, vallados, exteriores y algunos servicios pueden ir al 21%."
+    },
+    {
+      "label": "AJD y obra nueva",
+      "amount": "~1-1,5% + notaría/registro",
+      "note": "Se suma al final y suele olvidarse en comparativas de catálogo."
+    }
+  ],
+  "management": {
+    "commercialQuestions": [
+      {
+        "group": "Estudios y proyecto técnico",
+        "items": [
+          "¿Incluye estudio geotécnico y topográfico o debo contratarlos?",
+          "¿Incluye proyecto básico, ejecución y dirección de obra de arquitecto y aparejador?",
+          "¿Incluye estudio y coordinación de seguridad y salud?"
+        ]
+      },
+      {
+        "group": "Terreno, cimentación y acometidas",
+        "items": [
+          "¿Incluye desbroce, excavación y nivelación de parcela?",
+          "¿Incluye cimentación estándar y qué límite económico tiene?",
+          "¿Incluye zanjas y conexiones de agua, luz y saneamiento desde lindero?"
+        ]
+      },
+      {
+        "group": "Transporte, montaje y medios auxiliares",
+        "items": [
+          "¿Está incluido el transporte hasta Toledo?",
+          "¿Está incluida grúa de montaje y medios auxiliares?",
+          "¿Quién asume andamios, contenedores y residuos?"
+        ]
+      },
+      {
+        "group": "Calidades e instalaciones",
+        "items": [
+          "¿Incluye aerotermia y qué sistema de emisión?",
+          "¿Incluye ventilación mecánica de doble flujo?",
+          "¿Baños y cocina se entregan terminados?",
+          "¿Qué marcas/calidades concretas entran en el precio?"
+        ]
+      },
+      {
+        "group": "Impuestos, plazos y pagos",
+        "items": [
+          "¿Gestionan documentación con Ayuntamiento aunque tasas vayan por mi cuenta?",
+          "¿Tiempo real de fábrica y de obra in situ desde licencia?",
+          "¿Calendario de pagos por hitos y penalizaciones por demora?"
+        ]
+      }
+    ],
+    "otherTasks": [
+      "Pedir presupuesto comparable por capítulos para 2-3 modelos finalistas.",
+      "Solicitar memoria de calidades y exclusiones firmable.",
+      "Pedir plano editable o cotas suficientes para encajar en parcela.",
+      "Confirmar transporte, grúa y accesibilidad hasta Layos Golf.",
+      "Separar vivienda, exteriores, garaje, piscina, acometidas, técnicos e impuestos."
+    ]
+  }
 }

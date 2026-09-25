@@ -7,14 +7,17 @@ const views = [
   ["costes", "€", "Costes"],
   ["topografia", "▱", "Topografía"],
   ["vivienda", "⌁", "Vivienda"],
+  ["modelos", "▧", "Modelos"],
   ["simulador", "◈", "Simulador"],
+  ["viabilidad", "◇", "Viabilidad"],
+  ["entrevistas", "☑", "Entrevistas"],
   ["documentacion", "✓", "Documentación"],
   ["plan", "↗", "Plan del proyecto"],
   ["ayuda", "?", "Ayuda"],
   ["about", "i", "About"]
 ];
 
-const BUILD = "20260924-1";
+const BUILD = "20260925-1";
 const money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const num = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
 let DATA;
@@ -44,27 +47,131 @@ const reportCount = () => DATA.parcels.filter((p) => p.topography?.hasReport).le
 const houseCatalog = () => DATA.house.catalog || [];
 const housePriceWithVat = (house) => {
   if (!house || house.price == null) return null;
-  if (house.vatIncluded === false) return Math.round(house.price * (1 + DATA.house.simulatorAssumptions.vat));
-  return Math.round(house.price);
+  if (house.vatIncluded === true) return Math.round(house.price);
+  const vat = DATA.house.budgetAssumptions?.houseVat ?? DATA.house.simulatorAssumptions.vat;
+  return Math.round(house.price * (1 + vat));
+};
+const chapterAmount = (house, chapter) => (house?.coveredChapters || []).includes(chapter.id) ? 0 : chapter.amount;
+const budgetAssumptions = () => DATA.house.budgetAssumptions || {
+  houseVat: DATA.house.simulatorAssumptions.vat,
+  extrasVat: 0.21,
+  licenseRate: DATA.house.simulatorAssumptions.licenseIcioRate,
+  ajdRate: 0.015,
+  contingencyRate: DATA.house.simulatorAssumptions.contingencyRate,
+  budgetReference: DATA.house.simulatorAssumptions.budgetReference,
+  chapters: []
+};
+const projectBudget = (parcel, house) => {
+  if (!parcel || !house || house.price == null) return null;
+  const a = budgetAssumptions();
+  const houseNet = house.vatIncluded === true ? Math.round(house.price / (1 + a.houseVat)) : Math.round(house.price);
+  const houseVat = house.vatIncluded === true ? Math.round(house.price - houseNet) : Math.round(houseNet * a.houseVat);
+  const houseGross = houseNet + houseVat;
+  const chapters = a.chapters.map((chapter) => ({ ...chapter, amount: chapterAmount(house, chapter) }));
+  const houseChapters = chapters.filter((chapter) => chapter.tax === "house");
+  const extraChapters = chapters.filter((chapter) => chapter.tax === "extras");
+  const noTaxChapters = chapters.filter((chapter) => chapter.tax === "none");
+  const sum = (items) => items.reduce((total, item) => total + item.amount, 0);
+  const houseExtrasNet = sum(houseChapters);
+  const otherExtrasNet = sum(extraChapters);
+  const noTax = sum(noTaxChapters);
+  const taxableHouse = houseNet + houseExtrasNet;
+  const taxableExtras = otherExtrasNet;
+  const license = Math.round(taxableHouse * a.licenseRate);
+  const ajd = Math.round(taxableHouse * a.ajdRate);
+  const vatHouse = Math.round(taxableHouse * a.houseVat);
+  const vatExtras = Math.round(taxableExtras * a.extrasVat);
+  const constructionBeforeContingency = taxableHouse + taxableExtras + noTax + license + ajd + vatHouse + vatExtras;
+  const contingency = Math.round(constructionBeforeContingency * a.contingencyRate);
+  const parcelReady = acquisitionCost(parcel);
+  const constructionTotal = constructionBeforeContingency + contingency;
+  return {
+    scenario: a.scenario || "desfavorable",
+    parcelReady,
+    houseNet,
+    houseVat,
+    houseGross,
+    chapters,
+    houseExtrasNet,
+    otherExtrasNet,
+    noTax,
+    taxableHouse,
+    taxableExtras,
+    license,
+    ajd,
+    vatHouse,
+    vatExtras,
+    constructionBeforeContingency,
+    contingency,
+    constructionTotal,
+    total: parcelReady + constructionTotal,
+    budgetReference: a.budgetReference,
+    delta: a.budgetReference - (parcelReady + constructionTotal)
+  };
+};
+const budgetRows = (budget) => [
+  ["Parcela lista para proyecto", money.format(budget.parcelReady)],
+  ["Vivienda base", money.format(budget.houseNet)],
+  ["Partidas vivienda al 10%", money.format(budget.houseExtrasNet)],
+  ["Partidas exteriores/técnicas al 21%", money.format(budget.otherExtrasNet)],
+  ["Partidas sin IVA directo", money.format(budget.noTax)],
+  ["Licencia / ICIO estimado", money.format(budget.license)],
+  ["AJD estimado", money.format(budget.ajd)],
+  ["IVA vivienda 10%", money.format(budget.vatHouse)],
+  ["IVA extras 21%", money.format(budget.vatExtras)],
+  ["Contingencia", money.format(budget.contingency)],
+  ["Total proyecto", money.format(budget.total)]
+];
+const visibleBudgetChapters = (budget) => budget.chapters.filter((chapter) => chapter.amount > 0);
+const missingBudgetChapters = (house) => {
+  const covered = new Set(house?.coveredChapters || []);
+  return budgetAssumptions().chapters.filter((chapter) => !covered.has(chapter.id));
+};
+const coveredBudgetChapters = (house) => {
+  const covered = new Set(house?.coveredChapters || []);
+  return budgetAssumptions().chapters.filter((chapter) => covered.has(chapter.id));
+};
+const selectedBudget = () => {
+  const { parcel, house } = simulationSelection();
+  return { parcel, house, budget: projectBudget(parcel, house) };
+};
+const modelVisual = (item) => `<div class="model-visual"><span>${esc(item.provider.split(" ")[0])}</span><strong>${esc(item.model)}</strong><small>${item.area ? `${num.format(item.area)} m²` : "Superficie pendiente"}</small></div>`;
+const providerOptions = (catalog) => ["Todos los proveedores", ...new Set(catalog.map((item) => item.provider))];
+const fitOptions = (catalog) => ["Todos los encajes", ...new Set(catalog.map((item) => item.fit))];
+const housePriceLabel = (house) => {
+  if (!house || house.price == null) return "Sin precio";
+  if (house.vatIncluded === true) return "IVA incluido o tratado como incluido";
+  if (house.vatIncluded === false) return "IVA 10% añadido";
+  return "IVA 10% añadido por prudencia";
+};
+const finishLevel = (house) => {
+  const text = [house?.provider, house?.model, house?.fit, house?.included, house?.notes].join(" ").toLowerCase();
+  if (text.includes("iconic") || text.includes("premium") || text.includes("comfort") || text.includes("lujo")) return 4;
+  if (text.includes("prime") || text.includes("objetivo") || text.includes("controlado")) return 3;
+  if (text.includes("essential") || text.includes("básic") || text.includes("basic") || text.includes("compacta")) return 1;
+  return 2;
+};
+const houseSortValue = (house, key, parcel) => {
+  if (key === "price") return house.price == null ? Infinity : housePriceWithVat(house);
+  if (key === "total") {
+    const budget = projectBudget(parcel, house);
+    return budget ? budget.total : Infinity;
+  }
+  if (key === "finish") return finishLevel(house);
+  if (key === "area") return house.area || Infinity;
+  return `${house.provider} ${house.model}`.toLowerCase();
 };
 const simulationTotals = (parcel, house) => {
-  const a = DATA.house.simulatorAssumptions;
-  const parcelReady = acquisitionCost(parcel);
-  const houseReady = housePriceWithVat(house);
-  if (houseReady == null) return null;
-  const permit = Math.round(houseReady * a.licenseIcioRate);
-  const beforeContingency = parcelReady + houseReady + permit + a.civilWorks + a.utilityConnections + a.externalWorks + a.technicalExtras;
-  const contingency = Math.round(beforeContingency * a.contingencyRate);
+  const budget = projectBudget(parcel, house);
+  if (!budget) return null;
   return {
-    parcelReady,
-    houseReady,
-    permit,
-    civilWorks: a.civilWorks,
-    utilityConnections: a.utilityConnections,
-    externalWorks: a.externalWorks,
-    technicalExtras: a.technicalExtras,
-    contingency,
-    total: beforeContingency + contingency
+    ...budget,
+    houseReady: budget.houseGross,
+    permit: budget.license,
+    civilWorks: budget.houseExtrasNet,
+    utilityConnections: budget.otherExtrasNet,
+    externalWorks: 0,
+    technicalExtras: 0
   };
 };
 const planItems = () => DATA.plan.flatMap((phase) => phase.items.map((item) => ({ phase: phase.phase, item })));
@@ -139,7 +246,10 @@ function renderNav() {
 
 function openView(id, options = {}) {
   if (id === "inicio") renderInicio();
+  if (id === "resumen") renderResumen();
+  if (id === "modelos") renderModelos();
   if (id === "simulador") renderSimulador();
+  if (id === "viabilidad") renderViabilidad();
   $$(".view").forEach((view) => view.classList.toggle("active", view.id === id));
   $$("#nav button").forEach((button) => button.classList.toggle("active", button.dataset.view === id));
   const active = views.find(([viewId]) => viewId === id);
@@ -180,11 +290,11 @@ function renderInicio() {
           <div><strong>${esc(parcel.name)}</strong><span>Parcela seleccionada</span></div>
           <div><strong>${money.format(acquisitionCost(parcel))}</strong><span>Parcela lista para proyecto · adquisición, impuestos y gastos</span></div>
           <div><strong>${house ? `${esc(house.provider)} · ${esc(house.model)}` : "Pendiente de elegir"}</strong><span>Vivienda seleccionada</span></div>
-          <div><strong>${totals ? money.format(totals.houseReady) : "Sin precio"}</strong><span>Precio vivienda de referencia · ${house?.vatIncluded === false ? "IVA incluido en el cálculo" : house?.vatIncluded === true ? "IVA incluido" : "IVA pendiente de confirmar"}</span></div>
+          <div><strong>${totals ? money.format(totals.houseReady) : "Sin precio"}</strong><span>Precio vivienda de referencia · ${housePriceLabel(house)}</span></div>
           <div><strong>${totals ? money.format(totals.total) : "Pendiente de precio"}</strong><span>Total desfavorable estimado · parcela, vivienda, obra, trámites, impuestos y contingencia</span></div>
           <div><strong>${money.format(budget)}</strong><span>Presupuesto de referencia</span></div>
           <div class="${difference == null ? "" : difference < 0 ? "budget-over" : "budget-within"}"><strong>${difference == null ? "Pendiente de precio" : money.format(Math.abs(difference))}</strong><span>${difference == null ? "Diferencia frente al presupuesto" : difference < 0 ? "Exceso sobre el presupuesto" : difference > 0 ? "Margen a favor del presupuesto" : "Presupuesto ajustado sin margen"}</span></div>
-          <div><strong>${esc(currentPhase?.phase || "Timeline completado")}</strong><span>Estado de decisión actual · ${pct(planProgress())} del plan completado</span></div>
+          <div><strong>Estado actual de decisión</strong><span>${esc(currentPhase?.phase || "Timeline completado")} · ${pct(planProgress())} del plan completado</span></div>
         </div>
       </div>
     </section>
@@ -194,30 +304,32 @@ function renderInicio() {
 
 function renderResumen() {
   const ranked = scoreParcels();
-  const best = ranked[0].parcel;
+  const { parcel, house, budget } = selectedBudget();
   const qgisCount = reportCount();
+  const currentPhase = DATA.plan.find((phase) => phase.items.some((item) => localStorage.getItem(planStorageKey(phase.phase, item)) !== "1"));
   $("#resumen").innerHTML = `
-    ${header("Resumen", "De parcela candidata a casa definitiva", "Vista de inicio a fin: elegir bien el terreno, cerrar documentación crítica, contrastar vivienda industrializada y avanzar sin comprometer la reserva personal.")}
+    ${header("Resumen", "Proyecto completo parcela + vivienda", "Vista viva de la combinación activa del simulador: terreno, vivienda, presupuesto completo, documentación crítica y avance real del plan.")}
     <div class="grid cols-4">
-      ${stat("Parcela mejor posicionada", esc(best.name), `${pct(ranked[0].score)}`)}
-      ${stat("Coste desfavorable", money.format(acquisitionCost(best)), `${money.format(perM2(best))}/m²`)}
-      ${stat("Informes QGIS localizados", `${qgisCount}/${DATA.parcels.length}`, "MDT02 preliminar")}
-      ${stat("Reserva intocable", money.format(DATA.project.reserveProtected), "fuera del cálculo")}
+      ${stat("Parcela activa", esc(parcel.name), `${money.format(acquisitionCost(parcel))} lista para proyecto`)}
+      ${stat("Vivienda activa", house ? esc(house.model) : "Pendiente", house ? esc(house.provider) : "elige modelo")}
+      ${stat("Total proyecto", budget ? money.format(budget.total) : "Sin precio", budget ? budget.scenario : "pendiente")}
+      ${stat("Margen contra 300.000 EUR", budget ? money.format(Math.abs(budget.delta)) : "—", budget ? (budget.delta < 0 ? "exceso" : "a favor") : "pendiente")}
     </div>
     <div class="grid cols-2">
       <div class="card dark">
         <h3>Regla de decisión</h3>
         <p>${esc(DATA.project.decisionRule)}</p>
-        <div class="row"><span>Estado</span><strong>${esc(DATA.project.state)}</strong></div>
-        <div class="row"><span>Presupuesto vivienda</span><strong>${money.format(DATA.project.budgetLimit)}</strong></div>
+        <div class="row"><span>Estado actual</span><strong>${esc(currentPhase?.phase || "Timeline completado")}</strong></div>
+        <div class="row"><span>Plan completado</span><strong>${pct(planProgress())}</strong></div>
+        <div class="row"><span>Informes QGIS</span><strong>${qgisCount}/${DATA.parcels.length}</strong></div>
       </div>
       <div class="card">
-        <h3>Camino completo</h3>
+        <h3>Combinación activa</h3>
         <ul class="list">
-          <li>Cribar parcelas con coste desfavorable, topografía real y venta documentada.</li>
-          <li>Cerrar nota simple, cargas, cuotas, urbanismo y valor de referencia antes de señal.</li>
-          <li>Simular parcela + vivienda para detectar escenarios que tensionen el presupuesto.</li>
-          <li>Pasar a proyecto técnico sólo con parcela finalista, vivienda compatible y reserva intacta.</li>
+          <li>Parcela: ${esc(parcel.name)} · ${money.format(acquisitionCost(parcel))} con impuestos y gastos de adquisición.</li>
+          <li>Vivienda: ${house ? `${esc(house.provider)} · ${esc(house.model)} · ${esc(house.priceLabel)}` : "pendiente de modelo con precio"}.</li>
+          <li>Escenario: ${budget ? `${money.format(budget.total)} completo con partidas, impuestos y contingencia.` : "sin cálculo completo por falta de precio."}</li>
+          <li>Antes de comprometer dinero: presupuesto cerrado, nota simple, urbanismo, geotécnico/topográfico y reserva intacta.</li>
         </ul>
       </div>
     </div>
@@ -245,13 +357,17 @@ function renderParcelas() {
         <input id="parcelSearch" placeholder="Buscar parcela, vendedor, contacto o nota">
         <select id="parcelStatus"><option value="">Todos los estados</option>${[...new Set(DATA.parcels.map((p) => p.status))].map((s) => `<option>${esc(s)}</option>`).join("")}</select>
         <select id="parcelTopo"><option value="">Toda la topografía</option><option value="qgis">Con informe QGIS</option><option value="manual">Solo manual</option></select>
+        <select id="parcelSort"><option value="rank">Orden: ranking</option><option value="price">Precio anuncio</option><option value="total">Precio total</option><option value="slope">Inclinación</option><option value="seller">Vendedor</option></select>
+        <select id="parcelSortDir"><option value="asc">Menor a mayor</option><option value="desc">Mayor a menor</option></select>
       </div>
     `)}
-    <div class="table-wrap"><table class="data-table parcel-table"><colgroup><col><col><col><col><col><col><col><col></colgroup><thead><tr>
-      <th>Parcela</th><th class="num">Precio</th><th class="num">Total desf.</th><th class="num">€/m²</th><th>Pendiente</th><th>Golf</th><th>Vendedor</th><th>Estado</th>
-    </tr></thead><tbody id="parcelRows"></tbody></table></div>
+    <div class="scroll-body table-scroll-body">
+      <div class="table-wrap scroll-table"><table class="data-table parcel-table"><colgroup><col><col><col><col><col><col><col><col></colgroup><thead><tr>
+        <th>Parcela</th><th class="num">Precio</th><th class="num">Total desf.</th><th class="num">€/m²</th><th>Pendiente</th><th>Golf</th><th>Vendedor</th><th>Estado</th>
+      </tr></thead><tbody id="parcelRows"></tbody></table></div>
+    </div>
   `;
-  ["parcelSearch", "parcelStatus", "parcelTopo"].forEach((id) => $(`#${id}`).addEventListener("input", drawParcelRows));
+  ["parcelSearch", "parcelStatus", "parcelTopo", "parcelSort", "parcelSortDir"].forEach((id) => $(`#${id}`).addEventListener("input", drawParcelRows));
   drawParcelRows();
 }
 
@@ -259,9 +375,24 @@ function drawParcelRows() {
   const text = ($("#parcelSearch").value || "").toLowerCase();
   const status = $("#parcelStatus").value;
   const topo = $("#parcelTopo").value;
+  const sortKey = $("#parcelSort").value;
+  const dir = $("#parcelSortDir").value === "desc" ? -1 : 1;
+  const rankMap = new Map(scoreParcels().map((item, index) => [item.parcel.id, index]));
+  const valueFor = (parcel) => {
+    if (sortKey === "price") return parcel.price;
+    if (sortKey === "total") return acquisitionCost(parcel);
+    if (sortKey === "slope") return parcel.topography?.hasReport ? parcel.topography.slope : 99;
+    if (sortKey === "seller") return `${parcel.seller} ${parcel.contact || ""}`.toLowerCase();
+    return rankMap.get(parcel.id) ?? 999;
+  };
   const filtered = DATA.parcels.filter((p) => {
     const hay = [p.name, p.seller, p.contact, p.note].join(" ").toLowerCase();
     return (!text || hay.includes(text)) && (!status || p.status === status) && (!topo || (topo === "qgis" ? p.topography.hasReport : !p.topography.hasReport));
+  }).sort((a, b) => {
+    const av = valueFor(a);
+    const bv = valueFor(b);
+    if (typeof av === "string" || typeof bv === "string") return String(av).localeCompare(String(bv), "es") * dir;
+    return (av - bv) * dir;
   });
   $("#parcelRows").innerHTML = filtered.map((p) => `
     <tr>
@@ -338,8 +469,10 @@ function renderComparativa() {
         <div class="weight"><label><span>${label}</span><strong id="w-${key}">${weights[key]}</strong></label><input type="range" min="0" max="60" value="${weights[key]}" data-weight="${key}"></div>
       `).join("")}</div>
     `)}
-    <div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>Parcela</th><th class="num">Puntos</th><th class="num">Coste</th><th class="num">Pendiente</th><th>Lectura</th></tr></thead><tbody id="rankingRows"></tbody></table></div>
-    <p class="source">La pendiente usa métrica QGIS cuando existe. Si no existe, se usa una aproximación manual con menor confianza.</p>
+    <div class="scroll-body table-scroll-body">
+      <div class="table-wrap scroll-table"><table class="data-table"><thead><tr><th>#</th><th>Parcela</th><th class="num">Puntos</th><th class="num">Coste</th><th class="num">Pendiente</th><th>Lectura</th></tr></thead><tbody id="rankingRows"></tbody></table></div>
+    </div>
+    <p class="source fixed-source">La pendiente usa métrica QGIS cuando existe. Si no existe, se usa una aproximación manual con menor confianza.</p>
   `;
   $$("input[data-weight]").forEach((input) => input.addEventListener("input", () => {
     weights[input.dataset.weight] = Number(input.value);
@@ -378,7 +511,8 @@ function renderCostes() {
       <div class="card">${rows(parts.map(([k, v]) => [k, money.format(v)]).concat([["Total parcela lista para proyecto", money.format(acquisitionCost(selected))]]))}</div>
       <div class="card"><h3>Costes no incluidos</h3><ul class="list"><li>Proyecto, dirección facultativa, licencia e ICIO.</li><li>Movimiento de tierras, cimentación, contenciones y drenaje.</li><li>Acometidas definitivas, vallado, jardinería, piscina y equipamiento.</li><li>Construcción de vivienda y garaje.</li></ul></div>
     </div>
-    <div class="card"><h3>Comparativa de coste total</h3><div class="bars">${DATA.parcels.slice().sort((a,b)=>acquisitionCost(a)-acquisitionCost(b)).map((p) => `<div class="barline"><span>${esc(p.name)}</span><div class="bar"><i style="width:${Math.min(100, acquisitionCost(p) / 110000 * 100)}%"></i></div><strong>${money.format(acquisitionCost(p))}</strong></div>`).join("")}</div></div>
+    <div class="card"><h3>Costes ocultos habituales</h3><ul class="list">${DATA.hiddenCosts.map((item) => `<li><strong>${esc(item.label)}:</strong> ${esc(item.amount)} · ${esc(item.note)}</li>`).join("")}</ul></div>
+    <div class="card cost-comparison-card"><h3>Comparativa de coste total</h3><div class="bars">${DATA.parcels.slice().sort((a,b)=>acquisitionCost(a)-acquisitionCost(b)).map((p) => `<div class="barline"><span>${esc(p.name)}</span><div class="bar"><i style="width:${Math.min(100, acquisitionCost(p) / 110000 * 100)}%"></i></div><strong>${money.format(acquisitionCost(p))}</strong></div>`).join("")}</div></div>
   `;
   $("#costParcelSelect").addEventListener("change", renderCostes);
 }
@@ -387,14 +521,16 @@ function renderTopografia() {
   const withTopo = DATA.parcels.filter((p) => p.topography.hasReport).sort((a, b) => a.topography.slope - b.topography.slope);
   $("#topografia").innerHTML = `
     ${header("QGIS / MDT02", "Topografía real disponible", "Resumen de informes preliminares localizados. Las categorías se calculan desde pendiente, desnivel y cotas, no desde etiquetas manuales.")}
-    <div class="notice notice-spaced">${esc(DATA.project.topographyDisclaimer)}</div>
-    <div class="card topo-summary"><h3>Informes incorporados</h3><div class="metric">${withTopo.length}/${DATA.parcels.length}<small>PDF QGIS/MDT02 disponibles en esta versión</small></div></div>
-    <div class="grid cols-3 topo-grid">
-      ${withTopo.map((p) => stat(p.name, `${num.format(p.topography.slope)}%`, `${slopeClass(p.topography.slope)} · ${num.format(p.topography.relief)} m desnivel`)).join("")}
+    <div class="scroll-body">
+      <div class="notice notice-spaced">${esc(DATA.project.topographyDisclaimer)}</div>
+      <div class="card topo-summary"><h3>Informes incorporados</h3><div class="metric">${withTopo.length}/${DATA.parcels.length}<small>PDF QGIS/MDT02 disponibles en esta versión</small></div></div>
+      <div class="grid cols-3 topo-grid">
+        ${withTopo.map((p) => stat(p.name, `${num.format(p.topography.slope)}%`, `${slopeClass(p.topography.slope)} · ${num.format(p.topography.relief)} m desnivel`)).join("")}
+      </div>
+      <div class="table-wrap scroll-table"><table class="data-table"><thead><tr><th>Parcela</th><th class="num">Pendiente</th><th class="num">Desnivel</th><th class="num">Cotas</th><th class="num">RMSE</th><th>Informe</th></tr></thead><tbody>
+        ${withTopo.map((p) => `<tr><td><strong>${esc(p.name)}</strong><br><span class="source">${esc(p.topography.reference)}</span></td><td class="num">${num.format(p.topography.slope)}%</td><td class="num">${num.format(p.topography.relief)} m</td><td class="num">${num.format(p.topography.zMin)}-${num.format(p.topography.zMax)} m</td><td class="num">${num.format(p.topography.rmse)} m</td><td>${pdfButton(p.topography.report, "PDF")}</td></tr>`).join("")}
+      </tbody></table></div>
     </div>
-    <div class="table-wrap"><table class="data-table"><thead><tr><th>Parcela</th><th class="num">Pendiente</th><th class="num">Desnivel</th><th class="num">Cotas</th><th class="num">RMSE</th><th>Informe</th></tr></thead><tbody>
-      ${withTopo.map((p) => `<tr><td><strong>${esc(p.name)}</strong><br><span class="source">${esc(p.topography.reference)}</span></td><td class="num">${num.format(p.topography.slope)}%</td><td class="num">${num.format(p.topography.relief)} m</td><td class="num">${num.format(p.topography.zMin)}-${num.format(p.topography.zMax)} m</td><td class="num">${num.format(p.topography.rmse)} m</td><td>${pdfButton(p.topography.report, "PDF")}</td></tr>`).join("")}
-    </tbody></table></div>
   `;
 }
 
@@ -418,67 +554,196 @@ function renderVivienda() {
       <div class="grid cols-2">${DATA.house.providers.map((p) => `<div class="card"><h3>${p.url ? `<a class="linked-title" href="${esc(p.url)}" target="_blank" rel="noreferrer">${esc(p.name)}</a>` : esc(p.name)}</h3><p><strong>${esc(p.reference)}</strong></p><p class="sub">${esc(p.risk)}</p></div>`).join("")}</div>
     </section>
     <section class="section-gap">
-      <div class="section-heading">
-        <div class="eyebrow">Catálogo y precios</div>
-        <h3>Modelos con precio localizados</h3>
-        <p>${priced.length} referencias con precio y ${noPrice} referencias pendientes de presupuesto. Los precios no son equivalentes entre empresas: cada una incluye y excluye capítulos distintos.</p>
+      <div class="card">
+        <h3>Modelos localizados</h3>
+        <p>${catalog.length} modelos incorporados: ${priced.length} con precio y ${noPrice} pendientes de presupuesto.</p>
+        <p><button class="button-link" id="openModelos" type="button">Abrir catálogo de modelos</button></p>
       </div>
-      <div class="table-wrap"><table class="data-table house-table"><thead><tr><th>Empresa / modelo</th><th class="num">Sup.</th><th class="num">Precio web</th><th>Incluye</th><th>Riesgo</th><th>Web</th></tr></thead><tbody>
-        ${catalog.map((item) => `<tr><td><strong>${esc(item.provider)}</strong><br><span class="source">${esc(item.model)} · ${esc(item.fit)} · confianza ${esc(item.confidence)}</span></td><td class="num nowrap">${item.area ? `${num.format(item.area)} m²` : "—"}</td><td class="num nowrap">${esc(item.priceLabel)}</td><td>${esc(item.included)}</td><td>${esc(item.excluded)}</td><td>${pdfButton(item.url, "Web")}</td></tr>`).join("")}
-      </tbody></table></div>
     </section>
   `;
+  $("#openModelos").addEventListener("click", () => openView("modelos"));
+}
+
+function renderModelos() {
+  const catalog = houseCatalog();
+  const priced = catalog.filter((item) => item.price != null);
+  const noPrice = catalog.length - priced.length;
+  $("#modelos").innerHTML = `
+    ${header("Catálogo", "Modelos de vivienda localizados", "Catálogo filtrable de viviendas industrializadas y prefabricadas. El coste total se calcula con la parcela activa del simulador.")}
+    <div class="section-heading fixed-block">
+      <div class="eyebrow">Catálogo y precios</div>
+      <h3>Modelos localizados</h3>
+      <p>${catalog.length} modelos incorporados: ${priced.length} con precio y ${noPrice} pendientes de presupuesto. Pulsa cualquier ficha para abrir superficie, alcance, riesgos y notas.</p>
+    </div>
+    <div class="toolbar fixed-block">
+      <input id="houseSearch" placeholder="Buscar proveedor, modelo o nota">
+      <select id="houseProvider">${providerOptions(catalog).map((value, index) => `<option value="${index ? esc(value) : ""}">${esc(value)}</option>`).join("")}</select>
+      <select id="houseFit">${fitOptions(catalog).map((value, index) => `<option value="${index ? esc(value) : ""}">${esc(value)}</option>`).join("")}</select>
+      <select id="houseSort"><option value="provider">Orden: proveedor</option><option value="price">Precio vivienda</option><option value="total">Precio total con parcela activa</option><option value="finish">Nivel de acabado</option><option value="area">Superficie</option></select>
+      <select id="houseSortDir"><option value="asc">Menor a mayor</option><option value="desc">Mayor a menor</option></select>
+    </div>
+    <div class="scroll-body">
+      <div class="model-grid" id="houseCards"></div>
+    </div>
+  `;
+  ["houseSearch", "houseProvider", "houseFit", "houseSort", "houseSortDir"].forEach((id) => $(`#${id}`).addEventListener("input", drawHouseCards));
+  drawHouseCards();
+}
+
+function drawHouseCards() {
+  const catalog = houseCatalog();
+  const text = ($("#houseSearch").value || "").toLowerCase();
+  const provider = $("#houseProvider").value;
+  const fit = $("#houseFit").value;
+  const sortKey = $("#houseSort").value;
+  const dir = $("#houseSortDir").value === "desc" ? -1 : 1;
+  const { parcel } = simulationSelection();
+  const filtered = catalog.filter((item) => {
+    const hay = [item.provider, item.model, item.fit, item.priceLabel, item.included, item.excluded, item.notes].join(" ").toLowerCase();
+    return (!text || hay.includes(text)) && (!provider || item.provider === provider) && (!fit || item.fit === fit);
+  }).sort((a, b) => {
+    const av = houseSortValue(a, sortKey, parcel);
+    const bv = houseSortValue(b, sortKey, parcel);
+    if (typeof av === "string" || typeof bv === "string") return String(av).localeCompare(String(bv), "es") * dir;
+    return (av - bv) * dir;
+  });
+  $("#houseCards").innerHTML = filtered.map((item) => {
+    const covered = coveredBudgetChapters(item);
+    const missing = missingBudgetChapters(item);
+    return `
+      <details class="model-card">
+        <summary>
+          ${modelVisual(item)}
+          <div class="model-summary">
+            <strong>${esc(item.provider)}</strong>
+            <span>${esc(item.model)} · ${item.area ? `${num.format(item.area)} m²` : "superficie pendiente"}</span>
+            <b>${esc(item.priceLabel)}</b>
+          </div>
+        </summary>
+        <div class="model-detail">
+          <div>${rows([
+            ["Encaje", esc(item.fit)],
+            ["Confianza", esc(item.confidence)],
+            ["Nivel acabado estimado", `${finishLevel(item)}/4`],
+            ["Total con parcela activa", projectBudget(parcel, item) ? money.format(projectBudget(parcel, item).total) : "Sin precio"],
+            ["Impuestos", esc(housePriceLabel(item))]
+          ])}</div>
+          <p><strong>Incluye / información importante</strong><br>${esc(item.included)}</p>
+          <p><strong>Riesgo o pendiente</strong><br>${esc(item.excluded)}</p>
+          <p class="source">${esc(item.notes || "Sin nota adicional.")}</p>
+          ${covered.length ? `<p class="source"><strong>Marcado como cubierto:</strong> ${covered.map((chapter) => esc(chapter.label)).join(" · ")}</p>` : ""}
+          ${missing.length ? `<p class="source"><strong>Partidas comparativas que el simulador puede sumar:</strong> ${missing.slice(0, 5).map((chapter) => esc(chapter.label)).join(" · ")}${missing.length > 5 ? "…" : ""}</p>` : ""}
+          <p>${pdfButton(item.url, "Abrir web")}</p>
+        </div>
+      </details>`;
+  }).join("");
 }
 
 function renderSimulador() {
   const catalog = houseCatalog();
   const { parcel, house } = simulationSelection();
-  const totals = simulationTotals(parcel, house);
-  const overBudget = totals ? totals.total - DATA.house.simulatorAssumptions.budgetReference : 0;
+  const budget = projectBudget(parcel, house);
   $("#simulador").innerHTML = `
     ${header("Escenarios", "Simulador parcela + vivienda", "Cruza una parcela con un modelo de vivienda prefabricada para estimar el coste completo antes de decidir. Es una criba económica, no un presupuesto cerrado.")}
     <div class="toolbar">
       <div class="selector-card"><label for="simParcelSelect">Parcela</label><select id="simParcelSelect">${DATA.parcels.map((p) => `<option value="${p.id}" ${p.id === parcel.id ? "selected" : ""}>${esc(p.name)} · ${money.format(acquisitionCost(p))}</option>`).join("")}</select></div>
       <div class="selector-card"><label for="simHouseSelect">Vivienda</label><select id="simHouseSelect">${catalog.map((item) => `<option value="${item.id}" ${item.id === house?.id ? "selected" : ""} ${item.price == null ? "disabled" : ""}>${esc(item.provider)} · ${esc(item.model)} · ${esc(item.priceLabel)}</option>`).join("")}</select></div>
     </div>
-    ${totals ? `
+    ${budget ? `
       <div class="grid cols-4">
-        ${stat("Parcela lista", money.format(totals.parcelReady), parcel.name)}
-        ${stat("Vivienda ajustada", money.format(totals.houseReady), house.vatIncluded === false ? "IVA 10% añadido" : "según precio web")}
-        ${stat("Estimación completa", money.format(totals.total), overBudget > 0 ? `+${money.format(overBudget)} sobre ref.` : `${money.format(Math.abs(overBudget))} bajo ref.`)}
-        ${stat("Referencia presupuesto", money.format(DATA.house.simulatorAssumptions.budgetReference), "vivienda")}
+        ${stat("Parcela lista", money.format(budget.parcelReady), parcel.name)}
+        ${stat("Vivienda + IVA prudente", money.format(budget.houseGross), housePriceLabel(house))}
+        ${stat("Total proyecto", money.format(budget.total), budget.delta < 0 ? `+${money.format(Math.abs(budget.delta))} sobre ref.` : `${money.format(budget.delta)} bajo ref.`)}
+        ${stat("Referencia presupuesto", money.format(budget.budgetReference), budget.scenario)}
       </div>
       <div class="grid cols-2">
         <div class="card dark"><h3>Combinación activa</h3><div class="metric">${esc(parcel.name)}<small>${esc(house.provider)} · ${esc(house.model)} · ${num.format(house.area)} m²</small></div></div>
-        <div class="card"><h3>Lectura</h3><p class="sub">${overBudget > 0 ? "Escenario tensionado: pide precio cerrado antes de avanzar y busca reducir alcance, parcela o capítulos exteriores." : "Escenario dentro de referencia preliminar, pendiente de presupuesto real, normativa y capítulos excluidos."}</p></div>
+        <div class="card"><h3>Lectura</h3><p class="sub">${budget.delta < 0 ? "Escenario tensionado: pide precio cerrado antes de avanzar y busca reducir alcance, parcela o capítulos exteriores." : "Escenario dentro de referencia preliminar, pendiente de presupuesto real, normativa y capítulos excluidos."}</p></div>
       </div>
       <div class="grid cols-2">
-        <div class="card"><h3>Desglose estimado</h3>${rows([
-          ["Parcela lista para proyecto", money.format(totals.parcelReady)],
-          ["Vivienda / fabricación ajustada", money.format(totals.houseReady)],
-          ["Licencia + ICIO aproximado", money.format(totals.permit)],
-          ["Cimentación / obra civil", money.format(totals.civilWorks)],
-          ["Acometidas y suministros", money.format(totals.utilityConnections)],
-          ["Exteriores mínimos", money.format(totals.externalWorks)],
-          ["Técnicos y estudios extra", money.format(totals.technicalExtras)],
-          ["Contingencia 10%", money.format(totals.contingency)],
-          ["Total orientativo", money.format(totals.total)]
-        ])}</div>
+        <div class="card"><h3>Desglose estimado</h3>${rows(budgetRows(budget))}</div>
         <div class="card"><h3>Incluido / pendiente</h3><p><strong>${esc(house.priceLabel)}</strong></p><p class="sub">${esc(house.included)}</p><p class="source">${esc(house.excluded)}</p><p>${pdfButton(house.url, "Abrir web")}</p></div>
       </div>
+      <div class="card">
+        <h3>Partidas comparativas sumadas</h3>
+        <div class="table-wrap"><table class="data-table budget-table"><thead><tr><th>Partida</th><th>Impuesto</th><th class="num">Base</th></tr></thead><tbody>
+          ${visibleBudgetChapters(budget).map((chapter) => `<tr><td><strong>${esc(chapter.label)}</strong></td><td>${chapter.tax === "house" ? "IVA 10%" : chapter.tax === "extras" ? "IVA 21%" : "Sin IVA directo"}</td><td class="num">${money.format(chapter.amount)}</td></tr>`).join("")}
+        </tbody></table></div>
+        ${coveredBudgetChapters(house).length ? `<p class="source">Tratadas como ya cubiertas por esta referencia: ${coveredBudgetChapters(house).map((chapter) => esc(chapter.label)).join(" · ")}.</p>` : ""}
+      </div>
     ` : `<div class="notice">Esta vivienda no tiene precio publicado suficiente para simular. Pide presupuesto cerrado y vuelve a cargarlo como referencia.</div>`}
-    <div class="notice">Regla prudente: el simulador suma colchones de licencia/ICIO, cimentación, acometidas, exteriores, técnicos y contingencia. No sustituye presupuesto de empresa, arquitecto, geotécnico ni urbanismo.</div>
+    <div class="notice">Regla prudente: el simulador separa bases al 10%, partidas al 21%, licencia/ICIO, AJD, obra nueva y contingencia. Las partidas comparativas pueden ponerse a cero cuando un proveedor las incluya por escrito.</div>
   `;
   $("#simParcelSelect").addEventListener("change", (event) => {
     localStorage.setItem(simStorageKey("parcel"), event.target.value);
     renderSimulador();
     renderInicio();
+    renderResumen();
+    renderViabilidad();
   });
   $("#simHouseSelect").addEventListener("change", (event) => {
     localStorage.setItem(simStorageKey("house"), event.target.value);
     renderSimulador();
     renderInicio();
+    renderResumen();
+    renderViabilidad();
   });
+}
+
+function renderViabilidad() {
+  const { parcel, house, budget } = selectedBudget();
+  const reserveGap = budget ? DATA.project.budgetLimit - DATA.project.reserveProtected - budget.total : null;
+  $("#viabilidad").innerHTML = `
+    ${header("Viabilidad", "Presupuesto real por capítulos", "Lectura económica de la combinación activa del simulador. Separa impuestos y partidas para no comparar precios de catálogo con costes completos.")}
+    ${budget ? `
+      <div class="grid cols-4">
+        ${stat("Combinación", esc(parcel.name), `${esc(house.provider)} · ${esc(house.model)}`)}
+        ${stat("Total estimado", money.format(budget.total), budget.scenario)}
+        ${stat("Contra 300.000 EUR", money.format(Math.abs(budget.delta)), budget.delta < 0 ? "exceso" : "margen")}
+        ${stat("Reserva protegida", reserveGap == null ? "—" : money.format(Math.abs(reserveGap)), reserveGap < 0 ? "se compromete" : "queda margen")}
+      </div>
+      <div class="grid cols-2">
+        <div class="card dark"><h3>Dictamen rápido</h3><div class="metric">${budget.delta < 0 ? "No viable sin ajuste" : "Viable en criba"}<small>${budget.delta < 0 ? "reducir alcance, negociar o cambiar combinación" : "pendiente de presupuestos y documentación"}</small></div></div>
+        <div class="card"><h3>Condición de avance</h3><p class="sub">No pasar a señal, anteproyecto de pago o contrato hasta tener presupuesto cerrado por capítulos, nota simple, urbanismo, geotécnico/topográfico y reserva personal de ${money.format(DATA.project.reserveProtected)} intacta.</p></div>
+      </div>
+      <div class="grid cols-2">
+        <div class="card"><h3>Construcción y trámites</h3>${rows(budgetRows(budget).slice(1))}</div>
+        <div class="card"><h3>Costes ocultos a vigilar</h3><ul class="list">${DATA.hiddenCosts.map((item) => `<li><strong>${esc(item.label)}:</strong> ${esc(item.amount)} · ${esc(item.note)}</li>`).join("")}</ul></div>
+      </div>
+      <div class="card">
+        <h3>Capítulos editables en la plantilla</h3>
+        <div class="table-wrap"><table class="data-table budget-table"><thead><tr><th>Capítulo</th><th>Tratamiento fiscal</th><th class="num">Importe</th></tr></thead><tbody>
+          ${budget.chapters.map((chapter) => `<tr><td><strong>${esc(chapter.label)}</strong>${chapter.amount === 0 ? `<br><span class="source">Tratada como cubierta por ${esc(house.provider)}</span>` : ""}</td><td>${chapter.tax === "house" ? "IVA 10%" : chapter.tax === "extras" ? "IVA 21%" : "Sin IVA directo"}</td><td class="num">${money.format(chapter.amount)}</td></tr>`).join("")}
+        </tbody></table></div>
+      </div>
+    ` : `<div class="notice">Selecciona una vivienda con precio publicado en Simulador para calcular viabilidad.</div>`}
+  `;
+}
+
+function renderEntrevistas() {
+  $("#entrevistas").innerHTML = `
+    ${header("Entrevistas", "Comerciales y tareas de contraste", "Checklist operativo para hablar con empresas sin olvidar exclusiones, impuestos, plazos ni pagos.")}
+    <div class="grid cols-2">
+      <div class="card dark"><h3>Regla de entrevista</h3><p>No aceptar un precio sin desglose. Cada respuesta debe aclarar si está incluida, excluida, estimada o condicionada a parcela/proyecto.</p></div>
+      <div class="card"><h3>Otras gestiones</h3><ul class="list">${DATA.management.otherTasks.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></div>
+    </div>
+    <div class="management-grid">
+      ${DATA.management.commercialQuestions.map((group) => `
+        <div class="card">
+          <h3>${esc(group.group)}</h3>
+          <div class="check-list">${group.items.map((item) => {
+            const key = `villa-layos-gestion:${group.group}:${item}`;
+            const checked = localStorage.getItem(key) === "1";
+            return `<label class="check-item ${checked ? "done" : ""}"><input type="checkbox" data-key="${esc(key)}" ${checked ? "checked" : ""}><strong>${esc(item)}</strong></label>`;
+          }).join("")}</div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+  $$("#entrevistas .check-item input").forEach((box) => box.addEventListener("change", () => {
+    localStorage.setItem(box.dataset.key, box.checked ? "1" : "0");
+    renderEntrevistas();
+  }));
 }
 
 function renderDocumentacion() {
@@ -512,8 +777,8 @@ function renderPlan() {
   updatePlanProgress();
   $("#plan").innerHTML = `
     ${header("Fases", "Timeline del proyecto", "Marca cada hito completado. El avance se guarda en este navegador y alimenta la barra lateral del proyecto.")}
-    <div class="progress-sticky"><div class="card"><h3>Avance del timeline</h3><div class="bar"><i style="width:${progress}%"></i></div><p class="source">${pct(progress)} completado</p></div></div>
-    <div class="timeline timeline-scroll">${DATA.plan.map((phase, index) => {
+    <div class="progress-fixed"><div class="card"><h3>Avance del timeline</h3><div class="bar"><i style="width:${progress}%"></i></div><p class="source">${pct(progress)} completado</p></div></div>
+    <div class="scroll-body"><div class="timeline timeline-scroll">${DATA.plan.map((phase, index) => {
       const done = phase.items.filter((item) => localStorage.getItem(planStorageKey(phase.phase, item)) === "1").length;
       const state = done === phase.items.length ? "ok" : phase.state === "en curso" ? "info" : "warn";
       return `
@@ -528,7 +793,7 @@ function renderPlan() {
             }).join("")}</div>
           </div>
         </section>`;
-    }).join("")}</div>
+    }).join("")}</div></div>
   `;
   $$(".check-item input").forEach((box) => box.addEventListener("change", () => {
     localStorage.setItem(planStorageKey(box.dataset.phase, box.dataset.item), box.checked ? "1" : "0");
@@ -571,13 +836,16 @@ async function init() {
   renderCostes();
   renderTopografia();
   renderVivienda();
+  renderModelos();
   renderSimulador();
+  renderViabilidad();
+  renderEntrevistas();
   renderDocumentacion();
   renderPlan();
   renderAyuda();
   renderAbout();
   updatePlanProgress();
-  const hash = location.hash.replace("#", "");
+  const hash = location.hash.replace("#", "") === "gestiones" ? "entrevistas" : location.hash.replace("#", "");
   if (views.some(([id]) => id === hash)) openView(hash);
   else history.replaceState(null, "", "#inicio");
   $("#menuButton").addEventListener("click", () => {

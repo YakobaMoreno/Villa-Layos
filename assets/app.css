@@ -106,6 +106,17 @@ footer small { display: block; margin-top: 7px; color: rgba(255,255,255,.34); }
 }
 .view { display: none; animation: enter .18s ease-out; max-width: 1240px; width: 100%; min-width: 0; }
 .view.active { display: block; }
+#parcelas.active,
+#comparativa.active,
+#modelos.active,
+#plan.active,
+#topografia.active {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 104px);
+  min-height: 0;
+  overflow: hidden;
+}
 @keyframes enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 .home-layout {
@@ -215,6 +226,42 @@ footer small { display: block; margin-top: 7px; color: rgba(255,255,255,.34); }
 }
 .sticky-head::after { display: none; }
 .sticky-head .header { margin-bottom: 16px; }
+.fixed-block {
+  flex: 0 0 auto;
+}
+.scroll-body {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: auto;
+  padding-right: 6px;
+  overscroll-behavior: contain;
+}
+.scroll-body > :last-child { margin-bottom: 0; }
+.table-scroll-body {
+  overflow: hidden;
+  padding-right: 0;
+}
+.scroll-table {
+  min-height: 0;
+  max-height: 100%;
+  margin-bottom: 0;
+}
+.table-scroll-body .scroll-table {
+  height: 100%;
+  max-height: none;
+  overflow: auto;
+}
+.scroll-table .data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f4f1ea;
+  box-shadow: 0 1px 0 var(--line), 0 12px 18px rgba(244,241,234,.92);
+}
+.fixed-source {
+  flex: 0 0 auto;
+  margin: 10px 0 0;
+}
 .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .13em; font-size: 11px; font-weight: 850; }
 h2 { margin: 6px 0 7px; font-size: clamp(28px, 4vw, 46px); line-height: .98; letter-spacing: -0.055em; }
 .sub { margin: 0; color: var(--muted); max-width: 760px; line-height: 1.55; }
@@ -280,6 +327,7 @@ select { min-width: 180px; }
 .table-wrap { width: 100%; min-width: 0; overflow: auto; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.72); margin-bottom: 20px; }
 table { width: 100%; border-collapse: collapse; min-width: 880px; }
 .house-table { min-width: 1160px; }
+.budget-table { min-width: 780px; }
 th, td { padding: 12px 13px; border-bottom: 1px solid var(--line); text-align: left; font-size: 13px; vertical-align: top; }
 th { position: sticky; top: 0; background: #f9f7f1; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; z-index: 1; }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
@@ -397,6 +445,13 @@ a:hover { text-decoration: underline; }
   padding-bottom: 14px;
   border-bottom: 1px solid rgba(34,42,37,.08);
 }
+.progress-fixed {
+  flex: 0 0 auto;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(34,42,37,.08);
+}
+.progress-fixed .card { margin-bottom: 0; }
 .selector-card {
   display: inline-flex;
   align-items: center;
@@ -511,6 +566,83 @@ a:hover { text-decoration: underline; }
 }
 .check-item strong { color: var(--ink); }
 .check-item.done strong { text-decoration: line-through; color: var(--muted); }
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.model-card {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.82);
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset;
+}
+.model-card summary {
+  display: grid;
+  grid-template-columns: 124px 1fr;
+  gap: 14px;
+  align-items: stretch;
+  padding: 12px;
+  cursor: pointer;
+  list-style: none;
+}
+.model-card summary::-webkit-details-marker { display: none; }
+.model-card[open] summary { border-bottom: 1px solid var(--line); }
+.model-visual {
+  min-height: 98px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(17,21,19,.88), rgba(185,119,50,.68)),
+    linear-gradient(0deg, rgba(255,255,255,.08), rgba(255,255,255,0));
+  color: #fff;
+}
+.model-visual span {
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: .72;
+}
+.model-visual strong {
+  font-size: 18px;
+  line-height: .98;
+  letter-spacing: -0.04em;
+}
+.model-visual small { color: rgba(255,255,255,.74); font-weight: 750; }
+.model-summary {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+.model-summary strong { font-size: 16px; }
+.model-summary span,
+.model-summary b {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+.model-summary b { color: var(--ink); }
+.model-detail {
+  padding: 14px 16px 16px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.model-detail p { margin: 12px 0 0; }
+.management-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.cost-comparison-card { margin-top: 28px; }
 
 @media (max-width: 980px) {
   .sidebar { transform: translateX(-115%); transition: transform .22s ease; }
@@ -569,6 +701,19 @@ a:hover { text-decoration: underline; }
   }
   .sticky-head .sub { overflow-wrap: break-word; }
   .progress-sticky { top: 54px; }
+  #parcelas.active,
+  #comparativa.active,
+  #modelos.active,
+  #plan.active,
+  #topografia.active {
+    height: calc(100dvh - 80px);
+  }
+  .scroll-body {
+    padding-right: 0;
+  }
+  .scroll-table .data-table thead th {
+    top: 0;
+  }
   .content { width: 100%; max-width: 100vw; }
   .home-layout { grid-template-columns: 1fr; min-height: 0; gap: 14px; }
   .home-cover { min-height: 560px; border-radius: 14px; }
@@ -585,5 +730,8 @@ a:hover { text-decoration: underline; }
   .selector-card select { width: 100%; min-width: 0; }
   input, select { width: 100%; min-width: 0; }
   .grid.cols-4, .grid.cols-3, .grid.cols-2 { grid-template-columns: 1fr; }
+  .model-grid, .management-grid { grid-template-columns: 1fr; }
+  .model-card summary { grid-template-columns: 96px 1fr; }
+  .model-visual { min-height: 88px; }
   .weight-grid { grid-template-columns: 1fr; }
 }
