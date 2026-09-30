@@ -2492,6 +2492,46 @@
       "note": "Se suma al final y suele olvidarse en comparativas de catálogo."
     }
   ],
+  "incomeAssets": [
+    {
+      "id": "mostoles-versalles",
+      "name": "Móstoles · C/ Versalles",
+      "location": "Vivienda en venta · sin hipoteca pendiente",
+      "salePrice": 200000,
+      "purchasePrice": 80000,
+      "mortgage": 0,
+      "saleCosts": 0,
+      "mortgageCancellation": 0,
+      "capitalGainTaxRate": 0.19,
+      "purchaseDate": "2018-09-01",
+      "saleDate": "2026-09-30",
+      "cadastralLandValue": 44122.17,
+      "municipalAnnualCoefficient": 0.035,
+      "municipalTaxRate": 0.25,
+      "municipality": "Móstoles · ordenanza IIVTNU 2026",
+      "habitualResidence": false,
+      "taxNote": "Fecha y valor fiscal de adquisición pendientes de resolver por la incidencia de la extinción de condominio."
+    },
+    {
+      "id": "ibiza-navarra",
+      "name": "Ibiza · C/ Navarra",
+      "location": "Vivienda en venta · hipoteca pendiente",
+      "salePrice": 250000,
+      "purchasePrice": 77000,
+      "mortgage": 65000,
+      "saleCosts": 0,
+      "mortgageCancellation": 0,
+      "capitalGainTaxRate": 0.19,
+      "purchaseDate": "2017-02-09",
+      "saleDate": "2026-09-30",
+      "cadastralLandValue": 8791.53,
+      "municipalAnnualCoefficient": 0.032,
+      "municipalTaxRate": 0.3,
+      "municipality": "Eivissa · coeficiente de ordenanza pendiente de confirmar en autoliquidación municipal",
+      "habitualResidence": true,
+      "taxNote": "Residencia habitual declarada; la exención por reinversión requiere cumplir condiciones y acreditarse."
+    }
+  ],
   "management": {
     "commercialQuestions": [
       {

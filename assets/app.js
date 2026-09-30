@@ -9,6 +9,7 @@ const views = [
   ["vivienda", "⌁", "Vivienda"],
   ["modelos", "▧", "Modelos"],
   ["simulador", "◈", "Simulador"],
+  ["ingresos", "↗", "Ingresos"],
   ["viabilidad", "◇", "Viabilidad"],
   ["entrevistas", "☑", "Entrevistas"],
   ["documentacion", "✓", "Documentación"],
@@ -17,7 +18,7 @@ const views = [
   ["about", "i", "About"]
 ];
 
-const BUILD = "20260925-1";
+const BUILD = "20260930-2";
 const money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const num = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
 let DATA;
@@ -51,6 +52,11 @@ const housePriceWithVat = (house) => {
   const vat = DATA.house.budgetAssumptions?.houseVat ?? DATA.house.simulatorAssumptions.vat;
   return Math.round(house.price * (1 + vat));
 };
+const incomeReserve = () => localStorage.getItem("villa-layos-income:reserve-enabled") === "1" ? Number(localStorage.getItem("villa-layos-income:reserve") || 0) : 0;
+const dynamicBudgetReference = () => {
+  if (!DATA?.incomeAssets || typeof incomeNet !== "function") return DATA?.house?.simulatorAssumptions?.budgetReference || 0;
+  return Math.max(0, DATA.incomeAssets.reduce((sum, asset) => sum + incomeNet(asset).net, 0) - incomeReserve());
+};
 const chapterAmount = (house, chapter) => (house?.coveredChapters || []).includes(chapter.id) ? 0 : chapter.amount;
 const budgetAssumptions = () => DATA.house.budgetAssumptions || {
   houseVat: DATA.house.simulatorAssumptions.vat,
@@ -58,7 +64,7 @@ const budgetAssumptions = () => DATA.house.budgetAssumptions || {
   licenseRate: DATA.house.simulatorAssumptions.licenseIcioRate,
   ajdRate: 0.015,
   contingencyRate: DATA.house.simulatorAssumptions.contingencyRate,
-  budgetReference: DATA.house.simulatorAssumptions.budgetReference,
+  budgetReference: dynamicBudgetReference(),
   chapters: []
 };
 const projectBudget = (parcel, house) => {
@@ -249,6 +255,7 @@ function openView(id, options = {}) {
   if (id === "resumen") renderResumen();
   if (id === "modelos") renderModelos();
   if (id === "simulador") renderSimulador();
+  if (id === "ingresos") renderIngresos();
   if (id === "viabilidad") renderViabilidad();
   $$(".view").forEach((view) => view.classList.toggle("active", view.id === id));
   $$("#nav button").forEach((button) => button.classList.toggle("active", button.dataset.view === id));
@@ -265,7 +272,7 @@ function openView(id, options = {}) {
 function renderInicio() {
   const { parcel, house } = simulationSelection();
   const totals = simulationTotals(parcel, house);
-  const budget = DATA.house.simulatorAssumptions.budgetReference;
+  const budget = dynamicBudgetReference();
   const difference = totals ? budget - totals.total : null;
   const currentPhase = DATA.plan.find((phase) => phase.items.some((item) => localStorage.getItem(planStorageKey(phase.phase, item)) !== "1"));
   $("#inicio").innerHTML = `
@@ -313,7 +320,7 @@ function renderResumen() {
       ${stat("Parcela activa", esc(parcel.name), `${money.format(acquisitionCost(parcel))} lista para proyecto`)}
       ${stat("Vivienda activa", house ? esc(house.model) : "Pendiente", house ? esc(house.provider) : "elige modelo")}
       ${stat("Total proyecto", budget ? money.format(budget.total) : "Sin precio", budget ? budget.scenario : "pendiente")}
-      ${stat("Margen contra 300.000 EUR", budget ? money.format(Math.abs(budget.delta)) : "—", budget ? (budget.delta < 0 ? "exceso" : "a favor") : "pendiente")}
+      ${stat("Margen contra la caja disponible", budget ? money.format(Math.abs(budget.delta)) : "—", budget ? (budget.delta < 0 ? "exceso" : "a favor") : "pendiente")}
     </div>
     <div class="grid cols-2">
       <div class="card dark">
@@ -654,7 +661,7 @@ function renderSimulador() {
         ${stat("Parcela lista", money.format(budget.parcelReady), parcel.name)}
         ${stat("Vivienda + IVA prudente", money.format(budget.houseGross), housePriceLabel(house))}
         ${stat("Total proyecto", money.format(budget.total), budget.delta < 0 ? `+${money.format(Math.abs(budget.delta))} sobre ref.` : `${money.format(budget.delta)} bajo ref.`)}
-        ${stat("Referencia presupuesto", money.format(budget.budgetReference), budget.scenario)}
+      ${stat("Caja disponible", money.format(budget.budgetReference), "ingresos netos menos reserva")}
       </div>
       <div class="grid cols-2">
         <div class="card dark"><h3>Combinación activa</h3><div class="metric">${esc(parcel.name)}<small>${esc(house.provider)} · ${esc(house.model)} · ${num.format(house.area)} m²</small></div></div>
@@ -692,15 +699,15 @@ function renderSimulador() {
 
 function renderViabilidad() {
   const { parcel, house, budget } = selectedBudget();
-  const reserveGap = budget ? DATA.project.budgetLimit - DATA.project.reserveProtected - budget.total : null;
+  const reserveGap = budget ? budget.budgetReference - budget.total : null;
   $("#viabilidad").innerHTML = `
     ${header("Viabilidad", "Presupuesto real por capítulos", "Lectura económica de la combinación activa del simulador. Separa impuestos y partidas para no comparar precios de catálogo con costes completos.")}
     ${budget ? `
       <div class="grid cols-4">
         ${stat("Combinación", esc(parcel.name), `${esc(house.provider)} · ${esc(house.model)}`)}
         ${stat("Total estimado", money.format(budget.total), budget.scenario)}
-        ${stat("Contra 300.000 EUR", money.format(Math.abs(budget.delta)), budget.delta < 0 ? "exceso" : "margen")}
-        ${stat("Reserva protegida", reserveGap == null ? "—" : money.format(Math.abs(reserveGap)), reserveGap < 0 ? "se compromete" : "queda margen")}
+        ${stat("Contra la caja disponible", money.format(Math.abs(budget.delta)), budget.delta < 0 ? "exceso" : "margen")}
+        ${stat("Reserva separada", money.format(incomeReserve()), "fuera del presupuesto")}
       </div>
       <div class="grid cols-2">
         <div class="card dark"><h3>Dictamen rápido</h3><div class="metric">${budget.delta < 0 ? "No viable sin ajuste" : "Viable en criba"}<small>${budget.delta < 0 ? "reducir alcance, negociar o cambiar combinación" : "pendiente de presupuestos y documentación"}</small></div></div>
@@ -718,6 +725,101 @@ function renderViabilidad() {
       </div>
     ` : `<div class="notice">Selecciona una vivienda con precio publicado en Simulador para calcular viabilidad.</div>`}
   `;
+}
+
+const incomeStorageKey = (id, field) => `villa-layos-income:${id}:${field}`;
+const incomeValue = (asset, field) => {
+  const stored = localStorage.getItem(incomeStorageKey(asset.id, field));
+  return stored == null ? asset[field] : Number(stored);
+};
+const fullYearsBetween = (start, end) => {
+  const from = new Date(`${start}T00:00:00`);
+  const to = new Date(`${end}T00:00:00`);
+  let years = to.getFullYear() - from.getFullYear();
+  if (to.getMonth() < from.getMonth() || (to.getMonth() === from.getMonth() && to.getDate() < from.getDate())) years -= 1;
+  return Math.max(0, Math.min(20, years));
+};
+const incomeReinvestment = (asset) => localStorage.getItem(incomeStorageKey(asset.id, "reinvestment")) === "1";
+const incomeNet = (asset) => {
+  const sale = incomeValue(asset, "salePrice");
+  const purchase = incomeValue(asset, "purchasePrice");
+  const mortgage = incomeValue(asset, "mortgage");
+  const saleCosts = incomeValue(asset, "saleCosts");
+  const mortgageCancellation = incomeValue(asset, "mortgageCancellation");
+  const taxRate = incomeValue(asset, "capitalGainTaxRate");
+  const gain = Math.max(0, sale - purchase);
+  const years = fullYearsBetween(asset.purchaseDate, asset.saleDate);
+  const municipalBase = Math.round(asset.cadastralLandValue * asset.municipalAnnualCoefficient * years);
+  const municipalTax = Math.round(municipalBase * asset.municipalTaxRate);
+  const reinvestment = incomeReinvestment(asset);
+  const capitalGainTax = reinvestment && asset.habitualResidence ? 0 : Math.round(gain * taxRate);
+  return { sale, purchase, mortgage, saleCosts, mortgageCancellation, taxRate, gain, years, municipalBase, municipalTax, capitalGainTax, reinvestment, net: sale - mortgage - saleCosts - mortgageCancellation - municipalTax - capitalGainTax };
+};
+
+function renderIngresos() {
+  const assets = DATA.incomeAssets || [];
+  const totals = assets.map((asset) => incomeNet(asset));
+  const totalNet = totals.reduce((sum, item) => sum + item.net, 0);
+  const totalGross = totals.reduce((sum, item) => sum + item.sale, 0);
+  const totalDebt = totals.reduce((sum, item) => sum + item.mortgage, 0);
+  $("#ingresos").innerHTML = `
+    ${header("Patrimonio", "Ingresos disponibles", "Estimación del dinero neto que podría quedar al vender las viviendas actuales, descontando hipoteca, gastos de venta y una provisión fiscal editable.")}
+    <div class="grid cols-3">
+      ${stat("Neto estimado disponible", money.format(totalNet), "tras deuda, gastos e impuestos provisionales")}
+      ${stat("Ventas brutas", money.format(totalGross), `${assets.length} viviendas`)}
+      ${stat("Hipoteca pendiente", money.format(totalDebt), "a cancelar en la venta")}
+    </div>
+    <div class="card income-reserve">
+      <div><h3>Reserva sobre los ingresos</h3><p class="sub">Se descuenta de la caja disponible para el presupuesto de Villa Layos.</p></div>
+      <label class="income-check"><input type="checkbox" id="incomeReserveEnabled" ${incomeReserve() > 0 ? "checked" : ""}> Aplicar reserva</label>
+      <label><span>Importe reservado</span><div class="input-suffix"><input id="incomeReserve" type="number" min="0" step="1000" value="${Number(localStorage.getItem("villa-layos-income:reserve") || 0)}"><b>€</b></div></label>
+    </div>
+    <div class="notice">La plusvalía municipal se estima con valor catastral de suelo, años completos, coeficiente anual y tipo municipal. En Ibiza puedes activar la reinversión en vivienda habitual para no contar provisionalmente el IRPF de la ganancia; debe cumplir los requisitos fiscales y confirmarse con gestoría.</div>
+    <div class="income-grid">
+      ${assets.map((asset, index) => {
+        const item = totals[index];
+        return `<article class="card income-card">
+          <div class="section-heading"><div class="eyebrow">Vivienda ${index + 1}</div><h3>${esc(asset.name)}</h3><p class="sub">${esc(asset.location)}</p></div>
+          <div class="income-fields">
+            ${[["salePrice", "Precio de venta", item.sale, "€"], ["purchasePrice", "Precio de compra", item.purchase, "€"], ["mortgage", "Hipoteca pendiente", item.mortgage, "€"], ["saleCosts", "Gastos venta acreditados", item.saleCosts, "€"], ["mortgageCancellation", "Cancelación hipotecaria/registro", item.mortgageCancellation, "€"]].map(([field, label, value, suffix]) => `<label><span>${label}</span><div class="input-suffix"><input type="number" min="0" step="100" data-income-id="${asset.id}" data-income-field="${field}" value="${value}"><b>${suffix}</b></div></label>`).join("")}
+            <label><span>Valor catastral del suelo</span><div class="input-suffix"><input type="number" min="0" step="0.01" data-income-id="${asset.id}" data-income-field="cadastralLandValue" value="${incomeValue(asset, "cadastralLandValue")}"><b>€</b></div></label>
+            <label><span>Tipo municipal IIVTNU</span><div class="input-suffix"><input type="number" min="0" max="100" step="0.1" data-income-id="${asset.id}" data-income-field="municipalTaxRate" value="${incomeValue(asset, "municipalTaxRate") * 100}"><b>%</b></div></label>
+            ${asset.habitualResidence ? `<label class="income-check"><span>Reinvertir en vivienda habitual</span><input type="checkbox" data-income-id="${asset.id}" data-income-field="reinvestment" ${item.reinvestment ? "checked" : ""}></label>` : ""}
+          </div>
+          <p class="source">${esc(asset.taxNote)} ${asset.municipality ? `Ordenanza aplicada: ${esc(asset.municipality)}.` : ""} Gastos de venta a cero hasta introducir facturas o comisión real.</p>
+          <div class="income-summary">${rows([["Ganancia bruta", money.format(item.gain)], [`Plusvalía municipal (${item.years} años)`, money.format(item.municipalTax)], ["Gastos de venta", money.format(item.saleCosts)], ["IRPF provisional", money.format(item.capitalGainTax)], ["Hipoteca a cancelar", money.format(item.mortgage + item.mortgageCancellation)], ["Neto estimado", money.format(item.net)]])}</div>
+        </article>`;
+      }).join("")}
+    </div>
+  `;
+  $$("[data-income-field]").forEach((input) => input.addEventListener("change", (event) => {
+    const value = event.target.type === "checkbox" ? (event.target.checked ? 1 : 0) : Number(event.target.value) || 0;
+    const field = event.target.dataset.incomeField;
+    const storedValue = ["municipalTaxRate", "capitalGainTaxRate"].includes(field) ? value / 100 : value;
+    if (field === "reinvestment") localStorage.setItem(incomeStorageKey(event.target.dataset.incomeId, field), String(storedValue));
+    else localStorage.setItem(incomeStorageKey(event.target.dataset.incomeId, field), String(storedValue));
+    renderIngresos();
+    renderInicio();
+    renderResumen();
+    renderSimulador();
+    renderViabilidad();
+  }));
+  $("#incomeReserveEnabled").addEventListener("change", (event) => {
+    localStorage.setItem("villa-layos-income:reserve-enabled", event.target.checked ? "1" : "0");
+    renderIngresos();
+    renderInicio();
+    renderResumen();
+    renderSimulador();
+    renderViabilidad();
+  });
+  $("#incomeReserve").addEventListener("change", (event) => {
+    localStorage.setItem("villa-layos-income:reserve", String(Number(event.target.value) || 0));
+    renderIngresos();
+    renderInicio();
+    renderResumen();
+    renderSimulador();
+    renderViabilidad();
+  });
 }
 
 function renderEntrevistas() {
@@ -838,6 +940,7 @@ async function init() {
   renderVivienda();
   renderModelos();
   renderSimulador();
+  renderIngresos();
   renderViabilidad();
   renderEntrevistas();
   renderDocumentacion();
