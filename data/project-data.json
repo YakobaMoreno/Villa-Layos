@@ -34,6 +34,48 @@
   },
   "parcels": [
     {
+      "id": "alcotan-52",
+      "name": "Alcotan 52",
+      "price": 35000,
+      "area": 630,
+      "manualSlope": "Inclinada",
+      "golfViews": "Si",
+      "golfShare": "Pendiente",
+      "seller": "Particular",
+      "contact": "José Ramón",
+      "ibi": null,
+      "status": "En observación",
+      "note": "Vistas al campo de golf según anuncio. Anuncia 160 m² edificables y dos plantas; pendiente de confirmación urbanística. Agua, electricidad y alcantarillado anunciados, pendientes de verificar. Acción de golf e IBI pendientes. MDT02 preliminar: pendiente de plano 11,1%, desnivel 4,54 m; revisar movimiento de tierras y contenciones.",
+      "link": "https://www.idealista.com/inmueble/113024844/",
+      "docs": ["Anuncio", "Informe topográfico preliminar"],
+      "documentation": [
+        {"name": "Anuncio", "status": "disponible", "action": "PDF del anuncio revisado: 35.000 EUR, 630 m²."},
+        {"name": "Informe topográfico QGIS", "status": "disponible", "action": "Revisar informe MDT02 preliminar y encaje constructivo."},
+        {"name": "Normativa / urbanismo", "status": "pendiente", "action": "Confirmar edificabilidad, ocupación, retranqueos y plantas por escrito."},
+        {"name": "Nota simple actualizada", "status": "pendiente", "action": "Solicitar nota simple actualizada."},
+        {"name": "Cargas y titularidad", "status": "pendiente", "action": "Revisar con nota simple."},
+        {"name": "Deudas urbanización / comunidad", "status": "pendiente", "action": "Solicitar certificado de deudas y cuotas."},
+        {"name": "Suministros y acometidas", "status": "pendiente", "action": "Verificar disponibilidad efectiva y costes."},
+        {"name": "Valor de referencia fiscal", "status": "pendiente", "action": "Consultar antes de calcular impuestos definitivos."}
+      ],
+      "topography": {
+        "hasReport": true,
+        "reference": "8029324VK0082N",
+        "sourceYear": "2019",
+        "crs": "EPSG:25830",
+        "gridM": 2,
+        "areaM2": 630,
+        "zMin": 656.303,
+        "zMax": 660.847,
+        "relief": 4.543,
+        "slope": 11.117,
+        "rmse": 0.152,
+        "downslopeAzimuth": 43.2,
+        "report": "assets/reports/alcotan-52-topografia.pdf",
+        "quality": "MDT02 IGN/CNIG 2019. Preliminar; no sustituye levantamiento profesional."
+      }
+    },
+    {
       "id": "aguila-real-84",
       "name": "Aguila Real 84",
       "price": 30000,

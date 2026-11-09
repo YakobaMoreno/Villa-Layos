@@ -18,7 +18,7 @@ const views = [
   ["about", "i", "About"]
 ];
 
-const BUILD = "20260930-2";
+const BUILD = "20261109-1";
 const money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const num = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
 let DATA;
@@ -437,7 +437,7 @@ function drawFicha() {
     <div class="grid cols-3">
       ${stat("Precio anunciado", money.format(p.price), `${num.format(p.area)} m²`)}
       ${stat("Coste desfavorable", money.format(acquisitionCost(p)), `${money.format(perM2(p))}/m²`)}
-      ${stat("IBI estimado", money.format(p.ibi), "anual")}
+      ${stat("IBI estimado", p.ibi == null ? "Pendiente" : money.format(p.ibi), "anual")}
     </div>
     <div class="grid cols-2">
       <div class="card">${rows([
