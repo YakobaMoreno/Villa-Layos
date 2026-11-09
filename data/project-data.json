@@ -35,6 +35,7 @@
   "parcels": [
     {
       "id": "alcotan-52",
+      "phones": ["600436146"],
       "name": "Alcotan 52",
       "price": 35000,
       "area": 630,
@@ -45,7 +46,7 @@
       "contact": "José Ramón",
       "ibi": null,
       "status": "En observación",
-      "note": "Vistas al campo de golf según anuncio. Anuncia 160 m² edificables y dos plantas; pendiente de confirmación urbanística. Agua, electricidad y alcantarillado anunciados, pendientes de verificar. Acción de golf e IBI pendientes. MDT02 preliminar: pendiente de plano 11,1%, desnivel 4,54 m; revisar movimiento de tierras y contenciones.",
+      "note": "Vistas al campo de golf según anuncio. Anuncia 160 m² edificables y dos plantas; pendiente de confirmación urbanística. Agua, electricidad y alcantarillado anunciados, pendientes de verificar. Acción de golf, IBI y margen de negociación pendientes de consultar directamente con el propietario. MDT02 preliminar: pendiente de plano 11,1%, desnivel 4,54 m; revisar movimiento de tierras y contenciones.",
       "link": "https://www.idealista.com/inmueble/113024844/",
       "docs": ["Anuncio", "Informe topográfico preliminar"],
       "documentation": [
@@ -77,6 +78,7 @@
     },
     {
       "id": "aguila-real-84",
+      "phones": ["825760757"],
       "name": "Aguila Real 84",
       "price": 30000,
       "area": 640,
@@ -154,6 +156,7 @@
     },
     {
       "id": "aguila-real-137",
+      "phones": ["825760142"],
       "name": "Aguila Real 137",
       "price": 50000,
       "area": 902,
@@ -231,6 +234,7 @@
     },
     {
       "id": "alcotan-6",
+      "phones": ["825760550"],
       "name": "Alcotán 6",
       "price": 40000,
       "area": 586,
@@ -308,6 +312,7 @@
     },
     {
       "id": "alcotan-20",
+      "phones": ["825760990"],
       "name": "Alcotán 20",
       "price": 50000,
       "area": 658,
@@ -462,6 +467,7 @@
     },
     {
       "id": "alcotan-41",
+      "phones": ["699449380","699449381"],
       "name": "Alcotán 41",
       "price": 70000,
       "area": 877,
@@ -539,6 +545,7 @@
     },
     {
       "id": "alimoche-21",
+      "phones": ["825760782"],
       "name": "Alimoche 21",
       "price": 40000,
       "area": 928,
@@ -771,6 +778,7 @@
     },
     {
       "id": "alimoche-23",
+      "phones": ["825760575"],
       "name": "Alimoche 23",
       "price": 42000,
       "area": 930,
@@ -848,6 +856,7 @@
     },
     {
       "id": "alimoche-49",
+      "phones": ["652347468"],
       "name": "Alimoche 49",
       "price": 37000,
       "area": 578,
@@ -925,6 +934,7 @@
     },
     {
       "id": "herrerillo-4",
+      "phones": ["639116526"],
       "name": "Herrerillo 4",
       "price": 35900,
       "area": 758,
@@ -1002,6 +1012,7 @@
     },
     {
       "id": "herrerillo-14",
+      "phones": ["646980020","915912574"],
       "name": "Herrerillo 14",
       "price": 34500,
       "area": 746,
@@ -1079,6 +1090,7 @@
     },
     {
       "id": "herrerillo-44",
+      "phones": ["825760550"],
       "name": "Herrerillo 44",
       "price": 45000,
       "area": 676,
@@ -1156,6 +1168,7 @@
     },
     {
       "id": "herrerillo-52",
+      "phones": ["825760782"],
       "name": "Herrerillo 52",
       "price": 39500,
       "area": 754,
@@ -1233,6 +1246,7 @@
     },
     {
       "id": "rascon-13",
+      "phones": ["825760233"],
       "name": "Rascón 13",
       "price": 49900,
       "area": 1139,
@@ -1310,6 +1324,7 @@
     },
     {
       "id": "zorzal-2",
+      "phones": ["666540440"],
       "name": "Zorzal 2",
       "price": 39000,
       "area": 681,
@@ -1387,6 +1402,7 @@
     },
     {
       "id": "zorzal-29",
+      "phones": ["637413355"],
       "name": "Zorzal 29",
       "price": 36000,
       "area": 832,

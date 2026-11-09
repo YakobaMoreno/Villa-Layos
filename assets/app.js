@@ -18,11 +18,11 @@ const views = [
   ["about", "i", "About"]
 ];
 
-const BUILD = "20261109-1";
+const BUILD = "20261109-2";
 const money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const num = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 });
 let DATA;
-let weights = { cost: 35, slope: 35, views: 15, share: 10, direct: 5 };
+let weights = { cost: 35, slope: 35, views: 15, share: 5, direct: 5 };
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -444,6 +444,7 @@ function drawFicha() {
         ["Estado", statusBadge(p.status)],
         ["Vendedor", esc(p.seller)],
         ["Contacto", esc(p.contact || "Pendiente")],
+        ["Teléfono", p.phones?.length ? p.phones.map((phone) => `<a href="tel:+34${esc(phone)}">${esc(phone.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3"))}</a>`).join(" / ") : "Pendiente"],
         ["Vistas al golf", esc(p.golfViews)],
         ["Acción de golf", esc(p.golfShare || "No")],
         ["Enlace", p.link ? pdfButton(p.link, "Idealista") : "Sin enlace en calculadora"]
@@ -485,6 +486,8 @@ function renderComparativa() {
     weights[input.dataset.weight] = Number(input.value);
     $(`#w-${input.dataset.weight}`).textContent = input.value;
     drawRanking();
+    renderResumen();
+    renderInicio();
   }));
   drawRanking();
 }

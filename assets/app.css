@@ -284,6 +284,17 @@ h2 { margin: 6px 0 7px; font-size: clamp(28px, 4vw, 46px); line-height: .98; let
 .grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.income-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.income-card h3 { margin: 0; font-size: 22px; letter-spacing: -.02em; }
+.income-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 20px 0; }
+.income-fields label { display: grid; gap: 6px; color: var(--muted); font-size: 12px; font-weight: 750; }
+.input-suffix { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-solid); }
+.input-suffix input { width: 100%; min-width: 0; border: 0; background: transparent; padding: 10px; font: inherit; color: var(--ink); }
+.input-suffix b { padding-right: 10px; color: var(--muted); }
+.income-check { align-content: center; }
+.income-check input { width: 20px; height: 20px; accent-color: var(--accent); }
+.income-summary { border-top: 1px solid var(--line); padding-top: 8px; }
+.income-summary .row:last-child { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 16px; }
 .card {
   min-width: 0;
   background: var(--panel);
@@ -729,7 +740,8 @@ a:hover { text-decoration: underline; }
   .selector-card { width: 100%; min-width: 0; }
   .selector-card select { width: 100%; min-width: 0; }
   input, select { width: 100%; min-width: 0; }
-  .grid.cols-4, .grid.cols-3, .grid.cols-2 { grid-template-columns: 1fr; }
+  .grid.cols-4, .grid.cols-3, .grid.cols-2, .income-grid { grid-template-columns: 1fr; }
+  .income-fields { grid-template-columns: 1fr; }
   .model-grid, .management-grid { grid-template-columns: 1fr; }
   .model-card summary { grid-template-columns: 96px 1fr; }
   .model-visual { min-height: 88px; }
